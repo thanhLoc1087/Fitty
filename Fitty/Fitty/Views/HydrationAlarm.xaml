@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Fitty.Views.HydrationAlarm">
+    <ContentPage.Content>
+        <StackLayout Padding="20"
+                     Spacing="10">
+            <Label Text="HYDRATION ALARM"
+                   Padding="0,30,0,0"
+                       FontSize="38"
+                       FontAttributes="Bold"
+                       TextColor="MediumAquamarine"
+                       HorizontalOptions="Center" />
+            <BoxView/>
+            <Label Text="Set a reminder interval:" FontSize="20" />
+            <TimePicker x:Name="timePicker"
+                        HorizontalOptions="Center"
+                        WidthRequest="190"
+                        Scale="1.2"
+                        Format="hh\:mm\:ss"/>
+            <Button Text="Confirm"
+                    Padding="40,20,40,20"
+                    FontSize="20" 
+                    HorizontalOptions="Center"
+                    Margin="0,30,0,0" />
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>

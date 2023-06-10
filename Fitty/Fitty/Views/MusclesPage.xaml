@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Fitty.Views.MusclesPage"
+             xmlns:local="clr-namespace:Fitty.ViewModels"
+             xmlns:model="clr-namespace:Fitty.Models"  
+             Title="Exercises">
+    <ContentPage.ToolbarItems/>
+    <StackLayout>
+        <CollectionView x:DataType="local:MusclesViewModel" 
+                        ItemsSource="{Binding MuscleGroups}"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10" x:DataType="model:MuscleGroup">
+                        <StackLayout Orientation="Horizontal">
+                            <Image Source="{Binding ImagePath}" WidthRequest="60" HeightRequest="60"/>
+                            <Label VerticalTextAlignment="Center" Text="{Binding Name}" Style="{DynamicResource ListItemTextStyle}"/>
+                        </StackLayout>
+                        <BoxView HeightRequest="1" Color="#bdbdbd"/>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:MusclesViewModel}}, Path=ItemTapped}"		
+                                CommandParameter="{Binding .}">
+                            </TapGestureRecognizer>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>

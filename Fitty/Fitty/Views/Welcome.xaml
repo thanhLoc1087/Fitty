@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Fitty.ViewModels"
+             x:Class="Fitty.Views.Welcome"
+             Shell.NavBarIsVisible="False"
+             BackgroundImageSource="Welcome_Background.jpg">
+    <ContentPage.Content>
+        <StackLayout Margin="30" x:DataType="local:WelcomeViewModel">
+            <Frame BackgroundColor="Transparent"
+                   HeightRequest="280"/>
+
+            <Label  Text="FITTY"
+                    TextColor="White"
+                    FontFamily=""
+                    FontAttributes="Bold"
+                    VerticalTextAlignment="Start"
+                    FontSize="75"/>
+
+            <Label  Text="Unleash your inner Fitty, achieve fitness greatness!"
+                    TextColor="White"
+                    FontFamily=""
+                    VerticalTextAlignment="Start"
+                    FontSize="25"/>
+
+            <Frame BackgroundColor="Transparent"
+                   HeightRequest="3"/>
+
+            <Button Text="Get Started"
+                    TextColor="Black"
+                    BackgroundColor="White"
+                    CornerRadius="10"
+                    Command="{Binding startCommand}"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

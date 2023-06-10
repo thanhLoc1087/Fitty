@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:views="clr-namespace:Fitty.Views"
+            xmlns:local="clr-namespace:Fitty.ViewModels"  
+            x:Class="Fitty.Views.ExercisePage"
+            BarBackgroundColor="{StaticResource teal900}"
+            Title="{Binding Title}">
+    <!--Pages can be added as references or inline-->
+    <views:ExerciseListPage x:DataType="local:ExerciseViewModel" Title="List"/>
+    <views:ExerciseCardPage x:DataType="local:ExerciseViewModel" Title="Card"/>
+</TabbedPage>

@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Fitty.ViewModels"
+             x:Class="Fitty.Views.ExerciseDetailPage"
+             Title="{Binding Name}">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout x:DataType="local:ExerciseDetailViewModel"
+                         Padding="20">
+                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Medium"/>
+
+                <Image Source="{Binding Gif}" HeightRequest="200" WidthRequest="600" IsAnimationPlaying="true" Aspect="AspectFill"/>
+
+                <Label Text="{Binding Instructions}" />
+
+                <Grid Margin="0,20,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Muscles" 
+                           HorizontalOptions="Fill"  
+                           VerticalOptions="FillAndExpand"
+                           Grid.Column="0" Grid.Row="0"
+                           FontAttributes="Bold"
+                           BackgroundColor="{StaticResource teal500}" 
+                           TextColor="White" 
+                           Margin="1"/>
+                    <Label Text="{Binding Muscle}" 
+                           HorizontalOptions="Fill"  
+                           VerticalOptions="FillAndExpand"
+                           Grid.Column="1" Grid.Row="0"
+                           BackgroundColor="White" 
+                           TextColor="Black" 
+                           Margin="1"/>
+                    <Label Text="Equipment" 
+                           HorizontalOptions="Fill"  
+                           VerticalOptions="FillAndExpand"
+                           Grid.Column="0" Grid.Row="1"
+                           FontAttributes="Bold"
+                           BackgroundColor="{StaticResource teal500}" 
+                           TextColor="White" 
+                           Margin="1"/>
+                    <Label Text="{Binding Equipment}" 
+                           HorizontalOptions="Fill"  
+                           VerticalOptions="FillAndExpand"
+                           Grid.Column="1" Grid.Row="1"
+                           BackgroundColor="White" 
+                           TextColor="Black" 
+                           Margin="1"/>
+                    <Label Text="Type" 
+                           HorizontalOptions="Fill"  
+                           VerticalOptions="FillAndExpand"
+                           Grid.Column="0" Grid.Row="2"
+                           FontAttributes="Bold"
+                           BackgroundColor="{StaticResource teal500}" 
+                           TextColor="White" 
+                           Margin="1"/>
+                    <Label Text="{Binding Type}" 
+                           HorizontalOptions="Fill"  
+                           VerticalOptions="FillAndExpand"
+                           Grid.Column="1" Grid.Row="2"
+                           BackgroundColor="White" 
+                           TextColor="Black" 
+                           Margin="1"/>
+                    <Label Text="Difficulty" 
+                           HorizontalOptions="Fill"  
+                           VerticalOptions="FillAndExpand"
+                           Grid.Column="0" Grid.Row="3"
+                           FontAttributes="Bold"
+                           BackgroundColor="{StaticResource teal500}" 
+                           TextColor="White" 
+                           Margin="1"/>
+                    <Label Text="{Binding Difficulty}" 
+                           HorizontalOptions="Fill"  
+                           VerticalOptions="FillAndExpand"
+                           Grid.Column="1" Grid.Row="3"
+                           BackgroundColor="White" 
+                           TextColor="Black" 
+                           Margin="1"/>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

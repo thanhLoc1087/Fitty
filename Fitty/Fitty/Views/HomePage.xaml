@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Fitty.ViewModels"
+             x:Class="Fitty.Views.HomePage"
+             Shell.NavBarIsVisible="False"
+             >
+    <ContentPage.Content>
+        <StackLayout x:DataType="local:HomeViewModel" Spacing="10"
+                     Margin="20">
+            <BoxView/>
+            <Label Text="{Binding Name, StringFormat='Hello, {0}'}" 
+                   FontSize="30"
+                   TextColor="Black"/>
+            <Label  Text=" What's your goal today?"
+                    FontSize="20"/>
+            <BoxView/>
+
+            <Grid RowSpacing="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="230"/>
+                </Grid.RowDefinitions>
+
+                <ImageButton Source="Button1.png"
+                             Aspect="Fill"
+                             Command="{Binding ExercisesCommand}"/>
+                <Label Text="Workout Exercises" VerticalOptions="End"
+                       Margin="10"
+                       FontSize="25"
+                       FontAttributes="Bold"
+                       TextColor="White"/>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ImageButton Source="Button2.png"
+                                 Aspect="Fill"
+                                 Command="{Binding CalculatorCommand}"/>
+                    <ImageButton Source="Button3.png"
+                                 Aspect="Fill"
+                                 Grid.Column="1"
+                                 Command="{Binding HydrationCommand}"/>
+
+                    <Label Text="Nutrition Calculator" VerticalOptions="End"
+                       Margin="10"
+                       FontSize="25"
+                       FontAttributes="Bold"
+                       TextColor="White"/>
+                    <Label Text="Hydration Alarm" VerticalOptions="End"
+                       Margin="10"
+                       FontSize="25"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       Grid.Column="1"/>
+                </Grid>
+            </Grid>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

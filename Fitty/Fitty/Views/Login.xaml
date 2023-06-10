@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Fitty.ViewModels"
+             x:Class="Fitty.Views.Login"
+             Shell.NavBarIsVisible="False"
+             BackgroundImageSource="Welcome_Background.jpg">
+    <ContentPage.Content>
+        <AbsoluteLayout x:DataType="local:LoginViewModel">
+            <BoxView BackgroundColor="White"
+                     Opacity="0.6"
+                     AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     AbsoluteLayout.LayoutFlags="All"/>
+
+            <BoxView BackgroundColor="White"
+                     AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0,1,1,0.2"/>
+
+            <BoxView BackgroundColor="White"
+                     AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0,1,1,0.5"
+                     CornerRadius="20"/>
+
+            <Label Text="Enter your name"
+                   FontSize="20"
+                   HorizontalOptions="CenterAndExpand"
+                   AbsoluteLayout.LayoutFlags="All"
+                   AbsoluteLayout.LayoutBounds="0,0.95,1,0.4"/>
+
+            <BoxView BackgroundColor="LightGray"
+                     CornerRadius="10"
+                   AbsoluteLayout.LayoutFlags="PositionProportional"
+                   AbsoluteLayout.LayoutBounds="0.5,0.72,275,55"/>
+
+            <Entry Text="{Binding Name, Mode=TwoWay}"
+                   ReturnCommand="{Binding loginCommand}"
+                   ReturnType="Next" 
+                   AbsoluteLayout.LayoutFlags="PositionProportional"
+                   AbsoluteLayout.LayoutBounds="0.5,0.72,250,50"/>
+
+            <Button BackgroundColor="MediumPurple"
+                    CornerRadius="10"
+                    Text="Next"
+                    TextColor="White"
+                    Command="{Binding loginCommand}"
+                   AbsoluteLayout.LayoutFlags="PositionProportional"
+                   AbsoluteLayout.LayoutBounds="0.5,0.88,175,55"/>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

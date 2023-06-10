@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:Fitty.Models"
+             xmlns:local="clr-namespace:Fitty.ViewModels" 
+             x:Class="Fitty.Views.FilterPage">
+    <Shell.SearchHandler>
+        <model:ExerciseSearchHandler Placeholder="Enter search term"
+                                     ShowsResults="true"
+                                     DisplayMemberName="Name" />
+    </Shell.SearchHandler>
+    <ContentPage.Content>
+        <StackLayout x:DataType="local:FilterViewModel" BackgroundColor="#efefef">
+            <Grid Padding="20,0,20,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Text="Filter by:" Padding="0,8,0,0"/>
+                <Grid Grid.Row="1" BackgroundColor="{StaticResource teal200}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Picker Title="Muscles" 
+                            Grid.Column="0"
+                                HeightRequest="60"
+                                ItemsSource="{Binding Muscles}"
+                                SelectedItem="{Binding SelectedMuscle, Mode=TwoWay}" 
+                                TextColor="{StaticResource teal900}"
+                                VerticalTextAlignment="Center"
+                                FlexLayout.AlignSelf="Center"/>
+                    <Picker Title="Levels" 
+                            Grid.Column="1"
+                                HeightRequest="60"
+                                ItemsSource="{Binding Levels}"
+                                SelectedItem="{Binding SelectedLevel, Mode=TwoWay}" 
+                                TextColor="{StaticResource teal900}"
+                                VerticalTextAlignment="Center"
+                                FlexLayout.AlignSelf="Center"/>
+                    <Picker Title="Equipments" 
+                            Grid.Column="2"
+                                HeightRequest="60"
+                                ItemsSource="{Binding Equipments}"
+                                SelectedItem="{Binding SelectedEquipment, Mode=TwoWay}" 
+                                TextColor="{StaticResource teal900}"
+                                VerticalTextAlignment="Center"
+                                FlexLayout.AlignSelf="Center"/>
+                </Grid>
+            </Grid>
+            <StackLayout Padding="4">
+                <CollectionView ItemsSource="{Binding FilteredExercises}"
+                            SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <Frame CornerRadius="4" Padding="4">
+                                    <StackLayout Padding="10" x:DataType="model:Exercise">
+                                        <Label Text="{Binding Name}" FontSize="Medium" FontAttributes="Bold"/>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout Grid.Column="0" Orientation="Horizontal">
+                                                <Label Text="Level: " Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                                <Label Text="{Binding Difficulty}" 
+                                                   Style="{DynamicResource ListItemDetailTextStyle}"
+                                                   TextColor="{StaticResource teal500}"/>
+                                            </StackLayout>
+                                            <StackLayout Grid.Column="1" Orientation="Horizontal">
+                                                <Label Text="Equipment: " Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                                <Label Text="{Binding Equipment}" 
+                                                   Style="{DynamicResource ListItemDetailTextStyle}"
+                                                   TextColor="{StaticResource teal500}"/>
+                                            </StackLayout>
+                                        </Grid>
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type local:FilterViewModel}}, Path=ItemTapped}"		
+                                                          CommandParameter="{Binding .}">
+                                            </TapGestureRecognizer>
+                                        </StackLayout.GestureRecognizers>
+                                    </StackLayout>
+                                </Frame>
+                                <BoxView HeightRequest="4"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
