@@ -10,6 +10,7 @@ namespace Fitty.ViewModels
     [QueryProperty(nameof(Name), nameof(Name))]
     class ExerciseDetailViewModel : BaseViewModel
     {
+        private int id;
         private string name;
         private string type;
         private string muscle;
@@ -17,7 +18,16 @@ namespace Fitty.ViewModels
         private string difficulty;
         private string instruction;
         private string gif;
+        private string userCreated;
 
+        public int Id
+        {
+            get => id;
+            set
+            {
+                SetProperty(ref id, value);
+            }
+        }
         public string Name
         {
             get => name;
@@ -61,18 +71,28 @@ namespace Fitty.ViewModels
                 SetProperty(ref gif, value);
             }
         }
+        public string UserCreated
+        { 
+            get => userCreated;
+            set
+            {
+                SetProperty(ref userCreated, value);
+            }
+        }
 
         public async void LoadItemId(string itemId)
         {
             try
             {
                 var item = await MusclesViewModel.DataSource.GetItemAsync(itemId);
+                Id = item.Id;
                 Type = item.Type.ToString();
                 Muscle = item.Muscle.ToString();
                 Equipment = item.Equipment;
                 Difficulty = item.Difficulty.ToString();
                 Instructions = item.Instructions;
                 Gif = "glute_bridge.gif";
+                UserCreated = item.UserCreated.ToString();
             }
             catch (Exception)
             {

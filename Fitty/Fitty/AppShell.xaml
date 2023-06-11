@@ -2,28 +2,68 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:Fitty.Views"
+       xmlns:views="clr-namespace:Fitty.Views"
        Title="Fitty"
        BackgroundColor="Transparent"
        x:Class="Fitty.AppShell">
     <Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
-                <Setter Property="Shell.BackgroundColor" Value="{StaticResource teal900}" />
-                <Setter Property="Shell.ForegroundColor" Value="White" />
-                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.BackgroundColor" Value="White" />
+                <Setter Property="Shell.NavBarHasShadow" Value="False" />
+                <Setter Property="Shell.ForegroundColor" Value="{StaticResource teal900}" />
+                <Setter Property="Shell.TitleColor" Value="{StaticResource teal900}" />
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
-                <Setter Property="Shell.TabBarBackgroundColor" Value="White"/>
+                <Setter Property="Shell.TabBarBackgroundColor" Value="WhiteSmoke"/>
                 <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource teal900}"/>
-                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
-                <Setter Property="Shell.TabBarTitleColor" Value="White"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource teal200}"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource teal900}"/>
             </Style>
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
         </ResourceDictionary>
     </Shell.Resources>
 
-    <TabBar>
-        <ShellContent ContentTemplate="{DataTemplate local:Welcome}" />
-    </TabBar>
+    <FlyoutItem Title="Add Exercise"
+                Icon="home_icon.png">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:AddExercisePage}" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Home"
+                Icon="home_icon.png">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Search"
+                Icon="search_icon.png">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:SearchPage}" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Exercises"
+                Icon="dog.png">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:ExerciseMainPage}" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Calculator"
+                Icon="dog.png">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:NutritionPage}" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Hydration"
+                Icon="dog.png">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:HydrationAlarm}" />
+        </Tab>
+    </FlyoutItem>
+
+    <!--<TabBar>
+        <ShellContent ContentTemplate="{DataTemplate local:HomePage}" Title="Home" Icon="home_icon.png"/>
+        <ShellContent ContentTemplate="{DataTemplate local:SearchPage}" Title="Search" Icon="search_icon.png"/>
+    </TabBar>-->
 </Shell>

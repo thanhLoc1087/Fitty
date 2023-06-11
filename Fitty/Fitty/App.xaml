@@ -11,6 +11,7 @@
             <Color x:Key="teal500">#319795</Color>
             <Color x:Key="teal200">#B2F5EA</Color>
             <Style TargetType="Button">
+                <Setter Property="CornerRadius" Value="4"/>
                 <Setter Property="TextColor" Value="White"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>

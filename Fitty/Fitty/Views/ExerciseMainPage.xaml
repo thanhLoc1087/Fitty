@@ -4,7 +4,6 @@
             xmlns:views="clr-namespace:Fitty.Views"
             xmlns:local="clr-namespace:Fitty.ViewModels"
             x:Class="Fitty.Views.ExerciseMainPage"
-            BarBackgroundColor="{StaticResource teal900}"
             Title="Exercises">
     <views:MusclesPage x:DataType="local:MusclesViewModel" Title="List"/>
     <views:FilterPage x:DataType="local:FilterViewModel" Title="Explore"/>

@@ -4,6 +4,7 @@
              x:Class="Fitty.Views.MusclesPage"
              xmlns:local="clr-namespace:Fitty.ViewModels"
              xmlns:model="clr-namespace:Fitty.Models"  
+             Shell.TitleColor="{StaticResource teal900}"
              Title="Exercises">
     <ContentPage.ToolbarItems/>
     <StackLayout>

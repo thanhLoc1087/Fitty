@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Fitty.ViewModels"
+             x:Class="Fitty.Views.LoginPopupModal">
+    <ContentPage.Content>
+        <StackLayout x:DataType="local:WelcomeViewModel"
+                     BackgroundColor="White" 
+                     Padding="10" 
+                     HorizontalOptions="Center" 
+                     VerticalOptions="Center">
+            <Label Text="Enter your name"
+                   FontSize="20"
+                   HorizontalOptions="CenterAndExpand"/>
+
+            <BoxView BackgroundColor="LightGray"
+                     CornerRadius="10"/>
+
+            <Entry Text="{Binding Name, Mode=TwoWay}"
+                   ReturnCommand="{Binding LoginCommand}"
+                   ReturnType="Next" />
+
+            <Button BackgroundColor="MediumPurple"
+                    CornerRadius="10"
+                    Text="Next"
+                    TextColor="White"
+                    Command="{Binding LoginCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

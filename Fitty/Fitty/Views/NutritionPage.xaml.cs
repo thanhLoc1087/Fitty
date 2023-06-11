@@ -90,7 +90,7 @@ namespace Fitty.Views
             {
                 bool success = NutrientCalculator.CalculateDRI(age, weight, height, activityLevel, gender, DRIResults);
                 //resultsLayout.Opacity = DRIResults.Count > 0 ? 1 : 0; // Show/hide the results layout
-                DisplayAlert("Count", DRIResults.Count.ToString(), "OK");
+                //DisplayAlert("Count", DRIResults.Count.ToString(), "OK");
                 String content = "";
                 foreach (DRIResult result in DRIResults)
                 {

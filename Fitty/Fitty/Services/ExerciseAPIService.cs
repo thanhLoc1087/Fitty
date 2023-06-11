@@ -1,6 +1,8 @@
 ﻿using Fitty.Models;
 using Newtonsoft.Json;
+using SQLite;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -13,6 +15,21 @@ namespace Fitty.Services
 {
     internal class ExerciseAPIService
     {
+        public static SQLiteAsyncConnection db;
+        public static async Task Init()
+        {
+            if (db != null)
+            {
+                return;
+            }
+
+            var databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Fitty.db");
+
+            db = new SQLiteAsyncConnection(databasePath);
+            await db.CreateTableAsync<Exercise>();
+            await db.CreateTableAsync<Routine>();
+            await db.CreateTableAsync<RoutineDetail>();
+        }
         public List<Exercise> ReadJsonFile()
         {
             string jsonString;

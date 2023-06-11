@@ -43,7 +43,6 @@ namespace Fitty.ViewModels
         }
         public List<Exercise> GetExercises(string muscleGroup)
         {
-            Debug.WriteLine(muscleGroup);
             List<Exercise> exerciseList = new List<Exercise>();
             foreach(var exercise in MusclesViewModel.DataSource.exercises)
             {

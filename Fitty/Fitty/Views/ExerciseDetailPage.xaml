@@ -12,8 +12,6 @@
 
                 <Image Source="{Binding Gif}" HeightRequest="200" WidthRequest="600" IsAnimationPlaying="true" Aspect="AspectFill"/>
 
-                <Label Text="{Binding Instructions}" />
-
                 <Grid Margin="0,20,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -86,6 +84,8 @@
                            TextColor="Black" 
                            Margin="1"/>
                 </Grid>
+
+                <Label Text="{Binding Instructions}" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

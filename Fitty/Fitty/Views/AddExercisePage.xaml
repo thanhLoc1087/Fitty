@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Fitty.ViewModels"
+             x:Class="Fitty.Views.AddExercisePage">
+    <ContentPage.Content>
+        <ScrollView x:DataType="local:AddExerciseViewModel">
+            <StackLayout Padding="20">
+                <Grid VerticalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0"
+                           Grid.Row="0"
+                           VerticalTextAlignment="Center"
+                           Text="Name"/>
+                    <Entry x:Name="nameEntry" 
+                           Text="{Binding Name,Mode=TwoWay}"
+                           Grid.Column="1"
+                           Grid.Row="0"
+                           Placeholder="Name of your exercise"  
+                           ClearButtonVisibility="WhileEditing"/>
+                    <Label Grid.Column="0"
+                           Grid.Row="1"
+                           VerticalTextAlignment="Center"
+                           Text="Type"/>
+                    <Picker Title="Types" 
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            HeightRequest="60"
+                            ItemsSource="{Binding Types}"
+                            SelectedItem="{Binding Type, Mode=TwoWay}" 
+                            TextColor="{StaticResource teal900}"
+                            VerticalTextAlignment="Center"
+                            FlexLayout.AlignSelf="Center"/>
+                    <Label Grid.Column="0"
+                           Grid.Row="2"
+                           VerticalTextAlignment="Center"
+                           Text="Muscle"/>
+                    <Picker Title="Muscles"
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            HeightRequest="60"
+                            ItemsSource="{Binding Muscles}"
+                            SelectedItem="{Binding Muscle, Mode=TwoWay}" 
+                            TextColor="{StaticResource teal900}"
+                            VerticalTextAlignment="Center"
+                            FlexLayout.AlignSelf="Center"/>
+                    <Label Grid.Column="0"
+                           Grid.Row="3"
+                           VerticalTextAlignment="Center"
+                           Text="Equipment"/>
+                    <Picker Title="Equipments" 
+                            Grid.Column="1"
+                            Grid.Row="3"
+                            HeightRequest="60"
+                            ItemsSource="{Binding Equipments}"
+                            SelectedItem="{Binding Equipment, Mode=TwoWay}" 
+                            TextColor="{StaticResource teal900}"
+                            VerticalTextAlignment="Center"
+                            FlexLayout.AlignSelf="Center"/>
+                    <Label Grid.Column="0"
+                           Grid.Row="4"
+                           VerticalTextAlignment="Center"
+                           Text="Level"/>
+                    <Picker Title="Levels" 
+                            Grid.Column="1"
+                            Grid.Row="4"
+                            HeightRequest="60"
+                            ItemsSource="{Binding Levels}"
+                            SelectedItem="{Binding Difficulty, Mode=TwoWay}" 
+                            TextColor="{StaticResource teal900}"
+                            VerticalTextAlignment="Center"
+                            FlexLayout.AlignSelf="Center"/>
+                </Grid>
+                <Label Grid.Column="0"
+                           Grid.Row="0"
+                           VerticalTextAlignment="End"
+                           Text="Instructions"/>
+                <Editor x:Name="instructionEntry" 
+                       Text="{Binding Instructions,Mode=TwoWay}"
+                       AutoSize="TextChanges" 
+                       MaxLength="500"
+                       Placeholder="Exercise instruction (optional)"/>
+                <Label Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           VerticalTextAlignment="End"
+                           Text="{Binding ErrorMessage}"
+                       TextColor="IndianRed"/>
+                <Button Command="{Binding SaveCommand}" Text="Save exercise"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

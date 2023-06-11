@@ -30,7 +30,7 @@
                     TextColor="Black"
                     BackgroundColor="White"
                     CornerRadius="10"
-                    Command="{Binding startCommand}"/>
+                    Command="{Binding StartCommand}"/>
 
         </StackLayout>
     </ContentPage.Content>
