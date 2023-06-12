@@ -1,7 +1,9 @@
 ﻿using Fitty.Models;
 using Fitty.Services;
+using Fitty.Views;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using Xamarin.Forms;
 
@@ -9,6 +11,7 @@ namespace Fitty.ViewModels
 {
     class SearchViewModel : BaseViewModel
     {
+        public Command<Exercise> ItemTapped { get; }
         public bool _isRefreshing;
         public bool IsRefreshing { get => _isRefreshing; set
             {
@@ -23,22 +26,34 @@ namespace Fitty.ViewModels
             set
             {
                 SetProperty(ref _filteredExercises, value);
-            }
+            } 
         }
-        public ExerciseAPIService exerciseAPIService;
 
         public SearchViewModel() 
         {
-            exerciseAPIService = new ExerciseAPIService();
-            FilteredExercises = exerciseAPIService.ReadJsonFile();
+            FilteredExercises = ExerciseAPIService.ReadJsonFile();
+            //FilteredExercises = new List<Exercise>();
+            ItemTapped = new Command<Exercise>(OnItemSelected);
             Refresh = new Command(async () =>
             {
                 IsRefreshing = true;
                 IsBusy = true;
-                FilteredExercises.AddRange(await ExerciseService.GetExercises());
+                FilteredExercises = await ExerciseService.GetExercises();
                 IsRefreshing = false;
             });
             IsBusy = false;
+        }
+
+        private async void OnItemSelected(Exercise item)
+        {
+            if (item == null)
+                return;
+            if (item.UserCreated)
+            {
+                await Shell.Current.GoToAsync($"{nameof(ExerciseDetailPage)}?{nameof(ExerciseDetailViewModel.Id)}={item.Id}");
+            } else { 
+                await Shell.Current.GoToAsync($"{nameof(ExerciseDetailPage)}?{nameof(ExerciseDetailViewModel.Name)}={item.Name}");
+            }
         }
     }
 }

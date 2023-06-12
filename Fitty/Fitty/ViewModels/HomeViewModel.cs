@@ -1,4 +1,5 @@
-﻿using Fitty.Views;
+﻿using Fitty.Services;
+using Fitty.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,6 +11,8 @@ namespace Fitty.ViewModels
     class HomeViewModel : BaseViewModel
     {
         string _name;
+        static public DataSource DataSource { get; set; }
+
         public string Name { get => _name; set
             {
                 SetProperty(ref _name, value);
@@ -20,6 +23,7 @@ namespace Fitty.ViewModels
         public Command ExercisesCommand { get; set; }
         public HomeViewModel()
         {
+            DataSource = new DataSource();
             HydrationCommand = new Command(async () =>
             {
                 await Shell.Current.GoToAsync($"{nameof(HydrationAlarm)}");

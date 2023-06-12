@@ -8,7 +8,8 @@
              Title="Exercises">
     <ContentPage.ToolbarItems/>
     <StackLayout>
-        <CollectionView x:DataType="local:MusclesViewModel" 
+        <CollectionView x:Name="ExerciseListView"
+            x:DataType="local:MusclesViewModel" 
                         ItemsSource="{Binding MuscleGroups}"
                         SelectionMode="None">
             <CollectionView.ItemTemplate>

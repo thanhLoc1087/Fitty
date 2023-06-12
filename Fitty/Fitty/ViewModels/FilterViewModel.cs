@@ -60,7 +60,7 @@ namespace Fitty.ViewModels
         public FilterViewModel() {
             ItemTapped = new Command<Exercise>(OnItemSelected);
             FilteredExercises = new List<Exercise>();
-            FilteredExercises.AddRange(MusclesViewModel.DataSource.exercises);
+            FilteredExercises.AddRange(HomeViewModel.DataSource.exercises);
             EraseMuscleFilter = new Command(() => {
                 SelectedMuscle = null;
             });
@@ -86,7 +86,8 @@ namespace Fitty.ViewModels
             {
                 "--None--",
                 "Beginner",
-                "Intermediate"
+                "Intermediate",
+                "Expert",
             };
             Equipments = new List<string>
             {
@@ -104,7 +105,7 @@ namespace Fitty.ViewModels
         void LoadExerciseList()
         {
             var muscle = SelectedMuscle == "--None--" || SelectedMuscle == null ? null : SelectedMuscle.ToLower();
-            FilteredExercises = MusclesViewModel.DataSource.exercises;
+            FilteredExercises = HomeViewModel.DataSource.exercises;
             if (muscle == "lower back")
             {
                 muscle = "lower_back";

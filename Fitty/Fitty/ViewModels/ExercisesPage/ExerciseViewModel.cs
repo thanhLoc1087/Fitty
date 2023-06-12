@@ -44,7 +44,7 @@ namespace Fitty.ViewModels
         public List<Exercise> GetExercises(string muscleGroup)
         {
             List<Exercise> exerciseList = new List<Exercise>();
-            foreach(var exercise in MusclesViewModel.DataSource.exercises)
+            foreach(var exercise in HomeViewModel.DataSource.exercises)
             {
                 if (exercise.Muscle == muscleGroup)
                 {

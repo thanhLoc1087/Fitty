@@ -25,16 +25,16 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <FlyoutItem Title="Add Exercise"
-                Icon="home_icon.png">
-        <Tab>
-            <ShellContent ContentTemplate="{DataTemplate views:AddExercisePage}" />
-        </Tab>
-    </FlyoutItem>
     <FlyoutItem Title="Home"
                 Icon="home_icon.png">
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Add Exercise"
+                Icon="home_icon.png">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:AddExercisePage}" />
         </Tab>
     </FlyoutItem>
     <FlyoutItem Title="Search"

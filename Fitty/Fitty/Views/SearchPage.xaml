@@ -51,7 +51,6 @@
             </ListView>-->
             <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding Refresh}">
                 <CollectionView x:DataType="local:SearchViewModel" 
-                      ItemsSource="{Binding FilteredExercises}"
                       SelectionMode="Single"
                       x:Name="ExerciseListView">
                     <CollectionView.ItemTemplate>
@@ -80,7 +79,7 @@
                                         </Grid>
                                         <StackLayout.GestureRecognizers>
                                             <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type local:ExerciseViewModel}}, Path=ItemTapped}"		
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type local:SearchViewModel}}, Path=ItemTapped}"		
                                                               CommandParameter="{Binding .}">
                                             </TapGestureRecognizer>
                                         </StackLayout.GestureRecognizers>

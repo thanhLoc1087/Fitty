@@ -1,4 +1,5 @@
-﻿using Fitty.ViewModels;
+﻿using Fitty.Models;
+using Fitty.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,15 @@ namespace Fitty.Views
 				);
 			}
             ExerciseListView.BatchCommit();
+        }
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+            var _container = BindingContext as SearchViewModel;
+
+            var data = await ExerciseService.GetExercises();
+            _container.FilteredExercises = data;
+            ExerciseListView.ItemsSource = _container.FilteredExercises;
         }
     }
 }

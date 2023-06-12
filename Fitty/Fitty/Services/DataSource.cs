@@ -1,5 +1,6 @@
 ﻿using Fitty.Models;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,11 +9,9 @@ namespace Fitty.Services
     internal class DataSource : IDataStore<Exercise>
     {
         public List<Exercise> exercises;
-        public ExerciseAPIService exerciseAPIService;
         public DataSource() 
         {
-            exerciseAPIService = new ExerciseAPIService();
-            exercises = exerciseAPIService.ReadJsonFile();
+            exercises = ExerciseAPIService.ReadJsonFile();
         }
         public async Task<bool> AddItemAsync(Exercise item)
         {
@@ -29,7 +28,13 @@ namespace Fitty.Services
 
         public async Task<Exercise> GetItemAsync(string name)
         {
-            return await Task.FromResult(exercises.FirstOrDefault(s => s.Name == name));
+            return await Task.FromResult(exercises.FirstOrDefault(e => e.Name == name));
+        }
+        public async Task<Exercise> GetItemAsyncById(int id)
+        {
+            return await Task.FromResult(
+                await ExerciseService.GetExercise(id)
+                );
         }
 
         public async Task<IEnumerable<Exercise>> GetItemsAsync(bool forceRefresh = false)

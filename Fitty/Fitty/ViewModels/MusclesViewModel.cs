@@ -10,12 +10,10 @@ namespace Fitty.ViewModels
     internal class MusclesViewModel : BaseViewModel
     {
         public Command<MuscleGroup> ItemTapped { get; }
-        static public DataSource DataSource { get; set; }
 
         public MusclesViewModel()
         {
             ItemTapped = new Command<MuscleGroup>(OnItemSelected);
-            DataSource = new DataSource();
         }
 
         private async void OnItemSelected(MuscleGroup item)

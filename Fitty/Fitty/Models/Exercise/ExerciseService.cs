@@ -1,6 +1,7 @@
 ﻿using Fitty.Services;
 using SQLite;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Fitty.Models
@@ -28,7 +29,7 @@ namespace Fitty.Models
         public static async Task AddExercise(string name, string type, string muscle, string equipment, string difficulty, string instructions, bool userCreated)
         {
             await ExerciseAPIService.Init();
-            var exercise = new Exercise(name,type, muscle,equipment,difficulty,instructions,userCreated);
+            var exercise = new Exercise(name,type,muscle,equipment,difficulty,instructions,userCreated);
             await ExerciseAPIService.db.InsertAsync(exercise);
         }
         public static async Task UpdateExercise(Exercise exercise)

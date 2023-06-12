@@ -1,5 +1,6 @@
 ﻿using Fitty.ViewModels;
 using Fitty.Views;
+using Fitty.Views.RoutinePage;
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
@@ -19,6 +20,8 @@ namespace Fitty
             Routing.RegisterRoute(nameof(MusclesPage), typeof(MusclesPage));
             Routing.RegisterRoute(nameof(ExercisePage), typeof(ExercisePage));
             Routing.RegisterRoute(nameof(ExerciseDetailPage), typeof(ExerciseDetailPage));
+            Routing.RegisterRoute(nameof(RoutinesPage), typeof(RoutinesPage));
+            Routing.RegisterRoute(nameof(AddRoutinePage), typeof(AddRoutinePage));
         }
 
     }

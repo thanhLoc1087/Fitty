@@ -7,6 +7,8 @@ using Xamarin.Forms;
 
 namespace Fitty.ViewModels
 {
+    //[QueryProperty(nameof(Name), nameof(Name))]
+    [QueryProperty(nameof(Id), nameof(Id))]
     [QueryProperty(nameof(Name), nameof(Name))]
     class ExerciseDetailViewModel : BaseViewModel
     {
@@ -26,6 +28,7 @@ namespace Fitty.ViewModels
             set
             {
                 SetProperty(ref id, value);
+                LoadItemId(value);
             }
         }
         public string Name
@@ -34,7 +37,7 @@ namespace Fitty.ViewModels
             set
             {
                 SetProperty(ref name, value);
-                LoadItemId(value);
+                LoadItemName(value);
             }
         }
 
@@ -80,11 +83,30 @@ namespace Fitty.ViewModels
             }
         }
 
-        public async void LoadItemId(string itemId)
+        public async void LoadItemId(int itemId)
         {
             try
             {
-                var item = await MusclesViewModel.DataSource.GetItemAsync(itemId);
+                var item = await HomeViewModel.DataSource.GetItemAsyncById(itemId);
+                Name = item.Name;
+                Type = item.Type.ToString();
+                Muscle = item.Muscle.ToString();
+                Equipment = item.Equipment;
+                Difficulty = item.Difficulty.ToString();
+                Instructions = item.Instructions;
+                Gif = "glute_bridge.gif";
+                UserCreated = item.UserCreated.ToString();
+            }
+            catch (Exception)
+            {
+                Debug.WriteLine("Failed to Load Exercise");
+            }
+        }
+        public async void LoadItemName(string name)
+        {
+            try
+            {
+                var item = await HomeViewModel.DataSource.GetItemAsync(name);
                 Id = item.Id;
                 Type = item.Type.ToString();
                 Muscle = item.Muscle.ToString();
@@ -93,6 +115,7 @@ namespace Fitty.ViewModels
                 Instructions = item.Instructions;
                 Gif = "glute_bridge.gif";
                 UserCreated = item.UserCreated.ToString();
+                Debug.WriteLine(Id);
             }
             catch (Exception)
             {

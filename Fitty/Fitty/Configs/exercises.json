@@ -1,5 +1,13 @@
 ﻿[
     {
+        "name": "Rest",
+        "type": "other",
+        "muscle": "none",
+        "equipment": "None",
+        "difficulty": "beginner",
+        "instructions": "Typically a 1–2-minute rest interval will allow adequate recovery. Still, you can focus on form while promoting muscular breakdown to induce improvement. Many people can perfect their form and progress in their training program with 1–2 minutes of rest between sets."
+    },
+    {
         "name": "Landmine twist",
         "type": "strength",
         "muscle": "abdominals",

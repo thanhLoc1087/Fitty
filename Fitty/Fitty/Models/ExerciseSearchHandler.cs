@@ -11,7 +11,7 @@ namespace Fitty.Models
 {
     class ExerciseSearchHandler : SearchHandler
     {
-        public IList<Exercise> Exercises { get; set; } = MusclesViewModel.DataSource.exercises;
+        public IList<Exercise> Exercises { get; set; } = HomeViewModel.DataSource.exercises;
         public Type SelectedItemNavigationTarget { get; set; }
 
         protected override void OnQueryChanged(string oldValue, string newValue)

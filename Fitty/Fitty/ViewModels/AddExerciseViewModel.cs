@@ -43,7 +43,8 @@ namespace Fitty.ViewModels
             Levels = new List<string>
             {
                 "Beginner",
-                "Intermediate"
+                "Intermediate",
+                "Expert",
             };
             Equipments = new List<string>
             {
