@@ -3,27 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Fitty.Views.HydrationAlarm">
     <ContentPage.Content>
-        <StackLayout Padding="20"
-                     Spacing="10">
-            <Label Text="HYDRATION ALARM"
-                   Padding="0,30,0,0"
-                       FontSize="38"
-                       FontAttributes="Bold"
-                       TextColor="MediumAquamarine"
-                       HorizontalOptions="Center" />
-            <BoxView/>
-            <Label Text="Set a reminder interval:" FontSize="20" />
-            <TimePicker x:Name="timePicker"
-                        HorizontalOptions="Center"
-                        WidthRequest="190"
-                        Scale="1.2"
-                        Format="hh\:mm\:ss"/>
-            <Button Text="Confirm"
-                    Padding="40,20,40,20"
-                    FontSize="20" 
-                    HorizontalOptions="Center"
-                    Margin="0,30,0,0" />
+        <StackLayout Padding="20">
+            <Label Text="Choose an interval:" Margin="0,0,0,10" />
+            <Picker x:Name="intervalPicker" SelectedIndexChanged="OnIntervalPickerSelectedIndexChanged">
+                <Picker.Items>
+                    <x:String>5</x:String>
+                    <x:String>10</x:String>
+                    <x:String>15</x:String>
+                    <x:String>20</x:String>
+                    <x:String>30</x:String>
+                </Picker.Items>
+            </Picker>
+            <Button x:Name="startButton" Text="Start" Clicked="OnStartButtonClicked" Margin="0,20,0,10" />
+            <Button x:Name="resetButton" Text="Reset" Clicked="OnResetButtonClicked" />
         </StackLayout>
     </ContentPage.Content>
-
 </ContentPage>

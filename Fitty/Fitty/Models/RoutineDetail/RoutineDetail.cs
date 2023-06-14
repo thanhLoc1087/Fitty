@@ -21,5 +21,7 @@ namespace Fitty.Models
             ExerciseId = exerciseId;
             Duration = duration;
         }
+        [Ignore]
+        public Exercise exercise { get; set; }
     }
 }

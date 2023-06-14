@@ -1,12 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Fitty.Views.RoutinePage.AddRoutinePage">
+             x:Class="Fitty.Views.RoutinePage.AddRoutinePage"
+             xmlns:local="clr-namespace:Fitty.ViewModels"  
+             xmlns:model="clr-namespace:Fitty.Models"
+             Title="{Binding Title}">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView x:DataType="local:AddRoutineViewModel">
+            <Grid Padding="20,0,20,0">
+                <!--<Entry Text="{Binding Name}"></Entry>-->
+                <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding Refresh}">
+                    <CollectionView ItemsSource="{Binding Details, Mode=TwoWay}"
+                                SelectionMode="Single">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout>
+                                    <Frame CornerRadius="4" Padding="4">
+                                        <StackLayout Padding="10" x:DataType="model:RoutineDetail">
+                                            <Label Text="{Binding exercise.Name}" FontSize="Medium" FontAttributes="Bold"/>
+                                            <Grid>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="Durations (s): " Style="{DynamicResource ListItemDetailTextStyle}" VerticalTextAlignment="Center"/>
+                                                    <Entry Text="{Binding Duration}" 
+                                                       Style="{DynamicResource ListItemDetailTextStyle}"
+                                                       TextColor="{StaticResource teal500}"
+                                                       Keyboard="Numeric" WidthRequest="120" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
+                                                    <Label Text="second(s)" Style="{DynamicResource ListItemDetailTextStyle}" VerticalTextAlignment="Center" HorizontalOptions="End"/>
+                                                </StackLayout>
+                                            </Grid>
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                              CommandParameter="{Binding .}">
+                                                    <!--Command="{Binding Source={RelativeSource AncestorType={x:Type local:ExerciseViewModel}}, Path=ItemTapped}"-->
+                                                </TapGestureRecognizer>
+                                            </StackLayout.GestureRecognizers>
+                                        </StackLayout>
+                                    </Frame>
+                                    <BoxView HeightRequest="4"/>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+                <Button HorizontalOptions="End"
+                                VerticalOptions="End" 
+                                Text="Add new exercise" 
+                                Margin="20,0,20,0"
+                                Command="{Binding ChooseExerciseCommand}" />
+                <Button HorizontalOptions="Start"
+                                VerticalOptions="End" 
+                                Text="Test" 
+                                Margin="20,0,20,0"
+                                Command="{Binding Test}" />
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

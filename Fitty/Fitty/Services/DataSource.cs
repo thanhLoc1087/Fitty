@@ -11,7 +11,7 @@ namespace Fitty.Services
         public List<Exercise> exercises;
         public DataSource() 
         {
-            exercises = ExerciseAPIService.ReadJsonFile();
+            exercises = new List<Exercise>();
         }
         public async Task<bool> AddItemAsync(Exercise item)
         {

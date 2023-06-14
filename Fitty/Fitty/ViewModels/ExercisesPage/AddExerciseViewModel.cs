@@ -1,7 +1,9 @@
 ﻿using Fitty.Models;
+using Fitty.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -15,9 +17,15 @@ namespace Fitty.ViewModels
             {
                 if (Validate())
                 {
-                    await ExerciseService.AddExercise(Name, Type, Muscle, Equipment, Difficulty, Instructions, true);
-                    Debug.WriteLine("Success");
-                    ClearFields();
+                    if (HomeViewModel.DataSource.exercises.Where(e => e.Name == Name).Any())
+                    {
+                        ErrorMessage = "There is already an exercise with this name!";
+                    } else
+                    {
+                        await ExerciseService.AddExercise(Name, Type, Muscle, Equipment, Difficulty, Instructions, true);
+                        Debug.WriteLine("Success");
+                        ClearFields();
+                    }
                 }
                 else
                     ErrorMessage = "Your exercise name can not be empty!";
@@ -126,6 +134,7 @@ namespace Fitty.ViewModels
         {
             Name = null;
             Instructions = null;
+            ErrorMessage = null;
         }
         public List<String> Muscles { get; set; }
         public List<String> Levels { get; set; }

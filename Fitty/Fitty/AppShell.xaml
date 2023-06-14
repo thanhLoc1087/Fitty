@@ -49,6 +49,12 @@
             <ShellContent ContentTemplate="{DataTemplate views:ExerciseMainPage}" />
         </Tab>
     </FlyoutItem>
+    <FlyoutItem Title="Routines"
+                Icon="dog.png">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:RoutinesPage}" />
+        </Tab>
+    </FlyoutItem>
     <FlyoutItem Title="Calculator"
                 Icon="dog.png">
         <Tab>

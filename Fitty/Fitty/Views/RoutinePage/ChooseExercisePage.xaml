@@ -3,13 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Fitty.ViewModels"  
              xmlns:model="clr-namespace:Fitty.Models"
-             Title="Search exercise"
-             x:Class="Fitty.Views.SearchPage">
+             x:Class="Fitty.Views.ChooseExercisePage"
+             Title="Pick an exercise">
     <ContentPage.Content>
-        <StackLayout Padding="10,0,10,0" x:DataType="local:SearchViewModel">
+        <StackLayout x:DataType="local:AddRoutineViewModel">
             <SearchBar TextChanged="SearchBar_TextChanged"/>
             <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding Refresh}">
-                <CollectionView x:DataType="local:SearchViewModel" 
+                <CollectionView ItemsSource="{Binding Exercises}"
                       SelectionMode="Single"
                       x:Name="ExerciseListView">
                     <CollectionView.ItemTemplate>
@@ -38,7 +38,7 @@
                                         </Grid>
                                         <StackLayout.GestureRecognizers>
                                             <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type local:SearchViewModel}}, Path=ItemTapped}"		
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type local:AddRoutineViewModel}}, Path=ItemTapped}"		
                                                               CommandParameter="{Binding .}">
                                             </TapGestureRecognizer>
                                         </StackLayout.GestureRecognizers>
