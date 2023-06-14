@@ -61,6 +61,12 @@
             <ShellContent ContentTemplate="{DataTemplate views:NutritionPage}" />
         </Tab>
     </FlyoutItem>
+    <FlyoutItem Title="Calculator"
+                Icon="dog.png">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:BMICalculatorPage}" />
+        </Tab>
+    </FlyoutItem>
     <FlyoutItem Title="Hydration"
                 Icon="dog.png">
         <Tab>

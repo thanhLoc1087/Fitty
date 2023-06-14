@@ -2,6 +2,7 @@
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,11 +31,12 @@ namespace Fitty.Models
             }
             return routines;
         }
-        public static async Task AddRoutine(string name, int totalDuration, int numberOfSet, int totalExercises = 0)
+        public static async Task<int> AddRoutine(string name, int totalDuration, int numberOfSet, int totalExercises = 0)
         {
             await ExerciseAPIService.Init();
             var routine = new Routine(name, totalDuration, numberOfSet, totalExercises);
             await ExerciseAPIService.db.InsertAsync(routine);
+            return routine.Id;
         }
         public static async Task UpdateRoutine(Routine routine)
         {

@@ -37,8 +37,8 @@
                                             </Grid>
                                             <StackLayout.GestureRecognizers>
                                                 <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:RoutinesViewModel}}, Path=ItemTapped}"
                                                           CommandParameter="{Binding .}">
-                                                    <!--Command="{Binding Source={RelativeSource AncestorType={x:Type local:ExerciseViewModel}}, Path=ItemTapped}"-->
                                                 </TapGestureRecognizer>
                                             </StackLayout.GestureRecognizers>
                                         </StackLayout>
@@ -49,13 +49,12 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                 </RefreshView>
-                <Frame Padding="10">
-                    <Button HorizontalOptions="Center"
-                            VerticalOptions="Center" 
+                    <Button HorizontalOptions="End"
+                            VerticalOptions="End" 
                             Text="Add new routine" 
                             Margin="20,0,20,0"
                             Command="{Binding AddCommand}" />
-                </Frame>
+                
             </Grid>
         </ScrollView>
     </ContentPage.Content>

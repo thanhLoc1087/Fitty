@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Fitty.Views.RoutinePage
+namespace Fitty.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RoutineDetail : ContentPage
+    public partial class RoutineDetailPage : ContentPage
     {
-        public RoutineDetail()
+        public RoutineDetailPage()
         {
             InitializeComponent();
             BindingContext = new RoutineDetailViewModel();

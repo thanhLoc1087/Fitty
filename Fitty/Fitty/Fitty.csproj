@@ -23,6 +23,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\RoutinePage\RoutineDetailPage.xaml.cs">
+      <DependentUpon>RoutineDetailPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\BMICalculatorPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\ExercisesPage\AddExercisePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -68,7 +77,7 @@
     <EmbeddedResource Update="Views\RoutinePage\ChooseExercisePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\RoutinePage\RoutineDetail.xaml">
+    <EmbeddedResource Update="Views\RoutinePage\RoutineDetailPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\RoutinePage\RoutinesPage.xaml">

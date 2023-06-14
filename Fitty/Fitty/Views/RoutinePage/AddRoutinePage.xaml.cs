@@ -1,4 +1,5 @@
-﻿using Fitty.ViewModels;
+﻿using Fitty.Models;
+using Fitty.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,13 @@ namespace Fitty.Views.RoutinePage
         {
             InitializeComponent();
             BindingContext = RoutinesViewModel.addRoutineViewModel;
+        }
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+            var _container = BindingContext as AddRoutineViewModel;
+
+            RoutineDetailsList.ItemsSource = _container.Details;
         }
     }
 }

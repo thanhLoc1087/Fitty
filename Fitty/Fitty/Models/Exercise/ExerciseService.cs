@@ -1,7 +1,9 @@
 ﻿using Fitty.Services;
 using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Fitty.Models
@@ -11,8 +13,8 @@ namespace Fitty.Models
         public static async Task<Exercise> GetExercise(int id)
         {
             await ExerciseAPIService.Init();
-            var exercises = await ExerciseAPIService.db.Table<Exercise>().Where(e => e.Id == id).ToListAsync();
-            return exercises.Count == 1 ? exercises[0] : null;
+            var exercise = (await ExerciseAPIService.db.Table<Exercise>().Where(e => e.Id == id).ToListAsync()).FirstOrDefault();
+            return exercise;
         }
         public static async Task<List<Exercise>> GetExercisesByMuscle(string muscle)
         {
@@ -41,6 +43,14 @@ namespace Fitty.Models
         {
             await ExerciseAPIService.Init();
             await ExerciseAPIService.db.DeleteAsync<Exercise>(id);
+        }
+
+        internal static async Task<Exercise> GetExerciseByName(string name)
+        {
+            await ExerciseAPIService.Init();
+            name = name.Trim().ToLower();
+            var exercise = (await ExerciseAPIService.db.Table<Exercise>().Where(e => e.Name.ToLower().Contains(name)).ToListAsync()).FirstOrDefault();
+            return exercise;
         }
     }
 }

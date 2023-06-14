@@ -33,7 +33,7 @@ namespace Fitty.ViewModels
             get => _details;
             set
             {
-                Debug.Write(value);
+                Debug.Write("heloooooooooooooo");
                 SetProperty(ref _details, value);
             }
         }
@@ -51,6 +51,29 @@ namespace Fitty.ViewModels
 
             Routine.Details = new List<RoutineDetail> { newRoutineDetail };
             Details = Routine.Details;
+
+            AddRestCommand = new Command(async () =>
+            {
+                string duration = await Application.Current.MainPage.DisplayPromptAsync("Rest time", "you can change this later:", "OK", "Cancel", placeholder: "30 (s)", keyboard: Keyboard.Numeric);
+                if (duration == null) duration = "30";
+                RoutineDetail rest = new RoutineDetail
+                {
+                    Duration = !string.IsNullOrEmpty(duration) ? int.Parse(duration) : 30
+                };
+                var restExercise = await ExerciseService.GetExerciseByName("rest");
+                if (restExercise == null)
+                {
+                    Debug.WriteLine("rest null");
+                    return;
+                }
+                rest.exercise = restExercise;
+                rest.ExerciseId = restExercise.Id;
+
+                Routine.AddRoutineDetail(rest);
+                Details.Add(rest);
+                Debug.WriteLine("rest added");
+            });
+
             Test = new Command(() =>
             {
                 RoutineDetail test = new RoutineDetail();
@@ -67,11 +90,14 @@ namespace Fitty.ViewModels
             ItemTapped = new Command<Exercise>(OnExerciseSelected);
             SaveCommand = new Command(async () =>
             {
-                await RoutineService.AddRoutine(Routine.Name, Routine.TotalDuration, Routine.NumberOfSet, Routine.TotalExercises);
+                var routineId = await RoutineService.AddRoutine(Routine.Name, Routine.TotalDuration, Routine.NumberOfSet, Routine.TotalExercises);
                 Routine.Details.ForEach(async d =>
                 {
-                    await RoutineDetailService.AddRoutineDetail(d.RoutineId, d.ExerciseId, d.Duration);
+                    await RoutineDetailService.AddRoutineDetail(routineId, d.ExerciseId, d.Duration);
                 });
+                Routine = new Routine(); 
+                Details = new List<RoutineDetail>();
+                await Shell.Current.GoToAsync("..");
             });
             ChooseExerciseCommand = new Command(async () =>
             {
@@ -82,8 +108,6 @@ namespace Fitty.ViewModels
                 IsRefreshing = true;
                 IsBusy = true;
                 Exercises = await ExerciseService.GetExercises();
-                Details.Clear();
-                //Details = Routine.Details;
                 IsRefreshing = false;
             });
         }
@@ -94,18 +118,17 @@ namespace Fitty.ViewModels
             string duration = await Application.Current.MainPage.DisplayPromptAsync("Exercise time", "Enter the duration for this exercise (you can change this later):", "OK", "Cancel",placeholder:"30 (s)", keyboard: Keyboard.Numeric);
             if (duration == null) duration = "30";
             RoutineDetail newRoutineDetail = new RoutineDetail();
-            newRoutineDetail.Duration = string.IsNullOrEmpty(duration) ? int.Parse(duration) : 30;
+            newRoutineDetail.Duration = !string.IsNullOrEmpty(duration) ? int.Parse(duration) : 30;
             newRoutineDetail.exercise = item;
             newRoutineDetail.ExerciseId = item.Id;
-            newRoutineDetail.RoutineId = Routine.Id;
 
             Routine.AddRoutineDetail(newRoutineDetail);
-            Details.Clear();
-            Details = Routine.Details;
+            Details.Add(newRoutineDetail);
             await Shell.Current.GoToAsync("..");
         }
 
         public Command Refresh { get; set; }
+        public Command AddRestCommand { get; set; }
 
         public bool _isRefreshing;
         public bool IsRefreshing

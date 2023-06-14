@@ -21,6 +21,7 @@ namespace Fitty
             Routing.RegisterRoute(nameof(ExercisePage), typeof(ExercisePage));
             Routing.RegisterRoute(nameof(ExerciseDetailPage), typeof(ExerciseDetailPage));
             Routing.RegisterRoute(nameof(RoutinesPage), typeof(RoutinesPage));
+            Routing.RegisterRoute(nameof(RoutineDetailPage), typeof(RoutineDetailPage));
             Routing.RegisterRoute(nameof(AddRoutinePage), typeof(AddRoutinePage));
             Routing.RegisterRoute(nameof(ChooseExercisePage), typeof(ChooseExercisePage));
         }

@@ -12,6 +12,7 @@ namespace Fitty.ViewModels
     {
         public static AddRoutineViewModel addRoutineViewModel;
         public Command Refresh { get; set; }
+        public Command<Routine> ItemTapped { get; }
 
         public bool _isRefreshing;
         public bool IsRefreshing
@@ -33,6 +34,7 @@ namespace Fitty.ViewModels
         public Command AddCommand { get; set; }
         public RoutinesViewModel()
         {
+            ItemTapped = new Command<Routine>(OnItemSelected);
             addRoutineViewModel = new AddRoutineViewModel();
             AddCommand = new Command(async () =>
             {
@@ -45,6 +47,14 @@ namespace Fitty.ViewModels
                 Routines = await RoutineService.GetRoutines();
                 IsRefreshing = false;
             });
+        }
+        private async void OnItemSelected(Routine item)
+        {
+            if (item == null)
+                return;
+
+            // This will push the ItemDetailPage onto the navigation stack
+            await Shell.Current.GoToAsync($"{nameof(RoutineDetailPage)}?{nameof(RoutineDetailViewModel.Id)}={item.Id}");
         }
     }
 }

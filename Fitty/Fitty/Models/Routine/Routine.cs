@@ -12,6 +12,8 @@ namespace Fitty.Models
         public int TotalDuration { get; set; } // Total time to complete the routine (in second)
         public int TotalExercises { get; set; } // Total time to complete the routine (in second)
         public int NumberOfSet { get; set; }
+        [Ignore]
+        public List<RoutineDetail> Details { get; set; }
         public Routine() { 
             Details = new List<RoutineDetail> { };
         }
@@ -23,8 +25,6 @@ namespace Fitty.Models
             TotalExercises = totalExercises;
             Details = new List<RoutineDetail>();
         }
-        [Ignore]
-        public List<RoutineDetail> Details { get; set; }
         public override string ToString()
         {
             return $"{TotalExercises}";

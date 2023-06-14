@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Fitty.ViewModels"  
+             xmlns:model="clr-namespace:Fitty.Models"
+             x:Class="Fitty.Views.RoutineDetailPage">
+    <ContentPage.Content>
+        <ScrollView x:DataType="local:RoutineDetailViewModel">
+            <StackLayout Padding="20,0,20,0">
+                <!--<Entry Text="{Binding Name}"></Entry>-->
+                <Label Text="{Binding TotalDuration}"></Label>
+                <Label Text="{Binding TotalExercises}"></Label>
+                <Label Text="{Binding NumberOfSet}"></Label>
+                <CollectionView ItemsSource="{Binding Details, Mode=TwoWay}"
+                                SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:RoutineDetail">
+                            <StackLayout>
+                                <Frame CornerRadius="4" Padding="4">
+                                    <StackLayout Padding="10" x:DataType="model:RoutineDetail">
+                                        <Label Text="{Binding exercise.Name}" FontSize="Medium" FontAttributes="Bold"/>
+                                        <Grid>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Durations (s): " Style="{DynamicResource ListItemDetailTextStyle}" VerticalTextAlignment="Center"/>
+                                                <Label Text="{Binding Duration}" 
+                                                       Style="{DynamicResource ListItemDetailTextStyle}"
+                                                       TextColor="{StaticResource teal500}"
+                                                       WidthRequest="120" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
+                                                <Label Text="second(s)" Style="{DynamicResource ListItemDetailTextStyle}" VerticalTextAlignment="Center" HorizontalOptions="End"/>
+                                            </StackLayout>
+                                        </Grid>
+
+                                    </StackLayout>
+                                </Frame>
+                                <BoxView HeightRequest="4"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <!--<Button HorizontalOptions="End"
+                                VerticalOptions="End" 
+                                Text="Add new exercise" 
+                                Margin="20,0,20,0"
+                                Command="{Binding ChooseExerciseCommand}" />
+                <Button HorizontalOptions="Start"
+                                VerticalOptions="End" 
+                                Text="Test" 
+                                Margin="20,0,20,0"
+                                Command="{Binding SaveCommand}" />-->
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

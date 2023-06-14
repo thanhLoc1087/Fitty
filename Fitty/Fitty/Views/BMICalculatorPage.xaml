@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Fitty.Views.BMICalculatorPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid Margin="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid>
+
+                </Grid>
+                <Grid Grid.Row="1" VerticalOptions="Center">
+                    <Label Text="Your BMI is:" TextColor="Black" VerticalOptions="End" HorizontalOptions="Center" FontSize="Large" />
+                </Grid>
+                <Grid Grid.Row="2" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Grid VerticalOptions="Center" HorizontalOptions="Center">
+                        <BoxView BackgroundColor="LightBlue" CornerRadius="75" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="150" HeightRequest="150" />
+                        <Label x:Name="bmiLabel" FontSize="Large" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center"/>
+                    </Grid>
+                </Grid>
+                <Label x:Name="healthStatusLabel" Grid.Row="2" Text="" TextColor="Black" VerticalOptions="Start" HorizontalOptions="Center" Margin="0,20,0,0" FontSize="20" FontAttributes="Bold"/>
+                <Grid Grid.Row="4" Padding="0, 20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label x:Name="underweightRangeLabel" Grid.Row="0" Grid.Column="0" Text="0 - 18.5" FontSize="Small" VerticalTextAlignment="Start" TextColor="Black" />
+                    <Label x:Name="healthyRangeLabel" Grid.Row="1" Grid.Column="0" Text="18.5 - 24.9" FontSize="Small" VerticalTextAlignment="Start" TextColor="Black" />
+                    <Label x:Name="overweightRangeLabel" Grid.Row="2" Grid.Column="0" Text="25 - 29.9" FontSize="Small" VerticalTextAlignment="Start" TextColor="Black" />
+                    <Label x:Name="obeseRangeLabel1" Grid.Row="3" Grid.Column="0" Text="30 - 34.9" FontSize="Small" VerticalTextAlignment="Start" TextColor="Black" />
+                    <Label x:Name="obeseRangeLabel2" Grid.Row="4" Grid.Column="0" Text="35 - 39.9" FontSize="Small" VerticalTextAlignment="Start" TextColor="Black" />
+                    <Label x:Name="obeseRangeLabel3" Grid.Row="5" Grid.Column="0" Text="40+" FontSize="Small" VerticalTextAlignment="Start" TextColor="Black" />
+                    <Label x:Name="underweightLabel" Grid.Row="0" Grid.Column="1" Text="Underweight" FontSize="Small" VerticalTextAlignment="Start" />
+                    <Label x:Name="healthyLabel" Grid.Row="1" Grid.Column="1" Text="Healthy weight" FontSize="Small" VerticalTextAlignment="Start" />
+                    <Label x:Name="overweightLabel" Grid.Row="2" Grid.Column="1" Text="Overweight" FontSize="Small" VerticalTextAlignment="Start" />
+                    <Label x:Name="obeseLabel1" Grid.Row="3" Grid.Column="1" Text="Obese class 1" FontSize="Small" VerticalTextAlignment="Start" />
+                    <Label x:Name="obeseLabel2" Grid.Row="4" Grid.Column="1" Text="Obese class 2" FontSize="Small" VerticalTextAlignment="Start" />
+                    <Label x:Name="obeseLabel3" Grid.Row="5" Grid.Column="1" Text="Obese class 3" FontSize="Small" VerticalTextAlignment="Start" />
+                    <Label x:Name="underweightDescription" Grid.Row="0" Grid.Column="2" Text="Increased risk of developing health problems" FontSize="Small" VerticalTextAlignment="Start" />
+                    <Label x:Name="healthyDescription" Grid.Row="1" Grid.Column="2" Text="Low risk of developing health problems" FontSize="Small" VerticalTextAlignment="Start" />
+                    <Label x:Name="overweightDescription" Grid.Row="2" Grid.Column="2" Text="Increased risk of developing health problems" FontSize="Small" VerticalTextAlignment="Start" />
+                    <Label x:Name="obeseDescription1" Grid.Row="3" Grid.Column="2" Text="High risk of developing health problems" FontSize="Small" VerticalTextAlignment="Start" />
+                    <Label x:Name="obeseDescription2" Grid.Row="4" Grid.Column="2" Text="Very high risk of developing health problems" FontSize="Small" VerticalTextAlignment="Start" />
+                    <Label x:Name="obeseDescription3" Grid.Row="5" Grid.Column="2" Text="Extremely high risk of developing health problems" FontSize="Small" VerticalTextAlignment="Start" />
+                </Grid>
+
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
