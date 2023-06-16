@@ -66,10 +66,8 @@ namespace Fitty.ViewModels
                 rest.ExerciseId = restExercise.Id;
 
                 Routine.AddRoutineDetail(rest);
-                Debug.Write(Routine.Details.Count);
                 Details.Add(rest);
                 Debug.WriteLine("rest added");
-                Debug.Write(Routine.Details.Count);
             });
 
             ItemTapped = new Command<Exercise>(OnExerciseSelected);

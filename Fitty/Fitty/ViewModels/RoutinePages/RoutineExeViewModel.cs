@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Timers;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Fitty.ViewModels
 {
@@ -82,17 +83,15 @@ namespace Fitty.ViewModels
             try
             {
                 var item = await RoutineService.GetRoutine(itemId);
-                Title = Name = item.Name;
-                TotalDuration = item.TotalDuration;
-                TotalExercises = item.TotalExercises;
-                NumberOfSet = item.NumberOfSet;
-                RemainingSet = NumberOfSet;
-                ogDetails = new ObservableCollection<RoutineDetail>(item.Details);
-                Details = new ObservableCollection<RoutineDetail>(item.Details);
-                CurrentDetail = Details[0];
-                TimeRemaining = TotalDuration;
-                RemainingTimeInSeconds = CurrentDetail.Duration;
-                Details.RemoveAt(0);
+                if (item != null)
+                {
+                    Title = Name = item.Name;
+                    TotalDuration = item.TotalDuration;
+                    TotalExercises = item.TotalExercises;
+                    NumberOfSet = item.NumberOfSet;
+                    ogDetails = new ObservableCollection<RoutineDetail>(item.Details);
+                    Reset();
+                }
             }
             catch (Exception)
             {
@@ -143,16 +142,8 @@ namespace Fitty.ViewModels
                 {
                     await Application.Current.MainPage.DisplayAlert("Finished", "You have completed your work out.", "OK");
                 });
-                countdownTimer.Stop();
-                Details = ogDetails;
-                TimeRemaining = TotalDuration;
-                RemainingSet = NumberOfSet;
-                CurrentDetail = ogDetails[0];
-                RemainingTimeInSeconds = CurrentDetail.Duration;
-                IsRunning = false;
-                IsNotRunning = true;
+                Reset();
                 StartRestart = "Restart";
-                Details.RemoveAt(0);
             }
             if (Details.Count == 0 && RemainingTimeInSeconds <= 0 && RemainingSet > 1)
             {
@@ -161,18 +152,15 @@ namespace Fitty.ViewModels
                 {
                     await Application.Current.MainPage.DisplayAlert("Congrats", "You have completed your set.\nGet ready for your next one.", "OK");
                 });
-                countdownTimer.Stop();
-                Details = ogDetails;
-                TimeRemaining = TotalDuration;
-                CurrentDetail = ogDetails[0];
-                RemainingTimeInSeconds = CurrentDetail.Duration;
-                IsRunning = false;
-                IsNotRunning = true;
-                Details.RemoveAt(0);
+                Reset();
             }
         }
         private void HandleStartCommand()
         {
+            if (StartRestart == "Restart")
+            {
+                StartRestart = "Start";
+            }
             countdownTimer.Start();
             IsRunning = true;
             IsNotRunning = false;
@@ -195,6 +183,18 @@ namespace Fitty.ViewModels
                 RemainingTimeInSeconds = CurrentDetail.Duration;
                 Details.RemoveAt(0);
             } 
+        }
+        public void Reset()
+        {
+            countdownTimer.Stop();
+            IsRunning = false;
+            IsNotRunning = true;
+            Details = new ObservableCollection<RoutineDetail>(ogDetails);
+            TimeRemaining = TotalDuration;
+            RemainingSet = NumberOfSet;
+            CurrentDetail = new RoutineDetail(Details[0]);
+            RemainingTimeInSeconds = CurrentDetail.Duration;
+            Details.RemoveAt(0);
         }
     }
 }

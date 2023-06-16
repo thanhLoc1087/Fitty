@@ -13,10 +13,17 @@ namespace Fitty.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RoutineExePage : ContentPage
     {
+        RoutineExeViewModel _viewModel;
         public RoutineExePage()
         {
             InitializeComponent();
-            BindingContext = new RoutineExeViewModel();
+            BindingContext = _viewModel = new RoutineExeViewModel();
+        }
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+            await Task.Delay(300);
+            _viewModel.Reset();
         }
     }
 }

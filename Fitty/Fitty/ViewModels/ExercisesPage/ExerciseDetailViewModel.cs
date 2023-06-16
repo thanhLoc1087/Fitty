@@ -115,7 +115,6 @@ namespace Fitty.ViewModels
                 Instructions = item.Instructions;
                 Gif = "glute_bridge.gif";
                 UserCreated = item.UserCreated.ToString();
-                Debug.WriteLine(Id);
             }
             catch (Exception)
             {

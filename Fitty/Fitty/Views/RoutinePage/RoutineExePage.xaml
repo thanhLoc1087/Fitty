@@ -51,7 +51,7 @@
                                     </SwipeView.RightItems>
                                     <Frame CornerRadius="4" Padding="4">
                                         <StackLayout Padding="10" x:DataType="model:RoutineDetail" Grid.Column="0">
-                                            <Label Text="{Binding exercise}" FontSize="Medium" FontAttributes="Bold"/>
+                                            <Label Text="{Binding exercise.Name}" FontSize="Medium" FontAttributes="Bold"/>
                                             <Grid>
                                                 <StackLayout Orientation="Horizontal">
                                                     <Label Text="Durations (s): " Style="{DynamicResource ListItemDetailTextStyle}" VerticalTextAlignment="Center"/>

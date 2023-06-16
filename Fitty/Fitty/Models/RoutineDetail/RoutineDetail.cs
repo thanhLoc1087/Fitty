@@ -15,6 +15,16 @@ namespace Fitty.Models
         public int ExerciseId { get; set; }
         public int Duration { get; set; }
         public RoutineDetail() { }
+        public RoutineDetail(RoutineDetail routineDetail) 
+        {
+            Id = routineDetail.Id;
+            RoutineId = routineDetail.RoutineId;
+            Duration = routineDetail.Duration;
+            ExerciseId = routineDetail.ExerciseId;
+            exercise = routineDetail.exercise;
+            ExerciseName = routineDetail.ExerciseName;
+            ExerciseInstructions = routineDetail.ExerciseInstructions;
+        }
         public RoutineDetail(int routineId, int exerciseId, int duration)
         {
             RoutineId = routineId;

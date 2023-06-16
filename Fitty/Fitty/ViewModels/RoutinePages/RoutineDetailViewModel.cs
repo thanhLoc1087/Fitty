@@ -33,6 +33,7 @@ namespace Fitty.ViewModels
                 IsBusy = false;
             });
         }
+        Routine Routine { get; set; }
         private int id;
         private string name;
         private int totalDuration;
@@ -76,12 +77,8 @@ namespace Fitty.ViewModels
         {
             try
             {
-                var item = await RoutineService.GetRoutine(itemId);
-                Name = item.Name;
-                TotalDuration = item.TotalDuration;
-                TotalExercises = item.TotalExercises;
-                NumberOfSet = item.NumberOfSet;
-                Details = new ObservableCollection<RoutineDetail>(item.Details);
+                Routine = await RoutineService.GetRoutine(itemId);
+                Reset();
             }
             catch (Exception)
             {
@@ -94,6 +91,14 @@ namespace Fitty.ViewModels
                 return;
             // This will push the ItemDetailPage onto the navigation stack
             await Shell.Current.GoToAsync($"{nameof(RoutineExePage)}?{nameof(RoutineExeViewModel.Id)}={itemId}");
+        }
+        public void Reset()
+        {
+            Name = Routine.Name;
+            TotalDuration = Routine.TotalDuration;
+            TotalExercises = Routine.TotalExercises;
+            NumberOfSet = Routine.NumberOfSet;
+            Details = new ObservableCollection<RoutineDetail>(Routine.Details);
         }
     }
 }

@@ -28,7 +28,7 @@
                             <StackLayout>
                                 <Frame CornerRadius="4" Padding="4">
                                     <StackLayout Padding="10" x:DataType="model:RoutineDetail">
-                                        <Label Text="{Binding exercise}" FontSize="Medium" FontAttributes="Bold"/>
+                                        <Label Text="{Binding exercise.Name}" FontSize="Medium" FontAttributes="Bold"/>
                                         <Grid>
                                             <StackLayout Orientation="Horizontal">
                                                 <Label Text="Durations (s): " Style="{DynamicResource ListItemDetailTextStyle}" VerticalTextAlignment="Center"/>
@@ -39,7 +39,6 @@
                                                 <Label Text="second(s)" Style="{DynamicResource ListItemDetailTextStyle}" VerticalTextAlignment="Center" HorizontalOptions="End"/>
                                             </StackLayout>
                                         </Grid>
-
                                     </StackLayout>
                                 </Frame>
                                 <BoxView HeightRequest="4"/>

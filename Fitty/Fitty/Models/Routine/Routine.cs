@@ -41,7 +41,6 @@ namespace Fitty.Models
             Details.Add(routineDetail);
             TotalDuration += routineDetail.Duration;
             TotalExercises = Details.Count;
-            Debug.WriteLine(Details.Count);
         }
         public void RemoveRoutineDetail(RoutineDetail routineDetail)
         {
