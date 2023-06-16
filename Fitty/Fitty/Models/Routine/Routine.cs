@@ -1,6 +1,7 @@
 ﻿using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Fitty.Models
 {
@@ -27,7 +28,12 @@ namespace Fitty.Models
         }
         public override string ToString()
         {
-            return $"{TotalExercises}";
+            string ans = "";
+            Details.ForEach(d =>
+            {
+                ans += d.exercise.Name;
+            });
+            return ans;
         }
         public void AddRoutineDetail(RoutineDetail routineDetail)
         {
@@ -35,6 +41,7 @@ namespace Fitty.Models
             Details.Add(routineDetail);
             TotalDuration += routineDetail.Duration;
             TotalExercises = Details.Count;
+            Debug.WriteLine(Details.Count);
         }
         public void RemoveRoutineDetail(RoutineDetail routineDetail)
         {

@@ -2,9 +2,11 @@
 using Fitty.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
 using Xamarin.Forms;
+using static Xamarin.Forms.Internals.GIFBitmap;
 
 namespace Fitty.ViewModels
 {
@@ -15,6 +17,7 @@ namespace Fitty.ViewModels
         Routine _routine;
         public Routine Routine { get { return _routine; } set
             {
+                Debug.Write("routine changed");
                 SetProperty(ref _routine, value);
             }
         }
@@ -27,35 +30,28 @@ namespace Fitty.ViewModels
                 SetProperty(ref _exercises, value);
             }
         }
-        List<RoutineDetail> _details;
-        public List<RoutineDetail> Details
+        ObservableCollection<RoutineDetail> _details;
+        public ObservableCollection<RoutineDetail> Details
         {
             get => _details;
             set
             {
-                Debug.Write("heloooooooooooooo");
+                Debug.Write("details changed");
                 SetProperty(ref _details, value);
             }
         }
         public Command SaveCommand { get; set; }
+        public Command<RoutineDetail> RemoveExercise { get; set; }
         public Command ChooseExerciseCommand { get; set; }
         public AddRoutineViewModel() {
-            Title = "Hello";
-            Details = new List<RoutineDetail>();
+            Title = "New routine";
+            Details = new ObservableCollection<RoutineDetail>();
             Routine = new Routine();
-            RoutineDetail newRoutineDetail = new RoutineDetail();
-            newRoutineDetail.Duration = 30;
-            newRoutineDetail.exercise = new Exercise("TEst", "testtype", "Muscle", "body", "easy", "No ins", false);
-            newRoutineDetail.ExerciseId = 1;
-            newRoutineDetail.RoutineId = Routine.Id;
-
-            Routine.Details = new List<RoutineDetail> { newRoutineDetail };
-            Details = Routine.Details;
 
             AddRestCommand = new Command(async () =>
             {
                 string duration = await Application.Current.MainPage.DisplayPromptAsync("Rest time", "you can change this later:", "OK", "Cancel", placeholder: "30 (s)", keyboard: Keyboard.Numeric);
-                if (duration == null) duration = "30";
+                if (duration == null) return;
                 RoutineDetail rest = new RoutineDetail
                 {
                     Duration = !string.IsNullOrEmpty(duration) ? int.Parse(duration) : 30
@@ -70,33 +66,31 @@ namespace Fitty.ViewModels
                 rest.ExerciseId = restExercise.Id;
 
                 Routine.AddRoutineDetail(rest);
+                Debug.Write(Routine.Details.Count);
                 Details.Add(rest);
                 Debug.WriteLine("rest added");
-            });
-
-            Test = new Command(() =>
-            {
-                RoutineDetail test = new RoutineDetail();
-                test.Duration = 30;
-                test.exercise = new Exercise("TEst1", "testtype", "Muscle", "body", "easy", "No ins", false);
-                test.ExerciseId = 1;
-                test.RoutineId = Routine.Id;
-                Routine.AddRoutineDetail(test);
-                Details.Clear();
-                Details = Routine.Details;
-                Title = "Test pressed";
+                Debug.Write(Routine.Details.Count);
             });
 
             ItemTapped = new Command<Exercise>(OnExerciseSelected);
+            RemoveExercise = new Command<RoutineDetail>(HandleRemoveExercise);
+
             SaveCommand = new Command(async () =>
             {
+                if (Routine.Details.Count <= 0) { 
+                    await Application.Current.MainPage.DisplayAlert("Error", "Your routine must have at least one exercise.", "OK");
+                    return; 
+                }
+                if (Routine.NumberOfSet <= 0) Routine.NumberOfSet = 1;
                 var routineId = await RoutineService.AddRoutine(Routine.Name, Routine.TotalDuration, Routine.NumberOfSet, Routine.TotalExercises);
                 Routine.Details.ForEach(async d =>
                 {
+                    Debug.WriteLine(d.exercise.Name);
                     await RoutineDetailService.AddRoutineDetail(routineId, d.ExerciseId, d.Duration);
                 });
-                Routine = new Routine(); 
-                Details = new List<RoutineDetail>();
+                Debug.WriteLine(Routine.ToString());
+                Routine = new Routine();
+                Details = new ObservableCollection<RoutineDetail>();
                 await Shell.Current.GoToAsync("..");
             });
             ChooseExerciseCommand = new Command(async () =>
@@ -116,13 +110,17 @@ namespace Fitty.ViewModels
             if (item == null)
                 return;
             string duration = await Application.Current.MainPage.DisplayPromptAsync("Exercise time", "Enter the duration for this exercise (you can change this later):", "OK", "Cancel",placeholder:"30 (s)", keyboard: Keyboard.Numeric);
-            if (duration == null) duration = "30";
-            RoutineDetail newRoutineDetail = new RoutineDetail();
-            newRoutineDetail.Duration = !string.IsNullOrEmpty(duration) ? int.Parse(duration) : 30;
-            newRoutineDetail.exercise = item;
-            newRoutineDetail.ExerciseId = item.Id;
+            if (duration == null) return;
+            RoutineDetail newRoutineDetail = new RoutineDetail
+            {
+                Duration = !string.IsNullOrEmpty(duration) ? int.Parse(duration) : 30,
+                ExerciseId = item.Id,
+                exercise = item,
+            };
 
+                Debug.Write(Routine.Details.Count);
             Routine.AddRoutineDetail(newRoutineDetail);
+                Debug.Write(Routine.Details.Count);
             Details.Add(newRoutineDetail);
             await Shell.Current.GoToAsync("..");
         }
@@ -137,6 +135,13 @@ namespace Fitty.ViewModels
             {
                 SetProperty(ref _isRefreshing, value);
             }
+        }
+        private void HandleRemoveExercise(RoutineDetail item)
+        {
+            if (item == null) return;
+
+            Routine.RemoveRoutineDetail(item); 
+            Details.Remove(item);
         }
     }
 }

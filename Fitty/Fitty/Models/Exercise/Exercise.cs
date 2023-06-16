@@ -27,6 +27,6 @@ namespace Fitty.Models
             Instructions = instructions;
             UserCreated = userCreated;
         }
-        public override string ToString() => $"ID: {Id}, Name: {Name}, Type: {Type}, Muscle: {Muscle}, Equipment: {Equipment}, Difficulty: {Difficulty}";
+        public override string ToString() => Name;
     }
 }

@@ -16,6 +16,8 @@ namespace Fitty.Models
             routineDetails.ForEach(async rd =>
             {
                 rd.exercise = await ExerciseService.GetExercise(rd.ExerciseId);
+                rd.ExerciseName = rd.exercise.Name;
+                rd.ExerciseInstructions = rd.exercise.Instructions;
             });
             return routineDetails.Count == 1 ? routineDetails[0] : null;
         }
@@ -26,6 +28,8 @@ namespace Fitty.Models
             routineDetails.ForEach(async rd =>
             {
                 rd.exercise = await ExerciseService.GetExercise(rd.ExerciseId);
+                rd.ExerciseName = rd.exercise.Name;
+                rd.ExerciseInstructions = rd.exercise.Instructions;
             });
             return routineDetails;
         }

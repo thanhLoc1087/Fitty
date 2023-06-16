@@ -11,7 +11,7 @@
     </Shell.SearchHandler>
     <ContentPage.Content>
         <StackLayout x:DataType="local:FilterViewModel" BackgroundColor="#efefef">
-            <Grid Padding="20,0,20,0">
+            <Grid Padding="16,0,16,16" BackgroundColor="White">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>

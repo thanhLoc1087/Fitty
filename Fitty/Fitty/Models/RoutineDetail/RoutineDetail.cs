@@ -23,5 +23,9 @@ namespace Fitty.Models
         }
         [Ignore]
         public Exercise exercise { get; set; }
+        [Ignore]
+        public string ExerciseName { get; set; }
+        [Ignore]
+        public string ExerciseInstructions { get; set; }
     }
 }

@@ -31,12 +31,6 @@
             <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
         </Tab>
     </FlyoutItem>
-    <FlyoutItem Title="Add Exercise"
-                Icon="home_icon.png">
-        <Tab>
-            <ShellContent ContentTemplate="{DataTemplate views:AddExercisePage}" />
-        </Tab>
-    </FlyoutItem>
     <FlyoutItem Title="Search"
                 Icon="search_icon.png">
         <Tab>
@@ -44,31 +38,31 @@
         </Tab>
     </FlyoutItem>
     <FlyoutItem Title="Exercises"
-                Icon="dog.png">
+                Icon="exercise_icon.png">
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate views:ExerciseMainPage}" />
         </Tab>
     </FlyoutItem>
+    <FlyoutItem Title="Add Exercise"
+                Icon="add_icon.png">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:AddExercisePage}" />
+        </Tab>
+    </FlyoutItem>
     <FlyoutItem Title="Routines"
-                Icon="dog.png">
+                Icon="routine_icon.png">
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate views:RoutinesPage}" />
         </Tab>
     </FlyoutItem>
     <FlyoutItem Title="Calculator"
-                Icon="dog.png">
+                Icon="calculator_icon.png">
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate views:NutritionPage}" />
-        </Tab>
-    </FlyoutItem>
-    <FlyoutItem Title="Calculator"
-                Icon="dog.png">
-        <Tab>
-            <ShellContent ContentTemplate="{DataTemplate views:BMICalculatorPage}" />
+            <ShellContent ContentTemplate="{DataTemplate views:CalculatorPage}" />
         </Tab>
     </FlyoutItem>
     <FlyoutItem Title="Hydration"
-                Icon="dog.png">
+                Icon="hydration_icon.png">
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate views:HydrationAlarm}" />
         </Tab>

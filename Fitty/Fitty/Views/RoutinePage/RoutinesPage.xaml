@@ -6,56 +6,71 @@
              x:Class="Fitty.Views.RoutinesPage">
     <ContentPage.Content>
         <ScrollView x:DataType="local:RoutinesViewModel">
-            <Grid>
+            <StackLayout>
+                <Button HorizontalOptions="Start"
+                            Text="Add new routine" 
+                            Margin="20,0,20,0"
+                            Command="{Binding AddCommand}" />
                 <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding Refresh}">
                     <CollectionView 
                             ItemsSource="{Binding Routines}"
                             SelectionMode="Single">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <StackLayout>
-                                    <Frame CornerRadius="4" Padding="4">
-                                        <StackLayout Padding="10" x:DataType="model:Routine">
-                                            <Label Text="{Binding Name}" FontSize="Medium" FontAttributes="Bold"/>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition/>
-                                                    <ColumnDefinition/>
-                                                </Grid.ColumnDefinitions>
-                                                <StackLayout Grid.Column="0" Orientation="Horizontal">
-                                                    <Label Text="Total Exercises: " Style="{DynamicResource ListItemDetailTextStyle}"/>
-                                                    <Label Text="{Binding TotalExercises}" 
-                                                   Style="{DynamicResource ListItemDetailTextStyle}"
-                                                   TextColor="{StaticResource teal500}"/>
+                                <StackLayout x:DataType="model:Routine">
+                                    <SwipeView>
+                                        <SwipeView.LeftItems>
+                                            <SwipeItems>
+                                                <SwipeItem Text="Edit"
+                                                           IconImageSource="edit_icon.png"
+                                                           Command="{Binding Source={RelativeSource AncestorType={x:Type local:RoutinesViewModel}}, Path=EditRoutine}"
+                                                           CommandParameter="{Binding .}"
+                                                           BackgroundColor="{StaticResource teal200}"/>
+                                                <SwipeItem Text="Delete"
+                                                           Command="{Binding Source={RelativeSource AncestorType={x:Type local:RoutinesViewModel}}, Path=DeleteRoutine}"
+                                                           CommandParameter="{Binding .}"
+                                                           IconImageSource="trash_icon.png"
+                                                           BackgroundColor="LightPink"/>
+                                            </SwipeItems>
+                                        </SwipeView.LeftItems>
+                                        <Frame CornerRadius="4" Padding="4">
+                                            <StackLayout Padding="10">
+                                                    <Label Text="{Binding Name}" FontSize="Medium" FontAttributes="Bold"/>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition/>
+                                                            <ColumnDefinition/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <StackLayout Grid.Column="0" Orientation="Horizontal">
+                                                            <Label Text="Total Exercises: " Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                                            <Label Text="{Binding TotalExercises}" 
+                                                           Style="{DynamicResource ListItemDetailTextStyle}"
+                                                           TextColor="{StaticResource teal500}"/>
+                                                        </StackLayout>
+                                                        <StackLayout Grid.Column="1" Orientation="Horizontal">
+                                                            <Label Text="Durations: " Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                                            <Label Text="{Binding TotalDuration}" 
+                                                           Style="{DynamicResource ListItemDetailTextStyle}"
+                                                           TextColor="{StaticResource teal500}"/>
+                                                        </StackLayout>
+                                                    </Grid>
+                                                    <StackLayout.GestureRecognizers>
+                                                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:RoutinesViewModel}}, Path=ItemTapped}"
+                                                                  CommandParameter="{Binding .}">
+                                                        </TapGestureRecognizer>
+                                                    </StackLayout.GestureRecognizers>
                                                 </StackLayout>
-                                                <StackLayout Grid.Column="1" Orientation="Horizontal">
-                                                    <Label Text="Durations: " Style="{DynamicResource ListItemDetailTextStyle}"/>
-                                                    <Label Text="{Binding TotalDuration}" 
-                                                   Style="{DynamicResource ListItemDetailTextStyle}"
-                                                   TextColor="{StaticResource teal500}"/>
-                                                </StackLayout>
-                                            </Grid>
-                                            <StackLayout.GestureRecognizers>
-                                                <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:RoutinesViewModel}}, Path=ItemTapped}"
-                                                          CommandParameter="{Binding .}">
-                                                </TapGestureRecognizer>
-                                            </StackLayout.GestureRecognizers>
-                                        </StackLayout>
-                                    </Frame>
+                                        </Frame>
+                                    </SwipeView>
                                     <BoxView HeightRequest="4"/>
                                 </StackLayout>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                 </RefreshView>
-                    <Button HorizontalOptions="End"
-                            VerticalOptions="End" 
-                            Text="Add new routine" 
-                            Margin="20,0,20,0"
-                            Command="{Binding AddCommand}" />
                 
-            </Grid>
+            </StackLayout>
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>

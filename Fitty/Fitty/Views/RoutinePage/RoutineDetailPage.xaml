@@ -5,27 +5,37 @@
              xmlns:model="clr-namespace:Fitty.Models"
              x:Class="Fitty.Views.RoutineDetailPage">
     <ContentPage.Content>
-        <ScrollView x:DataType="local:RoutineDetailViewModel">
-            <StackLayout Padding="20,0,20,0">
-                <!--<Entry Text="{Binding Name}"></Entry>-->
-                <Label Text="{Binding TotalDuration}"></Label>
-                <Label Text="{Binding TotalExercises}"></Label>
-                <Label Text="{Binding NumberOfSet}"></Label>
-                <CollectionView ItemsSource="{Binding Details, Mode=TwoWay}"
-                                SelectionMode="Single">
+        <!--<RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding Refresh}">-->
+            <ScrollView x:DataType="local:RoutineDetailViewModel">
+                <StackLayout Padding="20,0,20,0">
+                    <StackLayout Orientation="Horizontal">
+                        <Button Text="Edit"/>
+                        <Button Text="Start workout" 
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:RoutineDetailViewModel}}, Path=StartCommand}"
+                            CommandParameter="{Binding Id}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Total time: "/>
+                        <Label Text="{Binding TotalDuration}"/>
+                    </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Sets: "/>
+                    <Label Text="{Binding NumberOfSet}"/>
+                </StackLayout>
+                <CollectionView ItemsSource="{Binding Details}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:RoutineDetail">
                             <StackLayout>
                                 <Frame CornerRadius="4" Padding="4">
                                     <StackLayout Padding="10" x:DataType="model:RoutineDetail">
-                                        <Label Text="{Binding exercise.Name}" FontSize="Medium" FontAttributes="Bold"/>
+                                        <Label Text="{Binding exercise}" FontSize="Medium" FontAttributes="Bold"/>
                                         <Grid>
                                             <StackLayout Orientation="Horizontal">
                                                 <Label Text="Durations (s): " Style="{DynamicResource ListItemDetailTextStyle}" VerticalTextAlignment="Center"/>
                                                 <Label Text="{Binding Duration}" 
-                                                       Style="{DynamicResource ListItemDetailTextStyle}"
-                                                       TextColor="{StaticResource teal500}"
-                                                       WidthRequest="120" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
+                                                           Style="{DynamicResource ListItemDetailTextStyle}"
+                                                           TextColor="{StaticResource teal500}"
+                                                           WidthRequest="120" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
                                                 <Label Text="second(s)" Style="{DynamicResource ListItemDetailTextStyle}" VerticalTextAlignment="Center" HorizontalOptions="End"/>
                                             </StackLayout>
                                         </Grid>
@@ -47,7 +57,8 @@
                                 Text="Test" 
                                 Margin="20,0,20,0"
                                 Command="{Binding SaveCommand}" />-->
-            </StackLayout>
-        </ScrollView>
+                </StackLayout>
+            </ScrollView>
+        <!--</RefreshView>-->
     </ContentPage.Content>
 </ContentPage>

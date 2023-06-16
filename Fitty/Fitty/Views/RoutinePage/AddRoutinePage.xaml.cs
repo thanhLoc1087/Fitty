@@ -2,6 +2,7 @@
 using Fitty.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,12 +20,13 @@ namespace Fitty.Views.RoutinePage
             InitializeComponent();
             BindingContext = RoutinesViewModel.addRoutineViewModel;
         }
-        protected async override void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
             var _container = BindingContext as AddRoutineViewModel;
-
-            RoutineDetailsList.ItemsSource = _container.Details;
+            //RoutineDetailsList.ItemsSource = _container.Routine.Details;
+            Debug.WriteLine("on appearing");
+            Debug.WriteLine(_container.Routine.Details.Count());
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Fitty.ViewModels
             });
             CalculatorCommand = new Command(async () =>
             {
-                await Shell.Current.GoToAsync($"{nameof(NutritionPage)}");
+                await Shell.Current.GoToAsync($"{nameof(CalculatorPage)}");
             });
             ExercisesCommand = new Command(async () =>
             {

@@ -1,46 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Fitty.Views.RoutinePage.AddRoutinePage"
              xmlns:local="clr-namespace:Fitty.ViewModels"  
              xmlns:model="clr-namespace:Fitty.Models"
+             x:Class="Fitty.Views.RoutineExePage"
              Title="{Binding Title}">
     <ContentPage.Content>
-        <ScrollView x:DataType="local:AddRoutineViewModel">
-            <StackLayout Padding="20,0,20,0">
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Name: " VerticalTextAlignment="Center"/>
-                    <Entry Text="{Binding Routine.Name, Mode=TwoWay}" 
-                           Placeholder="Routine name"
-                           HorizontalOptions="FillAndExpand" 
-                           HorizontalTextAlignment="Center"></Entry>
+        <ScrollView x:DataType="local:RoutineExeViewModel">
+            <StackLayout Padding="20">
+                <Frame CornerRadius="4" Padding="4">
+                    <StackLayout Padding="10" Grid.Column="0">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Total remaining time: "/>
+                            <Label Text="{Binding TimeRemaining}"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Remaining sets: "/>
+                            <Label Text="{Binding RemainingSet}"/>
+                        </StackLayout>
+                        <Grid VerticalOptions="Center" HorizontalOptions="Center">
+                            <Ellipse Stroke="Black" StrokeThickness="2" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="120" HeightRequest="120" />
+                            <Label Text="{Binding RemainingTimeInSeconds}"  FontSize="40"  TextColor="{StaticResource teal900}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                        </Grid>
+                        <Label Text="{Binding CurrentDetail.exercise.Name}" FontSize="Medium" FontAttributes="Bold"/>
+                        <Label Text="{Binding CurrentDetail.exercise.Instructions}" FontSize="Medium"/>
+                    </StackLayout>
+                </Frame>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Button Text="Skip" Command="{Binding SkipCommand}"/>
+                    <Button Text="{Binding StartRestart}" Command="{Binding StartCommand}" IsEnabled="{Binding IsNotRunning}"/>
+                    <Button Text="Pause" Command="{Binding PauseCommand}" IsEnabled="{Binding IsRunning}"/>
                 </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Number of Sets: " VerticalTextAlignment="Center"/>
-                    <Entry Text="{Binding Routine.NumberOfSet, Mode=TwoWay}" 
-                           Placeholder="1"
-                           Keyboard="Numeric"
-                           HorizontalOptions="FillAndExpand" 
-                           HorizontalTextAlignment="Center"></Entry>
-                </StackLayout>
-                <Button HorizontalOptions="End"
-                                VerticalOptions="End" 
-                                Text="Add new exercise" 
-                                Margin="20,0,20,0"
-                                Command="{Binding ChooseExerciseCommand}" />
-                <Button HorizontalOptions="Start"
-                                VerticalOptions="End" 
-                                Text="Save" 
-                                Margin="20,0,20,0"
-                                Command="{Binding SaveCommand}" />
-                <Button HorizontalOptions="Center"
-                                VerticalOptions="End" 
-                                Text="Rest" 
-                                Margin="20,0,20,0"
-                                Command="{Binding AddRestCommand}" />
+
+                <Label Text="Next up:" Padding="12,12,0,0" FontAttributes="Bold" FontSize="Medium"/>
+
                 <CollectionView ItemsSource="{Binding Details}"
-                                x:Name="RoutineDetailsList"
-                                SelectionMode="Single">
+                                x:Name="RoutineDetailsList">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout>
@@ -56,14 +51,14 @@
                                     </SwipeView.RightItems>
                                     <Frame CornerRadius="4" Padding="4">
                                         <StackLayout Padding="10" x:DataType="model:RoutineDetail" Grid.Column="0">
-                                            <Label Text="{Binding exercise.Name}" FontSize="Medium" FontAttributes="Bold"/>
+                                            <Label Text="{Binding exercise}" FontSize="Medium" FontAttributes="Bold"/>
                                             <Grid>
                                                 <StackLayout Orientation="Horizontal">
                                                     <Label Text="Durations (s): " Style="{DynamicResource ListItemDetailTextStyle}" VerticalTextAlignment="Center"/>
-                                                    <Entry Text="{Binding Duration}" 
+                                                    <Label Text="{Binding Duration}" 
                                                            Style="{DynamicResource ListItemDetailTextStyle}"
                                                            TextColor="{StaticResource teal500}"
-                                                           Keyboard="Numeric" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"/>
+                                                           HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"/>
                                                     <Label Text="second(s)" Style="{DynamicResource ListItemDetailTextStyle}" VerticalTextAlignment="Center" HorizontalOptions="End"/>
                                                 </StackLayout>
                                             </Grid>
