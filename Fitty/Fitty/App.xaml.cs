@@ -10,10 +10,12 @@ namespace Fitty
     public partial class App : Application
     {
 
-        public App()
+        public App(bool shallNavigate)
         {
             InitializeComponent();
-            MainPage = new AppShell();
+            {
+                MainPage = new AppShell();
+            }
         }
 
         protected override void OnStart()

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Fitty_Xamarin
+namespace Fitty
 {
     public interface INotification
     {
