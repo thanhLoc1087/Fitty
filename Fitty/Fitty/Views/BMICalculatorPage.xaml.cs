@@ -20,11 +20,16 @@ namespace Fitty.Views
             InitializeComponent();
 
             // Calculate BMI
-            double heightInMeters = UserHeight / 100.0;
-            double bmi = UserWeight / (heightInMeters * heightInMeters);
+            Calculate(UserWeight, UserHeight);
+        }
+
+        public void Calculate(int height, int weight)
+        {
+            double heightInMeters = height / 100.0;
+            double bmi = weight / (heightInMeters * heightInMeters);
             bmiLabel.Text = bmi.ToString("F1");
 
-            // Determine Basic Health Status based on BMI
+            ColorReset();
             if (bmi < 18.5)
             {
                 healthStatusLabel.Text = "Underweight";
@@ -74,6 +79,42 @@ namespace Fitty.Views
                 obeseDescription3.TextColor = Color.Red;
             }
         }
+        private void OnCalculateClicked(object sender, EventArgs e)
+        {
+            int height = 0, weight = 0;
+            if (!string.IsNullOrEmpty(heightEntry.Text))
+            {
+                height = int.Parse(heightEntry.Text);
+            }
 
+            if (!string.IsNullOrEmpty(weightEntry.Text))
+            {
+                weight = int.Parse(weightEntry.Text);
+            }
+            Calculate(height, weight);
+            customPopup.IsVisible = false;
+            heightEntry.Text = "";
+            weightEntry.Text = "";
+        }
+        private void OnCustomClicked(object sender, EventArgs e)
+        {
+            customPopup.IsVisible = true;
+        }
+        private void OnResetClicked(object sender, EventArgs e)
+        {
+            heightEntry.Text = "";
+            weightEntry.Text = "";
+            Calculate(UserHeight, UserWeight);
+        }
+        private void ColorReset()
+        {
+            healthStatusLabel.TextColor =
+            underweightRangeLabel.TextColor = underweightLabel.TextColor = underweightDescription.TextColor =
+            healthyRangeLabel.TextColor = healthyLabel.TextColor = healthyDescription.TextColor =
+            overweightRangeLabel.TextColor = overweightLabel.TextColor = overweightDescription.TextColor =
+            obeseLabel1.TextColor = obeseRangeLabel1.TextColor = obeseDescription1.TextColor =
+            obeseLabel2.TextColor = obeseRangeLabel2.TextColor = obeseDescription2.TextColor =
+            obeseRangeLabel3.TextColor = obeseLabel3.TextColor = obeseDescription3.TextColor = Color.Gray;
+        }
     }
 }
