@@ -20,12 +20,12 @@ namespace Fitty.Droid
         {
             //base.OnCreate(savedInstanceState);
 
-            //Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             //global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             //LoadApplication(new App());
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
             base.OnCreate(savedInstanceState);
+            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             bool flag = false;
             if (Intent.Extras != null)
