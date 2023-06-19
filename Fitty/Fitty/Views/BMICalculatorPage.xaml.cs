@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
+using Fitty.Models;
 namespace Fitty.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BMICalculatorPage : ContentPage
     {
 
-        private int UserWeight = 75;
-        private int UserHeight = 175;
+        private int UserWeight = UserLocal.GetUserFromFile().Weight;
+        private int UserHeight = UserLocal.GetUserFromFile().Height;
         public BMICalculatorPage()
         {
             InitializeComponent();

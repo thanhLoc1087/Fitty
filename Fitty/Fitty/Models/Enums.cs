@@ -1,5 +1,20 @@
 ﻿namespace Fitty.Models
 {
+    public enum Gender
+    {
+        Male,
+        Female
+    }
+
+    public enum ActivityLevel
+    {
+        littleNoExercise,
+        oneTwoTimesWeek,
+        twoThreeTimesWeek,
+        threeFiveTimesWeek,
+        sixSevenTimesWeek,
+        professionalAthlete
+    }
     enum MuscleGroupEnum
     {
         abdominals,

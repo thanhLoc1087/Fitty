@@ -16757,7 +16757,13 @@ namespace Fitty.Droid
 			public const int triceps_muscle = 2131165358;
 			
 			// aapt resource value: 0x7F0700AF
-			public const int Welcome_Background = 2131165359;
+			public const int user_avatar = 2131165359;
+			
+			// aapt resource value: 0x7F0700B0
+			public const int user_icon = 2131165360;
+			
+			// aapt resource value: 0x7F0700B1
+			public const int Welcome_Background = 2131165361;
 			
 			static Drawable()
 			{

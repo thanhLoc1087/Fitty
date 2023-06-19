@@ -12,6 +12,7 @@ namespace Fitty
         public AppShell()
         {
             InitializeComponent();
+            Routing.RegisterRoute(nameof(UserPage) , typeof(UserPage));
             Routing.RegisterRoute(nameof(Welcome), typeof(Welcome));
             Routing.RegisterRoute(nameof(Login), typeof(Login));
             Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));

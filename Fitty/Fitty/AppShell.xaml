@@ -31,6 +31,12 @@
             <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
         </Tab>
     </FlyoutItem>
+    <FlyoutItem Title="User"
+                Icon="user_icon.png">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:UserPage}" />
+        </Tab>
+    </FlyoutItem>
     <FlyoutItem Title="Search"
                 Icon="search_icon.png">
         <Tab>

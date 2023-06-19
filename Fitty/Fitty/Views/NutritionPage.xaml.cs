@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fitty.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -50,8 +51,7 @@ namespace Fitty.Views
         }
         private void OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            // Handle text changed events for ageEntry, weightEntry, and heightEntry
-            // You can update the UI or perform validation here
+            
         }
 
         private void OnGenderRadioButtonCheckedChanged(object sender, CheckedChangedEventArgs e)
@@ -101,11 +101,43 @@ namespace Fitty.Views
         }
         private void OnFillDataButtonClicked(object sender, EventArgs e)
         {
-            ageEntry.Text = "25";
-            weightEntry.Text = "50";
-            heightEntry.Text = "170";
-            maleRadioButton.IsChecked = true;
-            activityLevelPicker.SelectedIndex = 2;
+            UserLocal user = UserLocal.GetUserFromFile();
+            ageEntry.Text = user.Age.ToString();
+            weightEntry.Text = user.Weight.ToString();
+            heightEntry.Text = user.Height.ToString();
+            if (user.Gender == Models.Gender.Male)
+            {
+                maleRadioButton.IsChecked = true;
+
+            }
+            else
+            {
+                femaleRadioButton.IsChecked = true;
+
+            }
+            switch((Models.ActivityLevel) user.ActivityLevel)
+            {
+                case Models.ActivityLevel.littleNoExercise:
+                    activityLevelPicker.SelectedIndex = 0;
+                    break;
+                    case Models.ActivityLevel.oneTwoTimesWeek:
+                    activityLevelPicker.SelectedIndex = 1; 
+                    break;
+                    case Models.ActivityLevel.twoThreeTimesWeek:
+                    activityLevelPicker.SelectedIndex = 2;
+                    break;
+                    case Models.ActivityLevel.threeFiveTimesWeek:
+                    activityLevelPicker.SelectedIndex = 3;
+                    break;
+                    case Models.ActivityLevel.sixSevenTimesWeek:
+                    activityLevelPicker.SelectedIndex = 4;
+
+                    break;
+                    case Models.ActivityLevel.professionalAthlete:
+                    activityLevelPicker.SelectedIndex = 5;
+                    break;
+
+            }
         }
     }
 }
