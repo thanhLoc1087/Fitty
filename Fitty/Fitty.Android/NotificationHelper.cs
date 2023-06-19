@@ -1,27 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
 using Android.Media;
-using Android.OS;
-using Android.Runtime;
 using Android.Support.V4.App;
-using Android.Views;
-using Android.Widget;
-using AndroidX.Core.App;
 using Fitty.Droid;
+using Fitty;
 using Xamarin.Forms;
+using System.Diagnostics;
 
 [assembly: Dependency(typeof(NotificationHelper))]
 namespace Fitty.Droid
 {
-    public interface INotification
-    {
-        void CreateNotification(String title, String message);
-    }
     class NotificationHelper : INotification
     {
         private Context mContext;
@@ -49,7 +39,7 @@ namespace Fitty.Droid
                     .SetUsage(AudioUsageKind.Notification).Build();
 
                 mBuilder = new NotificationCompat.Builder(mContext);
-                mBuilder.SetSmallIcon(Resource.Drawable.navigation_empty_icon);
+                mBuilder.SetSmallIcon(Resource.Drawable.hydration_icon);
                 mBuilder.SetContentTitle(title)
                         .SetSound(sound)
                         .SetAutoCancel(true)
@@ -60,7 +50,7 @@ namespace Fitty.Droid
                         .SetVibrate(new long[0])
                         .SetDefaults((int)NotificationDefaults.Sound | (int)NotificationDefaults.Vibrate)
                         .SetVisibility((int)NotificationVisibility.Public)
-                        .SetSmallIcon(Resource.Drawable.navigation_empty_icon)
+                        .SetSmallIcon(Resource.Drawable.hydration_icon)
                         .SetContentIntent(pendingIntent);
 
 
@@ -90,7 +80,7 @@ namespace Fitty.Droid
             }
             catch (Exception ex)
             {
-                //
+                Debug.WriteLine(ex);
             }
         }
     }
