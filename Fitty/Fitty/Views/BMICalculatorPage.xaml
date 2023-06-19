@@ -68,19 +68,18 @@
                 <Button Grid.Column="0" Text="Custom" Clicked="OnCustomClicked" WidthRequest="100" HeightRequest="50" Margin="0, 10, 0, 10" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
                 <Button Grid.Column="1" Text="Reset" Clicked="OnResetClicked" WidthRequest="100" HeightRequest="50" Margin="0, 10, 0, 10" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
             </Grid>
-            <StackLayout x:Name="customPopup" 
+                <StackLayout x:Name="customPopup" 
                          IsVisible="false" 
                          BackgroundColor="White" 
                          Padding="10" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" WidthRequest="300" HeightRequest="300"
                   Grid.Row="0" Grid.RowSpan="15">
-                <Label Text="Enter your height (in cm)" FontSize="Medium" TextColor="Black" Margin="0,0,0,5"/>
-                <Entry x:Name="heightEntry" Placeholder="cm" Keyboard="Numeric" Margin="0,0,0,10"/>
-                <Label Text="Enter your weight (in kg)" FontSize="Medium" TextColor="Black" Margin="0,0,0,5"/>
-                <Entry x:Name="weightEntry" Placeholder="kg" Keyboard="Numeric" Margin="0,0,0,10"/>
-                <Button Text="Calculate" Clicked="OnCalculateClicked" WidthRequest="100" HeightRequest="50" Margin="0,10,0,0"/>
-            </StackLayout>
-
-        </Grid>
+                    <Label Text="Enter your height (in cm)" FontSize="Medium" TextColor="Black" Margin="0,0,0,5"/>
+                    <Entry x:Name="heightEntry" Placeholder="cm" Keyboard="Numeric" Margin="0,0,0,10"/>
+                    <Label Text="Enter your weight (in kg)" FontSize="Medium" TextColor="Black" Margin="0,0,0,5"/>
+                    <Entry x:Name="weightEntry" Placeholder="kg" Keyboard="Numeric" Margin="0,0,0,10"/>
+                    <Button Text="Calculate" Clicked="OnCalculateClicked" WidthRequest="100" HeightRequest="50" Margin="0,10,0,0"/>
+                </StackLayout>
+            </Grid>
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>

@@ -9,7 +9,9 @@
             <ScrollView x:DataType="local:RoutineDetailViewModel">
                 <StackLayout Padding="20,0,20,0">
                     <StackLayout Orientation="Horizontal">
-                        <Button Text="Edit"/>
+                        <Button Text="Edit"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:RoutineDetailViewModel}}, Path=EditCommand}"
+                                CommandParameter="{Binding Id}"/>
                         <Button Text="Start workout" 
                             Command="{Binding Source={RelativeSource AncestorType={x:Type local:RoutineDetailViewModel}}, Path=StartCommand}"
                             CommandParameter="{Binding Id}"/>
