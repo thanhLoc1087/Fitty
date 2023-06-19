@@ -20105,13 +20105,10 @@ namespace Fitty.Droid
 		{
 			
 			// aapt resource value: 0x7F0E0000
-			public const int beep_sound_fx = 2131623936;
+			public const int firebase_common_keep = 2131623936;
 			
 			// aapt resource value: 0x7F0E0001
-			public const int firebase_common_keep = 2131623937;
-			
-			// aapt resource value: 0x7F0E0002
-			public const int notification = 2131623938;
+			public const int notification = 2131623937;
 			
 			static Raw()
 			{

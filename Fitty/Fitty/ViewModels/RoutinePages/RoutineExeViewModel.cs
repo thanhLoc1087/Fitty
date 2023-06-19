@@ -122,7 +122,7 @@ namespace Fitty.ViewModels
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DependencyService.Get<IAudio>().PlayAudioFile("beep_sound_fx.mp3");
+                    DependencyService.Get<IAudio>().PlayAudioFile("beep_heavy_fx.mp3");
                 });
 
                 // Display an alert or perform any other action when the timer reaches 0
