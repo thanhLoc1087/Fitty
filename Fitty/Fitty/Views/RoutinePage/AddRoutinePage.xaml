@@ -23,21 +23,24 @@
                            HorizontalOptions="FillAndExpand" 
                            HorizontalTextAlignment="Center"></Entry>
                 </StackLayout>
-                <Button HorizontalOptions="End"
+                <StackLayout Orientation="Horizontal">
+                    <Button HorizontalOptions="StartAndExpand"
                                 VerticalOptions="End" 
                                 Text="Add new exercise" 
-                                Margin="20,0,20,0"
+                                Margin="20,0,10,0"
                                 Command="{Binding ChooseExerciseCommand}" />
-                <Button HorizontalOptions="Start"
-                                VerticalOptions="End" 
-                                Text="Save" 
-                                Margin="20,0,20,0"
-                                Command="{Binding SaveCommand}" />
-                <Button HorizontalOptions="Center"
+                    <Button HorizontalOptions="FillAndExpand"
                                 VerticalOptions="End" 
                                 Text="Rest" 
-                                Margin="20,0,20,0"
+                                Margin="10,0,20,0"
                                 Command="{Binding AddRestCommand}" />
+                </StackLayout>
+                <Button HorizontalOptions="FillAndExpand"
+                                VerticalOptions="End" 
+                                Text="Save"
+                        BackgroundColor="PaleVioletRed"
+                                Margin="20,0,20,0"
+                                Command="{Binding SaveCommand}"/>
                 <CollectionView ItemsSource="{Binding Details}"
                                 x:Name="RoutineDetailsList"
                                 SelectionMode="Single">

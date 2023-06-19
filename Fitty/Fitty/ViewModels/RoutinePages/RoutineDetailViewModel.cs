@@ -1,5 +1,6 @@
 ﻿using Fitty.Models;
 using Fitty.Views;
+using Fitty.Views.RoutinePage;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,6 +15,7 @@ namespace Fitty.ViewModels
     {
         public RoutineDetailViewModel() {
             StartCommand = new Command<int>(OnItemSelected);
+            EditCommand = new Command<int>(HandleEditRoutine);
 
             Refresh = new Command(() =>
             {
@@ -40,6 +42,7 @@ namespace Fitty.ViewModels
         private int totalExercises;
         private int numberOfSet;
         private ObservableCollection<RoutineDetail> details;
+        public Command<int> EditCommand { get; set; }
         public bool _isRefreshing;
         public bool IsRefreshing
         {
@@ -99,6 +102,14 @@ namespace Fitty.ViewModels
             TotalExercises = Routine.TotalExercises;
             NumberOfSet = Routine.NumberOfSet;
             Details = new ObservableCollection<RoutineDetail>(Routine.Details);
+        }
+        private async void HandleEditRoutine(int itemID)
+        {
+            if (itemID <= 0)
+                return;
+
+            // This will push the ItemDetailPage onto the navigation stack
+            await Shell.Current.GoToAsync($"{nameof(AddRoutinePage)}?{nameof(AddRoutineViewModel.Id)}={itemID}");
         }
     }
 }
