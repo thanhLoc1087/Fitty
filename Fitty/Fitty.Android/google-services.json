@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "922460813763",
-    "firebase_url": "https://sample-push-notification-b35f7.firebaseio.com",
-    "project_id": "sample-push-notification-b35f7",
-    "storage_bucket": "sample-push-notification-b35f7.appspot.com"
+    "project_number": "433812908765",
+    "project_id": "fitty-1ddcb",
+    "storage_bucket": "fitty-1ddcb.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:922460813763:android:57a400480b0fba97c5e576",
+        "mobilesdk_app_id": "1:433812908765:android:053c7e6f95cec66aa88934",
         "android_client_info": {
-          "package_name": "com.notificationsample.android"
+          "package_name": "com.companyname.fitty"
         }
       },
       "oauth_client": [
         {
-          "client_id": "922460813763-sd4uk3u80bd6bf3q2nfmfkv8h3riho0k.apps.googleusercontent.com",
+          "client_id": "433812908765-mg3gk4mac1ohdrj96csh8d3miun0j5up.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBYSn7H5GCt2aghn2PuOICB1J7QO4X2vA4"
+          "current_key": "AIzaSyD_tkaxARaFnpZhde0ODz0cEC2-eafIuBU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "922460813763-sd4uk3u80bd6bf3q2nfmfkv8h3riho0k.apps.googleusercontent.com",
+              "client_id": "433812908765-mg3gk4mac1ohdrj96csh8d3miun0j5up.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

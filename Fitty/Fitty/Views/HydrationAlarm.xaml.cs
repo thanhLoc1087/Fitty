@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.Timers;
+using System.Diagnostics;
 
 namespace Fitty.Views
 {

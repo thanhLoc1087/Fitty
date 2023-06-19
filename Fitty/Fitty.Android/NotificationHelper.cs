@@ -6,11 +6,11 @@ using Android.Media;
 using Android.Support.V4.App;
 using Fitty.Droid;
 using Fitty;
-using NotificationSample.Droid;
 using Xamarin.Forms;
+using System.Diagnostics;
 
 [assembly: Dependency(typeof(NotificationHelper))]
-namespace NotificationSample.Droid
+namespace Fitty.Droid
 {
     class NotificationHelper : INotification
     {
@@ -39,7 +39,7 @@ namespace NotificationSample.Droid
                     .SetUsage(AudioUsageKind.Notification).Build();
 
                 mBuilder = new NotificationCompat.Builder(mContext);
-                mBuilder.SetSmallIcon(Resource.Drawable.icon);
+                mBuilder.SetSmallIcon(Resource.Drawable.hydration_icon);
                 mBuilder.SetContentTitle(title)
                         .SetSound(sound)
                         .SetAutoCancel(true)
@@ -50,7 +50,7 @@ namespace NotificationSample.Droid
                         .SetVibrate(new long[0])
                         .SetDefaults((int)NotificationDefaults.Sound | (int)NotificationDefaults.Vibrate)
                         .SetVisibility((int)NotificationVisibility.Public)
-                        .SetSmallIcon(Resource.Drawable.icon)
+                        .SetSmallIcon(Resource.Drawable.hydration_icon)
                         .SetContentIntent(pendingIntent);
 
 
@@ -80,7 +80,7 @@ namespace NotificationSample.Droid
             }
             catch (Exception ex)
             {
-                //
+                Debug.WriteLine(ex);
             }
         }
     }
