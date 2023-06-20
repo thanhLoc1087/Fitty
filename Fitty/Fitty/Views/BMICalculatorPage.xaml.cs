@@ -12,6 +12,8 @@ namespace Fitty.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BMICalculatorPage : ContentPage
     {
+        int calWeight;
+        int calHeight;
 
         private int UserWeight = UserLocal.GetUserFromFile().Weight;
         private int UserHeight = UserLocal.GetUserFromFile().Height;
@@ -81,17 +83,18 @@ namespace Fitty.Views
         }
         private void OnCalculateClicked(object sender, EventArgs e)
         {
-            int height = 0, weight = 0;
             if (!string.IsNullOrEmpty(heightEntry.Text))
             {
-                height = int.Parse(heightEntry.Text);
+                calHeight = int.Parse(heightEntry.Text);
             }
 
             if (!string.IsNullOrEmpty(weightEntry.Text))
             {
-                weight = int.Parse(weightEntry.Text);
+                calWeight = int.Parse(weightEntry.Text);
             }
-            Calculate(height, weight);
+            lblWeight.Text = calWeight.ToString();
+            lblHeight.Text = calHeight.ToString();
+            Calculate(calWeight, calWeight);
             customPopup.IsVisible = false;
             heightEntry.Text = "";
             weightEntry.Text = "";
@@ -104,6 +107,10 @@ namespace Fitty.Views
         {
             heightEntry.Text = "";
             weightEntry.Text = "";
+            calHeight = UserHeight;
+            calWeight = UserWeight;
+            lblWeight.Text = calWeight.ToString();
+            lblHeight.Text = calHeight.ToString();
             Calculate(UserHeight, UserWeight);
         }
         private void ColorReset()
@@ -115,6 +122,27 @@ namespace Fitty.Views
             obeseLabel1.TextColor = obeseRangeLabel1.TextColor = obeseDescription1.TextColor =
             obeseLabel2.TextColor = obeseRangeLabel2.TextColor = obeseDescription2.TextColor =
             obeseRangeLabel3.TextColor = obeseLabel3.TextColor = obeseDescription3.TextColor = Color.Gray;
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            UserWeight = UserLocal.GetUserFromFile().Weight;
+            UserHeight = UserLocal.GetUserFromFile().Height;
+            heightEntry.Text = "";
+            weightEntry.Text = "";
+            calHeight = UserHeight;
+            calWeight = UserWeight;
+            lblWeight.Text = calWeight.ToString();
+            lblHeight.Text = calHeight.ToString();
+            Calculate(UserHeight, UserWeight);
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            customPopup.IsVisible = false;
+            heightEntry.Text = "";
+            weightEntry.Text = "";
         }
     }
 }
