@@ -1,12 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Fitty.Views.RoutinePage.AddRoutinePage"
              xmlns:local="clr-namespace:Fitty.ViewModels"  
              xmlns:model="clr-namespace:Fitty.Models"
-             Title="{Binding Title}">
+             x:Class="Fitty.Views.RoutinePage.EditRoutinePage">
     <ContentPage.Content>
-        <ScrollView x:DataType="local:AddRoutineViewModel">
+        <ScrollView x:DataType="local:EditRoutineViewModel">
             <StackLayout Padding="20,0,20,0">
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Name: " VerticalTextAlignment="Center"/>
@@ -48,15 +47,15 @@
                         <DataTemplate>
                             <StackLayout>
                                 <SwipeView>
-                                    <SwipeView.LeftItems>
+                                    <SwipeView.RightItems>
                                         <SwipeItems>
                                             <SwipeItem Text="Delete"
-                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type local:AddRoutineViewModel}}, Path=RemoveExercise}"
+                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type local:EditRoutineViewModel}}, Path=RemoveExercise}"
                                                        CommandParameter="{Binding .}"
                                                        IconImageSource="trash_icon.png"
                                                        BackgroundColor="LightPink" x:DataType="model:RoutineDetail"/>
                                         </SwipeItems>
-                                    </SwipeView.LeftItems>
+                                    </SwipeView.RightItems>
                                     <Frame CornerRadius="4" Padding="4">
                                         <StackLayout Padding="10" x:DataType="model:RoutineDetail" Grid.Column="0">
                                             <Label Text="{Binding exercise.Name}" FontSize="Medium" FontAttributes="Bold"/>

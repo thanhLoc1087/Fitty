@@ -23,6 +23,7 @@ namespace Fitty.ViewModels
                     } else
                     {
                         await ExerciseService.AddExercise(Name, Type, Muscle, Equipment, Difficulty, Instructions, true);
+                        await Application.Current.MainPage.DisplayAlert("Success", "Success fully added your exercise", "Confirm");
                         Debug.WriteLine("Success");
                         ClearFields();
                     }

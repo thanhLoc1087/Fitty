@@ -12,6 +12,7 @@ namespace Fitty.ViewModels
     internal class RoutinesViewModel : BaseViewModel
     {
         public static AddRoutineViewModel addRoutineViewModel;
+        public static EditRoutineViewModel editRoutineViewModel;
         public Command Refresh { get; set; }
         public Command<Routine> ItemTapped { get; }
         public Command<Routine> DeleteRoutine { get; }
@@ -41,6 +42,7 @@ namespace Fitty.ViewModels
             DeleteRoutine = new Command<Routine>(HandleDeleteRoutine);
             EditRoutine = new Command<Routine>(HandleEditRoutine);
             addRoutineViewModel = new AddRoutineViewModel();
+            editRoutineViewModel = new EditRoutineViewModel();
             AddCommand = new Command(async () =>
             {
                 await Shell.Current.GoToAsync($"{nameof(AddRoutinePage)}");
@@ -79,7 +81,7 @@ namespace Fitty.ViewModels
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(AddRoutinePage)}?{nameof(AddRoutineViewModel.Id)}={item.Id}");
+            await Shell.Current.GoToAsync($"{nameof(EditRoutinePage)}?{nameof(EditRoutineViewModel.Id)}={item.Id}");
         }
     }
 }

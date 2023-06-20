@@ -11,9 +11,26 @@ using static Xamarin.Forms.Internals.GIFBitmap;
 
 namespace Fitty.ViewModels
 {
-    internal class AddRoutineViewModel : BaseViewModel
+    [QueryProperty(nameof(Id), nameof(Id))]
+    internal class EditRoutineViewModel : BaseViewModel
     {
         public Command<Exercise> ItemTapped { get; }
+        public Command Test { get; }
+
+        private int id;
+        public int Id
+        {
+            get => id;
+            set
+            {
+                Debug.WriteLine("id changed");
+                SetProperty(ref id, value);
+                if (id != 0)
+                {
+                    LoadRoutine(value);
+                }
+            }
+        }
 
         Routine _routine;
         public Routine Routine
@@ -21,7 +38,6 @@ namespace Fitty.ViewModels
             get { return _routine; }
             set
             {
-                Debug.Write("routine changed");
                 SetProperty(ref _routine, value);
             }
         }
@@ -40,13 +56,15 @@ namespace Fitty.ViewModels
             get => _details;
             set
             {
+                Debug.Write("details changed");
                 SetProperty(ref _details, value);
             }
         }
         public Command SaveCommand { get; set; }
         public Command<RoutineDetail> RemoveExercise { get; set; }
         public Command ChooseExerciseCommand { get; set; }
-        public AddRoutineViewModel()
+        List<RoutineDetail> OldDetails { get; set; }
+        public EditRoutineViewModel()
         {
             Title = "New routine";
             Details = new ObservableCollection<RoutineDetail>();
@@ -94,14 +112,17 @@ namespace Fitty.ViewModels
                 }
                 if (Routine.NumberOfSet <= 0) Routine.NumberOfSet = 1;
                 Routine.Name = !string.IsNullOrEmpty(Routine.Name) ? Routine.Name.Trim() : "My routine";
-                    routineId = await RoutineService.AddRoutine(Routine.Name, Routine.TotalDuration, Routine.NumberOfSet, Routine.TotalExercises);
+                routineId = Id;
+                OldDetails.ForEach(async d =>
+                {
+                    await RoutineDetailService.RemoveRoutineDetail(d.Id);
+                });
+                await RoutineService.UpdateRoutine(Routine);
                 Routine.Details.ForEach(async d =>
                 {
                     await RoutineDetailService.AddRoutineDetail(routineId, d.ExerciseId, d.Duration);
                 });
-                Debug.WriteLine(Routine.ToString());
-                Routine = new Routine();
-                Details = new ObservableCollection<RoutineDetail>();
+                Reset();
                 await Shell.Current.GoToAsync("..");
             });
             ChooseExerciseCommand = new Command(async () =>
@@ -161,6 +182,26 @@ namespace Fitty.ViewModels
 
             Routine.RemoveRoutineDetail(item);
             Details.Remove(item);
+        }
+
+        private async void LoadRoutine(int routineId)
+        {
+            if (!isRoutineLoaded)
+            {
+                Debug.WriteLine("load routine");
+                Routine = await RoutineService.GetRoutine(routineId);
+                Details = new ObservableCollection<RoutineDetail>(Routine.Details);
+                OldDetails = new List<RoutineDetail>(Routine.Details);
+                isRoutineLoaded = true;
+            }
+        }
+
+        private void Reset()
+        {
+            Routine = new Routine();
+            Details = new ObservableCollection<RoutineDetail>();
+            Id = 0;
+            isRoutineLoaded = false;
         }
     }
 }
