@@ -3,19 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Fitty.Views.HydrationAlarm">
     <ContentPage.Content>
-        <StackLayout Padding="20">
-            <Label Text="Choose an interval:" Margin="0,0,0,10" />
-            <Picker x:Name="intervalPicker" SelectedIndexChanged="OnIntervalPickerSelectedIndexChanged" TextColor="Black">
-                <Picker.Items>
-                    <x:String>5</x:String>
-                    <x:String>10</x:String>
-                    <x:String>15</x:String>
-                    <x:String>20</x:String>
-                    <x:String>30</x:String>
-                </Picker.Items>
-            </Picker>
-            <Button x:Name="startButton" Text="Start" Clicked="OnStartButtonClicked" Margin="0,20,0,10" />
-            <Button x:Name="resetButton" Text="Reset" Clicked="OnResetButtonClicked" />
+        <StackLayout Padding="20" HorizontalOptions="FillAndExpand">
+
+            <Label Text="Hydration Alarm" 
+           FontSize="40" 
+           TextColor="#0099CC" 
+           HorizontalTextAlignment="Center" 
+           Margin="0,20,0,30" />
+
+            <Entry Placeholder="Interval in minutes" 
+           x:Name="interval" 
+           Keyboard="Numeric" 
+           Margin="0,0,0,20"/>
+
+            <Button x:Name="sendButton" 
+            Text="Send Notification" 
+            BackgroundColor="#0099CC" 
+            TextColor="White" 
+            FontAttributes="Bold"
+            Margin="0,0,0,20"
+            Clicked="SendNotification"/>
+
+            <Label x:Name="remindLabel"
+           Text=""
+           FontSize="24"
+           TextColor="#0099CC"
+           HorizontalTextAlignment="Center"
+           Margin="0,20,0,10"/>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

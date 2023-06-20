@@ -16,6 +16,7 @@ namespace Fitty.Droid
         public void PlayAudioFile(string fileName)
         {
             var player = new MediaPlayer();
+            //var fd = global::Android.App.Application.Context.Resources.OpenRawResourceFd(Resource.Raw.beep_sound_fx);
             var fd = global::Android.App.Application.Context.Assets.OpenFd(fileName);
             player.Prepared += (s, e) =>
             {

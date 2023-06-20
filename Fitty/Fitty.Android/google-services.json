@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "433812908765",
+    "project_id": "fitty-1ddcb",
+    "storage_bucket": "fitty-1ddcb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433812908765:android:053c7e6f95cec66aa88934",
+        "android_client_info": {
+          "package_name": "com.companyname.fitty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "433812908765-mg3gk4mac1ohdrj96csh8d3miun0j5up.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_tkaxARaFnpZhde0ODz0cEC2-eafIuBU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "433812908765-mg3gk4mac1ohdrj96csh8d3miun0j5up.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
