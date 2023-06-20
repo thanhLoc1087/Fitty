@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Fitty.Views.EditUserPage"
+             Title="Edit information"
+             >
+    <ContentPage.Resources>
+        <Style TargetType="Entry">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="PlaceholderColor" Value="Black" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HeightRequest" Value="40" />
+            <Setter Property="Margin" Value="0, 8, 0, 8" />
+            <Setter Property="Keyboard" Value="Numeric" />
+            <Setter Property="IsTextPredictionEnabled" Value="False" />
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <ScrollView>
+            <StackLayout>
+            
+                <StackLayout Padding="16">
+                    <StackLayout>
+                        <Label Text="Name"/>
+                        <Entry x:Name="nameEntry" Placeholder="Name"  ClearButtonVisibility="WhileEditing" MaxLength="12" Keyboard="Default"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Age"/>
+                        <Entry x:Name="ageEntry" Placeholder="Age"  ClearButtonVisibility="WhileEditing" MaxLength="3"/>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Weight"/>
+                        <Entry x:Name="weightEntry" Placeholder="(kg)" ClearButtonVisibility="WhileEditing" MaxLength="3" />
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Height"/>
+                        <Entry x:Name="heightEntry" Placeholder="(cm)"  ClearButtonVisibility="WhileEditing" MaxLength="3"/>
+                    </StackLayout>
+                    <Label Text="Gender:"/>
+                    <StackLayout Orientation="Horizontal">
+                        <RadioButton x:Name="maleRadioButton" 
+                                     GroupName="genderGroup" 
+                                     IsChecked="True" 
+                                     
+                                     TextColor="Black"/>
+                        <Label Text="Male" VerticalOptions="Center" TextColor="Black" />
+                        <RadioButton x:Name="femaleRadioButton" GroupName="genderGroup" TextColor="Black" />
+                        <Label Text="Female" VerticalOptions="Center" TextColor="Black" />
+                    </StackLayout>
+
+                    <Label Text="Activity Level:" FontSize="16" TextColor="Black" />
+                    <StackLayout>
+                        <Picker x:Name="activityLevelPicker"  TextColor="Black">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Little/No exercise</x:String>
+                                    <x:String>1-2 times a week</x:String>
+                                    <x:String>2-3 times a week</x:String>
+                                    <x:String>3-5 times a week</x:String>
+                                    <x:String>6-7 times a week</x:String>
+                                    <x:String>Professional athlete</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                            <Picker.SelectedIndex>0</Picker.SelectedIndex>
+                        </Picker>
+                        <BoxView HeightRequest="1" BackgroundColor="Black" />
+                    </StackLayout>
+
+                    
+                    <Button Text="Save" Clicked="SaveButton_Clicked"  />
+
+
+                </StackLayout>
+            </StackLayout>
+
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -14,10 +14,11 @@ namespace Fitty.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomePage : ContentPage
     {
+        HomeViewModel _viewmodel;
         public HomePage()
         {
             InitializeComponent();
-            BindingContext = new HomeViewModel();
+            BindingContext = _viewmodel = new HomeViewModel();
         }
         protected async override void OnAppearing()
         {
@@ -25,6 +26,7 @@ namespace Fitty.Views
 
             var data = await ExerciseService.GetExercises();
             HomeViewModel.DataSource.exercises = data;
+            _viewmodel.Name = UserLocal.GetUserFromFile().Name;
         }
     }
 }
