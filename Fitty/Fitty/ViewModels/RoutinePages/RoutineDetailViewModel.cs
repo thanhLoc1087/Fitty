@@ -109,7 +109,7 @@ namespace Fitty.ViewModels
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(AddRoutinePage)}?{nameof(AddRoutineViewModel.Id)}={itemID}");
+            await Shell.Current.GoToAsync($"{nameof(EditRoutinePage)}?{nameof(EditRoutineViewModel.Id)}={itemID}");
         }
     }
 }
