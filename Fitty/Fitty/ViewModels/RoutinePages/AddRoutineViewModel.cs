@@ -57,15 +57,18 @@ namespace Fitty.ViewModels
             {
                 string duration = await Application.Current.MainPage.DisplayPromptAsync("Rest time", "you can change this later:", "OK", "Cancel", placeholder: "30 (s)", keyboard: Keyboard.Numeric);
                 if (duration == null) return;
-                while (int.Parse(duration) < 5)
+                Debug.WriteLine(duration);
+                var input = !string.IsNullOrEmpty(duration) ? int.Parse(duration) : 30;
+                while (input < 5)
                 {
                     await Application.Current.MainPage.DisplayAlert("Error", "Your exercise duration must be at least 5 secs.", "Ok");
                     duration = await Application.Current.MainPage.DisplayPromptAsync("Exercise time", "Enter the duration for this exercise (you can change this later):", "OK", "Cancel", placeholder: "30 (s)", keyboard: Keyboard.Numeric);
                     if (duration == null) return;
+                    input = !string.IsNullOrEmpty(duration) ? int.Parse(duration) : 30;
                 }
                 RoutineDetail rest = new RoutineDetail
                 {
-                    Duration = !string.IsNullOrEmpty(duration) ? int.Parse(duration) : 30
+                    Duration = input
                 };
                 var restExercise = await ExerciseService.GetExerciseByName("rest");
                 if (restExercise == null)
@@ -122,15 +125,17 @@ namespace Fitty.ViewModels
                 return;
             string duration = await Application.Current.MainPage.DisplayPromptAsync("Exercise time", "Enter the duration for this exercise (you can change this later):", "OK", "Cancel", placeholder: "30 (s)", keyboard: Keyboard.Numeric);
             if (duration == null) return;
-            while (int.Parse(duration) < 5)
+            var input = !string.IsNullOrEmpty(duration) ? int.Parse(duration) : 30;
+            while (input < 5)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "Your exercise duration must be at least 5 secs.", "Ok");
                 duration = await Application.Current.MainPage.DisplayPromptAsync("Exercise time", "Enter the duration for this exercise (you can change this later):", "OK", "Cancel", placeholder: "30 (s)", keyboard: Keyboard.Numeric);
                 if (duration == null) return;
+                input = !string.IsNullOrEmpty(duration) ? int.Parse(duration) : 30;
             }
             RoutineDetail newRoutineDetail = new RoutineDetail
             {
-                Duration = !string.IsNullOrEmpty(duration) ? int.Parse(duration) : 30,
+                Duration = input,
                 ExerciseId = item.Id,
                 exercise = item,
             };

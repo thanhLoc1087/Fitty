@@ -3,6 +3,7 @@ using Fitty.Services;
 using Fitty.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,14 @@ namespace Fitty.Views
 
             var data = await ExerciseService.GetExercises();
             HomeViewModel.DataSource.exercises = data;
-            _viewmodel.Name = UserLocal.GetUserFromFile().Name;
+            try
+            {
+                _viewmodel.Name = UserLocal.GetUserFromFile().Name;
+            } catch (Exception ex)
+            {
+                _viewmodel.Name = "User";
+                Debug.WriteLine(ex); 
+            }
         }
     }
 }

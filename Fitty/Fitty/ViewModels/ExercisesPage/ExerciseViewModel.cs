@@ -2,6 +2,7 @@
 using Fitty.Views;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Fitty.ViewModels
@@ -11,10 +12,12 @@ namespace Fitty.ViewModels
     {
         string _muscle;
         public Command<Exercise> ItemTapped { get; }
+        public Command<Exercise> ItemBookmarked { get; }
 
         public ExerciseViewModel() 
         {
             ItemTapped = new Command<Exercise>(OnItemSelected);
+            ItemBookmarked = new Command<Exercise>(OnItemBookmarked);
         }
 
         public string Muscle
@@ -60,6 +63,17 @@ namespace Fitty.ViewModels
 
             // This will push the ItemDetailPage onto the navigation stack
             await Shell.Current.GoToAsync($"{nameof(ExerciseDetailPage)}?{nameof(ExerciseDetailViewModel.Name)}={item.Name}");
+        }
+        private async void OnItemBookmarked(Exercise item)
+        {
+            if (item == null)
+                return;
+            await HandleBookmark(item);
+        }
+        async Task HandleBookmark(Exercise item)
+        {
+            item.IsBookmarked = !item.IsBookmarked;
+            await ExerciseService.UpdateExercise(item);
         }
     }
 }

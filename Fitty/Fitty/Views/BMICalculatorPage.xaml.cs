@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Fitty.Models;
+using System.Diagnostics;
+
 namespace Fitty.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -126,9 +128,14 @@ namespace Fitty.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            UserWeight = UserLocal.GetUserFromFile().Weight;
-            UserHeight = UserLocal.GetUserFromFile().Height;
+            try
+            {
+                UserWeight = UserLocal.GetUserFromFile().Weight;
+                UserHeight = UserLocal.GetUserFromFile().Height;
+            } catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
             heightEntry.Text = "";
             weightEntry.Text = "";
             calHeight = UserHeight;
