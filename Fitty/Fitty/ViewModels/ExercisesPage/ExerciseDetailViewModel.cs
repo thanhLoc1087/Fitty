@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Text.RegularExpressions;
 using Xamarin.Forms;
 
 namespace Fitty.ViewModels
@@ -44,22 +45,22 @@ namespace Fitty.ViewModels
         public string Type
         {
             get => type;
-            set => SetProperty(ref type, value);
+            set => SetProperty(ref type, FormatString(value));
         }
         public string Muscle
         {
             get => muscle;
-            set => SetProperty(ref muscle, value);
+            set => SetProperty(ref muscle, FormatString(value));
         }
         public string Equipment
         {
             get => equipment;
-            set => SetProperty(ref equipment, value);
+            set => SetProperty(ref equipment, FormatString(value));
         }
         public string Difficulty
         {
             get => difficulty;
-            set => SetProperty(ref difficulty, value);
+            set => SetProperty(ref difficulty, FormatString(value));
         }
         public string Instructions
         {
@@ -82,7 +83,13 @@ namespace Fitty.ViewModels
                 SetProperty(ref userCreated, value);
             }
         }
-
+        private string FormatString(string value)
+        {
+            ////// add spaces between words and make the first letter uppercase
+            value = value.Replace("_", " ");
+            value = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value.ToLower());
+            return value;
+        }
         public async void LoadItemId(int itemId)
         {
             try
@@ -94,7 +101,10 @@ namespace Fitty.ViewModels
                 Equipment = item.Equipment;
                 Difficulty = item.Difficulty.ToString();
                 Instructions = item.Instructions;
-                Gif = "glute_bridge.gif";
+
+                // Format the gif value
+                Gif = FormatGifName(name) + ".gif";
+
                 UserCreated = item.UserCreated.ToString();
             }
             catch (Exception)
@@ -102,6 +112,7 @@ namespace Fitty.ViewModels
                 Debug.WriteLine("Failed to Load Exercise");
             }
         }
+
         public async void LoadItemName(string name)
         {
             try
@@ -113,13 +124,25 @@ namespace Fitty.ViewModels
                 Equipment = item.Equipment;
                 Difficulty = item.Difficulty.ToString();
                 Instructions = item.Instructions;
-                Gif = "glute_bridge.gif";
+
+                // Format the gif value
+                Gif = FormatGifName( name ) + ".gif";
+
                 UserCreated = item.UserCreated.ToString();
             }
             catch (Exception)
             {
                 Debug.WriteLine("Failed to Load Exercise");
             }
+        }
+
+        private string FormatGifName(string value)
+        {
+            string newValue = Regex.Replace(value, @"[^a-zA-Z0-9_.]+", "");
+            newValue = newValue.ToLower();
+
+            return newValue;
+            
         }
     }
 }
