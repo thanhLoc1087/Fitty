@@ -28,10 +28,16 @@ namespace Fitty.Models
             var exercises = await ExerciseAPIService.db.Table<Exercise>().ToListAsync();
             return exercises;
         }
-        public static async Task AddExercise(string name, string type, string muscle, string equipment, string difficulty, string instructions, bool userCreated, bool isBookmarked = false)
+        public static async Task<List<Exercise>> GetBookmarkedExercises()
         {
             await ExerciseAPIService.Init();
-            var exercise = new Exercise(name,type,muscle,equipment,difficulty,instructions,userCreated, isBookmarked);
+            var exercises = await ExerciseAPIService.db.Table<Exercise>().Where(e => e.IsBookmarked).ToListAsync();
+            return exercises;
+        }
+        public static async Task AddExercise(string name, string type, string muscle, string equipment, string difficulty, string instructions, bool userCreated, bool isBookmarked = false, string gifSource = "")
+        {
+            await ExerciseAPIService.Init();
+            var exercise = new Exercise(name,type,muscle,equipment,difficulty,instructions,userCreated, isBookmarked, gifSource);
             await ExerciseAPIService.db.InsertAsync(exercise);
         }
         public static async Task UpdateExercise(Exercise exercise)

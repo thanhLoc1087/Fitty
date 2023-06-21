@@ -1,4 +1,5 @@
 ﻿using Fitty.Models;
+using Fitty.Services;
 using Fitty.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -46,7 +47,6 @@ namespace Fitty.Views
         {
             base.OnAppearing();
             var _container = BindingContext as SearchViewModel;
-
             var data = await ExerciseService.GetExercises();
             _container.FilteredExercises = data;
             ExerciseListView.ItemsSource = _container.FilteredExercises;

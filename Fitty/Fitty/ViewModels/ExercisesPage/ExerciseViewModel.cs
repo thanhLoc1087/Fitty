@@ -11,13 +11,13 @@ namespace Fitty.ViewModels
     class ExerciseViewModel : BaseViewModel
     {
         string _muscle;
-        public Command<Exercise> ItemTapped { get; }
-        public Command<Exercise> ItemBookmarked { get; }
+        public Command<ExerciseDisplay> ItemTapped { get; }
+        public Command<ExerciseDisplay> ItemBookmarked { get; }
 
         public ExerciseViewModel() 
         {
-            ItemTapped = new Command<Exercise>(OnItemSelected);
-            ItemBookmarked = new Command<Exercise>(OnItemBookmarked);
+            ItemTapped = new Command<ExerciseDisplay>(OnItemSelected);
+            ItemBookmarked = new Command<ExerciseDisplay>(OnItemBookmarked);
         }
 
         public string Muscle
@@ -30,8 +30,8 @@ namespace Fitty.ViewModels
                 GetExercisesByMuscle(Muscle);
             }
         }
-        List<Exercise> _muscleExercises;
-        public List<Exercise> MuscleExercises
+        List<ExerciseDisplay> _muscleExercises;
+        public List<ExerciseDisplay> MuscleExercises
         {
             get => _muscleExercises;
             set
@@ -44,36 +44,37 @@ namespace Fitty.ViewModels
         {
            MuscleExercises = GetExercises(muscleGroup);
         }
-        public List<Exercise> GetExercises(string muscleGroup)
+        public List<ExerciseDisplay> GetExercises(string muscleGroup)
         {
-            List<Exercise> exerciseList = new List<Exercise>();
+            List<ExerciseDisplay> exerciseList = new List<ExerciseDisplay>();
             foreach(var exercise in HomeViewModel.DataSource.exercises)
             {
                 if (exercise.Muscle == muscleGroup)
                 {
-                    exerciseList.Add(exercise);
+                    Debug.WriteLine(exercise.IsBookmarked);
+                    exerciseList.Add(new ExerciseDisplay(exercise));
                 }
             }
             return exerciseList;
         }
-        private async void OnItemSelected(Exercise item)
+        private async void OnItemSelected(ExerciseDisplay item)
         {
             if (item == null)
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(ExerciseDetailPage)}?{nameof(ExerciseDetailViewModel.Name)}={item.Name}");
+            await Shell.Current.GoToAsync($"{nameof(ExerciseDetailPage)}?{nameof(ExerciseDetailViewModel.Name)}={item.Value.Name}");
         }
-        private async void OnItemBookmarked(Exercise item)
+        private async void OnItemBookmarked(ExerciseDisplay item)
         {
             if (item == null)
                 return;
             await HandleBookmark(item);
         }
-        async Task HandleBookmark(Exercise item)
+        async Task HandleBookmark(ExerciseDisplay item)
         {
-            item.IsBookmarked = !item.IsBookmarked;
-            await ExerciseService.UpdateExercise(item);
+            item.Value.IsBookmarked = !item.Value.IsBookmarked;
+            await ExerciseService.UpdateExercise(item.Value);
         }
     }
 }

@@ -31,8 +31,6 @@ namespace Fitty.ViewModels
 
         public SearchViewModel() 
         {
-            FilteredExercises = ExerciseAPIService.ReadJsonFile();
-            //FilteredExercises = new List<Exercise>();
             ItemTapped = new Command<Exercise>(OnItemSelected);
             Refresh = new Command(async () =>
             {

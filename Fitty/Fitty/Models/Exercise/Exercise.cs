@@ -17,8 +17,9 @@ namespace Fitty.Models
         public string Instructions { get; set; }
         public bool UserCreated { get; set; }
         public bool IsBookmarked { get; set; }
+        public string GifSource { get; set; }
         public Exercise() { }
-        public Exercise(string name, string type, string muscle, string equipment, string difficulty, string instructions, bool userCreated, bool isBookmarked)
+        public Exercise(string name, string type, string muscle, string equipment, string difficulty, string instructions, bool userCreated, bool isBookmarked, string gifSource)
         {
             Name = name;
             Type = type;
@@ -28,6 +29,7 @@ namespace Fitty.Models
             Instructions = instructions;
             UserCreated = userCreated;
             IsBookmarked = isBookmarked;
+            GifSource = gifSource;
         }
         public override string ToString() => Name;
     }

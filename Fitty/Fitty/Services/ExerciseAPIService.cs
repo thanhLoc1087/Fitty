@@ -35,8 +35,9 @@ namespace Fitty.Services
             await db.CreateTableAsync<RoutineDetail>();
             //ReadJsonFile();
         }
-        static public List<Exercise> ReadJsonFile()
+        static public async Task<List<Exercise>> ReadJsonFileAsync()
         {
+            await Init();
             bool read = Preferences.ContainsKey("read_json");
             string jsonString;
             string jsonFileName = "Configs.exercises.json";
