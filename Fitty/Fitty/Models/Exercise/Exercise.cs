@@ -16,8 +16,9 @@ namespace Fitty.Models
         public string Difficulty { get; set; }
         public string Instructions { get; set; }
         public bool UserCreated { get; set; }
+        public bool IsBookmarked { get; set; }
         public Exercise() { }
-        public Exercise(string name, string type, string muscle, string equipment, string difficulty, string instructions, bool userCreated)
+        public Exercise(string name, string type, string muscle, string equipment, string difficulty, string instructions, bool userCreated, bool isBookmarked)
         {
             Name = name;
             Type = type;
@@ -26,6 +27,7 @@ namespace Fitty.Models
             Difficulty = difficulty;
             Instructions = instructions;
             UserCreated = userCreated;
+            IsBookmarked = isBookmarked;
         }
         public override string ToString() => Name;
     }

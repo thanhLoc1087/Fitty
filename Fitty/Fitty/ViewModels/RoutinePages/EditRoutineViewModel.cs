@@ -118,10 +118,10 @@ namespace Fitty.ViewModels
                     await RoutineDetailService.RemoveRoutineDetail(d.Id);
                 });
                 await RoutineService.UpdateRoutine(Routine);
-                Routine.Details.ForEach(async d =>
+                foreach (var d in Routine.Details.Select((value, index) => new { index, value }))
                 {
-                    await RoutineDetailService.AddRoutineDetail(routineId, d.ExerciseId, d.Duration);
-                });
+                    await RoutineDetailService.AddRoutineDetail(routineId, d.value.ExerciseId, d.value.Duration, d.index);
+                }
                 Reset();
                 await Shell.Current.GoToAsync("..");
             });

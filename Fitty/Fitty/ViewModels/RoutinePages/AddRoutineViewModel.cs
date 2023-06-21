@@ -95,10 +95,10 @@ namespace Fitty.ViewModels
                 if (Routine.NumberOfSet <= 0) Routine.NumberOfSet = 1;
                 Routine.Name = !string.IsNullOrEmpty(Routine.Name) ? Routine.Name.Trim() : "My routine";
                     routineId = await RoutineService.AddRoutine(Routine.Name, Routine.TotalDuration, Routine.NumberOfSet, Routine.TotalExercises);
-                Routine.Details.ForEach(async d =>
+                foreach(var d in Routine.Details.Select((value, index) => new { index,value }))
                 {
-                    await RoutineDetailService.AddRoutineDetail(routineId, d.ExerciseId, d.Duration);
-                });
+                    await RoutineDetailService.AddRoutineDetail(routineId, d.value.ExerciseId, d.value.Duration, d.index);
+                }
                 Debug.WriteLine(Routine.ToString());
                 Routine = new Routine();
                 Details = new ObservableCollection<RoutineDetail>();
@@ -146,7 +146,6 @@ namespace Fitty.ViewModels
         public Command AddRestCommand { get; set; }
 
         public bool _isRefreshing;
-        private bool isRoutineLoaded = false;
 
         public bool IsRefreshing
         {

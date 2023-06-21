@@ -1,4 +1,5 @@
 ﻿using Fitty.Models;
+using Fitty.Services;
 using Fitty.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,8 @@ namespace Fitty.Views
         protected async override void OnAppearing()
         {
             base.OnAppearing();
+
+            ExerciseAPIService.ReadJsonFile();
 
             var data = await ExerciseService.GetExercises();
             HomeViewModel.DataSource.exercises = data;
