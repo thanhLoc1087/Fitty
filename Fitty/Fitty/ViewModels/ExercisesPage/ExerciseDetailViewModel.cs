@@ -1,9 +1,11 @@
-﻿using Fitty.Services;
+﻿using Fitty.Models;
+using Fitty.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Fitty.ViewModels
@@ -13,6 +15,10 @@ namespace Fitty.ViewModels
     [QueryProperty(nameof(Name), nameof(Name))]
     class ExerciseDetailViewModel : BaseViewModel
     {
+        public ExerciseDetailViewModel() {
+            BookmarkCommand = new Command(HandleBookmark);
+        }
+        private Exercise exercise;
         private int id;
         private string name;
         private string type;
@@ -21,7 +27,10 @@ namespace Fitty.ViewModels
         private string difficulty;
         private string instruction;
         private string gif;
-        private string userCreated;
+        private bool userCreated;
+        private bool isBookmarked;
+        private string bookmarkIcon;
+        public Command BookmarkCommand { get; set; }
 
         public int Id
         {
@@ -75,12 +84,29 @@ namespace Fitty.ViewModels
                 SetProperty(ref gif, value);
             }
         }
-        public string UserCreated
+        public string BookmarkIcon
+        { 
+            get => bookmarkIcon;
+            set
+            {
+                SetProperty(ref bookmarkIcon, value);
+            }
+        }
+        public bool UserCreated
         { 
             get => userCreated;
             set
             {
                 SetProperty(ref userCreated, value);
+            }
+        }
+        public bool IsBookmarked
+        { 
+            get => isBookmarked;
+            set
+            {
+                SetProperty(ref isBookmarked, value);
+                BookmarkIcon = isBookmarked ? "bookmark.png" : "ribbon.png";
             }
         }
         private string FormatString(string value)
@@ -94,18 +120,18 @@ namespace Fitty.ViewModels
         {
             try
             {
-                var item = await HomeViewModel.DataSource.GetItemAsyncById(itemId);
-                Name = item.Name;
-                Type = item.Type.ToString();
-                Muscle = item.Muscle.ToString();
-                Equipment = item.Equipment;
-                Difficulty = item.Difficulty.ToString();
-                Instructions = item.Instructions;
-
+                exercise = await HomeViewModel.DataSource.GetItemAsyncById(itemId);
+                Name = exercise.Name;
+                Type = exercise.Type.ToString();
+                Muscle = exercise.Muscle.ToString();
+                Equipment = exercise.Equipment;
+                Difficulty = exercise.Difficulty.ToString();
+                Instructions = exercise.Instructions;
+                IsBookmarked = exercise.IsBookmarked;
                 // Format the gif value
                 Gif = FormatGifName(name) + ".gif";
 
-                UserCreated = item.UserCreated.ToString();
+                UserCreated = exercise.UserCreated;
             }
             catch (Exception)
             {
@@ -117,18 +143,19 @@ namespace Fitty.ViewModels
         {
             try
             {
-                var item = await HomeViewModel.DataSource.GetItemAsync(name);
-                Id = item.Id;
-                Type = item.Type.ToString();
-                Muscle = item.Muscle.ToString();
-                Equipment = item.Equipment;
-                Difficulty = item.Difficulty.ToString();
-                Instructions = item.Instructions;
+                exercise = await HomeViewModel.DataSource.GetItemAsync(name);
+                Id = exercise.Id;
+                Type = exercise.Type.ToString();
+                Muscle = exercise.Muscle.ToString();
+                Equipment = exercise.Equipment;
+                Difficulty = exercise.Difficulty.ToString();
+                Instructions = exercise.Instructions;
+                IsBookmarked = exercise.IsBookmarked;
 
                 // Format the gif value
                 Gif = FormatGifName( name ) + ".gif";
 
-                UserCreated = item.UserCreated.ToString();
+                UserCreated = exercise.UserCreated;
             }
             catch (Exception)
             {
@@ -143,6 +170,12 @@ namespace Fitty.ViewModels
 
             return newValue;
             
+        }
+        async void HandleBookmark()
+        {
+            exercise.IsBookmarked = !IsBookmarked; 
+            IsBookmarked = IsBookmarked;
+            await ExerciseService.UpdateExercise(exercise);
         }
     }
 }

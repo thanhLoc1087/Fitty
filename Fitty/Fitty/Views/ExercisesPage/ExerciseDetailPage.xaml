@@ -4,6 +4,13 @@
              xmlns:local="clr-namespace:Fitty.ViewModels"
              x:Class="Fitty.Views.ExerciseDetailPage"
              Title="{Binding Name}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add to Bookmark"
+                     IconImageSource="{Binding BookmarkIcon}"
+                     Order="Primary"
+                     Command="{Binding BookmarkCommand}"
+                     Priority="0"  x:DataType="local:ExerciseDetailViewModel"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>
             <StackLayout x:DataType="local:ExerciseDetailViewModel"
