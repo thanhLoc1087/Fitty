@@ -22,7 +22,8 @@
                     </StackLayout.GestureRecognizers>
                 </StackLayout>
             </Grid>
-            <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding Refresh}">
+            <StackLayout>
+                <Label Text="No exercise found." TextColor="{StaticResource teal900}" IsVisible="{Binding IsListEmpty}"  HorizontalOptions="Center"/>
                 <CollectionView ItemsSource="{Binding Exercises}"
                       SelectionMode="Single"
                       x:Name="ExerciseListView">
@@ -67,7 +68,7 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-            </RefreshView>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

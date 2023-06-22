@@ -1,8 +1,11 @@
-﻿using Fitty.Services;
+﻿using Fitty.Models;
+using Fitty.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Fitty.ViewModels
@@ -12,6 +15,10 @@ namespace Fitty.ViewModels
     [QueryProperty(nameof(Name), nameof(Name))]
     class ExerciseDetailViewModel : BaseViewModel
     {
+        public ExerciseDetailViewModel() {
+            BookmarkCommand = new Command(HandleBookmark);
+        }
+        private Exercise exercise;
         private int id;
         private string name;
         private string type;
@@ -20,7 +27,10 @@ namespace Fitty.ViewModels
         private string difficulty;
         private string instruction;
         private string gif;
-        private string userCreated;
+        private bool userCreated;
+        private bool isBookmarked;
+        private string bookmarkIcon;
+        public Command BookmarkCommand { get; set; }
 
         public int Id
         {
@@ -44,22 +54,22 @@ namespace Fitty.ViewModels
         public string Type
         {
             get => type;
-            set => SetProperty(ref type, value);
+            set => SetProperty(ref type, FormatString(value));
         }
         public string Muscle
         {
             get => muscle;
-            set => SetProperty(ref muscle, value);
+            set => SetProperty(ref muscle, FormatString(value));
         }
         public string Equipment
         {
             get => equipment;
-            set => SetProperty(ref equipment, value);
+            set => SetProperty(ref equipment, FormatString(value));
         }
         public string Difficulty
         {
             get => difficulty;
-            set => SetProperty(ref difficulty, value);
+            set => SetProperty(ref difficulty, FormatString(value));
         }
         public string Instructions
         {
@@ -74,7 +84,15 @@ namespace Fitty.ViewModels
                 SetProperty(ref gif, value);
             }
         }
-        public string UserCreated
+        public string BookmarkIcon
+        { 
+            get => bookmarkIcon;
+            set
+            {
+                SetProperty(ref bookmarkIcon, value);
+            }
+        }
+        public bool UserCreated
         { 
             get => userCreated;
             set
@@ -82,44 +100,82 @@ namespace Fitty.ViewModels
                 SetProperty(ref userCreated, value);
             }
         }
-
+        public bool IsBookmarked
+        { 
+            get => isBookmarked;
+            set
+            {
+                SetProperty(ref isBookmarked, value);
+                BookmarkIcon = isBookmarked ? "bookmark.png" : "ribbon.png";
+            }
+        }
+        private string FormatString(string value)
+        {
+            ////// add spaces between words and make the first letter uppercase
+            value = value.Replace("_", " ");
+            value = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value.ToLower());
+            return value;
+        }
         public async void LoadItemId(int itemId)
         {
             try
             {
-                var item = await HomeViewModel.DataSource.GetItemAsyncById(itemId);
-                Name = item.Name;
-                Type = item.Type.ToString();
-                Muscle = item.Muscle.ToString();
-                Equipment = item.Equipment;
-                Difficulty = item.Difficulty.ToString();
-                Instructions = item.Instructions;
-                Gif = "glute_bridge.gif";
-                UserCreated = item.UserCreated.ToString();
+                exercise = await HomeViewModel.DataSource.GetItemAsyncById(itemId);
+                Name = exercise.Name;
+                Type = exercise.Type.ToString();
+                Muscle = exercise.Muscle.ToString();
+                Equipment = exercise.Equipment;
+                Difficulty = exercise.Difficulty.ToString();
+                Instructions = exercise.Instructions;
+                IsBookmarked = exercise.IsBookmarked;
+                // Format the gif value
+                Gif = FormatGifName(name) + ".gif";
+
+                UserCreated = exercise.UserCreated;
             }
             catch (Exception)
             {
                 Debug.WriteLine("Failed to Load Exercise");
             }
         }
+
         public async void LoadItemName(string name)
         {
             try
             {
-                var item = await HomeViewModel.DataSource.GetItemAsync(name);
-                Id = item.Id;
-                Type = item.Type.ToString();
-                Muscle = item.Muscle.ToString();
-                Equipment = item.Equipment;
-                Difficulty = item.Difficulty.ToString();
-                Instructions = item.Instructions;
-                Gif = "glute_bridge.gif";
-                UserCreated = item.UserCreated.ToString();
+                exercise = await HomeViewModel.DataSource.GetItemAsync(name);
+                Id = exercise.Id;
+                Type = exercise.Type.ToString();
+                Muscle = exercise.Muscle.ToString();
+                Equipment = exercise.Equipment;
+                Difficulty = exercise.Difficulty.ToString();
+                Instructions = exercise.Instructions;
+                IsBookmarked = exercise.IsBookmarked;
+
+                // Format the gif value
+                Gif = FormatGifName( name ) + ".gif";
+
+                UserCreated = exercise.UserCreated;
             }
             catch (Exception)
             {
                 Debug.WriteLine("Failed to Load Exercise");
             }
+        }
+
+        private string FormatGifName(string value)
+        {
+            string newValue = Regex.Replace(value, @"[^a-zA-Z0-9_.]+", "");
+            newValue = newValue.ToLower();
+
+            return newValue;
+            
+        }
+        async void HandleBookmark()
+        {
+            exercise.IsBookmarked = !IsBookmarked; 
+            IsBookmarked = IsBookmarked;
+            await ExerciseService.UpdateExercise(exercise);
         }
     }
 }

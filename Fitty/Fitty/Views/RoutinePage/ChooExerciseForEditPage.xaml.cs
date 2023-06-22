@@ -99,6 +99,7 @@ namespace Fitty.Views.RoutinePage
                         exercise.Value.Equipment.ToLower().Contains(filter))
                     );
             }
+            _container.IsListEmpty = _container.Exercises.Count <= 0;
         }
     }
 }

@@ -50,10 +50,29 @@ namespace Fitty.ViewModels
                 LoadExerciseList();
             }
         }
+        String _errorMsg;
+        public String ErrorMsg
+        { 
+            get => _errorMsg; 
+            set
+            {
+                SetProperty(ref _errorMsg, value);
+            }
+        }
         public List<String> Muscles { get; set; }
         public List<String> Levels { get; set; }
         public List<String> Equipments { get; set; }
         public Command EraseMuscleFilter { get; set; }
+        bool isListEmpty;
+        public bool IsListEmpty
+        {
+            get => isListEmpty;
+            set
+            {
+                SetProperty(ref isListEmpty, value);
+                ErrorMsg = isListEmpty ? "No exercise found." : "";
+            }
+        }
 
         public Command<Exercise> ItemTapped { get; }
 
@@ -75,8 +94,8 @@ namespace Fitty.ViewModels
                 "Glutes",
                 "Hamstrings",
                 "Lats",
-                "Lower Back",
-                "Middle Back",
+                "Lower back",
+                "Middle back",
                 "Neck",
                 "Quadriceps",
                 "Traps",
@@ -106,25 +125,16 @@ namespace Fitty.ViewModels
         {
             var muscle = SelectedMuscle == "--All--" || SelectedMuscle == null ? null : SelectedMuscle.ToLower();
             FilteredExercises = HomeViewModel.DataSource.exercises;
-            if (muscle == "lower back")
-            {
-                muscle = "lower_back";
-            }
-            if (muscle == "middle back")
-            {
-                muscle = "middle_back";
-            }
             FilteredExercises = muscle != null 
                 ? FilteredExercises.Where((exercise) => exercise.Muscle == muscle).ToList()
                 : FilteredExercises;
             FilteredExercises = SelectedLevel == "--All--" || SelectedLevel == null
                 ? FilteredExercises 
                 : FilteredExercises.Where((exercise) => exercise.Difficulty == SelectedLevel.ToLower()).ToList();
-
-            var equipment = SelectedEquipment == "Body weight" ? "body_only" : SelectedEquipment.ToLower();
             FilteredExercises = SelectedEquipment == "--All--" || SelectedEquipment == null
                 ? FilteredExercises
-                : FilteredExercises.Where((exercise) => exercise.Equipment == equipment).ToList();
+                : FilteredExercises.Where((exercise) => exercise.Equipment == SelectedEquipment.ToLower()).ToList();
+            IsListEmpty = FilteredExercises.Count <=0;
         }
         private async void OnItemSelected(Exercise item)
         {

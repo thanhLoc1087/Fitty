@@ -101,7 +101,7 @@
     <EmbeddedResource Update="Views\RoutinePage\RoutinesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\SearchPage.xaml">
+    <EmbeddedResource Update="Views\ExercisesPage\SearchPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\UserPage.xaml">

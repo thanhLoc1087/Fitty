@@ -25,6 +25,16 @@ namespace Fitty.ViewModels
                 SetProperty(ref _routine, value);
             }
         }
+
+        bool isListEmpty;
+        public bool IsListEmpty
+        {
+            get => isListEmpty;
+            set
+            {
+                SetProperty(ref isListEmpty, value);
+            }
+        }
         ObservableCollection<ExerciseDisplay> _exercises;
         public ObservableCollection<ExerciseDisplay> Exercises
         {

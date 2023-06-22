@@ -63,6 +63,16 @@ namespace Fitty.ViewModels
             }
         }
 
+        bool isListEmpty;
+        public bool IsListEmpty
+        {
+            get => isListEmpty;
+            set
+            {
+                SetProperty(ref isListEmpty, value);
+            }
+        }
+
         public SearchViewModel() 
         {
             BookmarkImage = "ribbon.png";
