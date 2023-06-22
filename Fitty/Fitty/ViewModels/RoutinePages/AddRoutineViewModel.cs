@@ -25,8 +25,8 @@ namespace Fitty.ViewModels
                 SetProperty(ref _routine, value);
             }
         }
-        List<Exercise> _exercises;
-        public List<Exercise> Exercises
+        ObservableCollection<ExerciseDisplay> _exercises;
+        public ObservableCollection<ExerciseDisplay> Exercises
         {
             get => _exercises;
             set
@@ -46,12 +46,37 @@ namespace Fitty.ViewModels
         public Command SaveCommand { get; set; }
         public Command<RoutineDetail> RemoveExercise { get; set; }
         public Command ChooseExerciseCommand { get; set; }
+        string bookmarkImage;
+        public string BookmarkImage
+        {
+            get => bookmarkImage;
+            set { SetProperty(ref bookmarkImage, value); }
+        }
+
+        bool filterBookmarked;
+        public bool FilterBookmarked
+        {
+            get => filterBookmarked;
+            set
+            {
+                SetProperty(ref filterBookmarked, value);
+                if (value)
+                {
+                    BookmarkImage = "bookmark.png";
+                }
+                else
+                {
+                    BookmarkImage = "ribbon.png";
+                }
+            }
+        }
         public AddRoutineViewModel()
         {
             Title = "New routine";
             Details = new ObservableCollection<RoutineDetail>();
             Routine = new Routine();
             Routine.NumberOfSet = 1;
+            FilterBookmarked = false;
 
             AddRestCommand = new Command(async () =>
             {
@@ -115,7 +140,16 @@ namespace Fitty.ViewModels
             {
                 IsRefreshing = true;
                 IsBusy = true;
-                Exercises = await ExerciseService.GetExercises();
+                var data = await ExerciseService.GetExercises();
+                if (Exercises == null)
+                {
+                    Exercises = new ObservableCollection<ExerciseDisplay>();
+                }
+                Exercises.Clear();
+                data.ForEach(exercise =>
+                {
+                    Exercises.Add(new ExerciseDisplay(exercise));
+                });
                 IsRefreshing = false;
             });
         }

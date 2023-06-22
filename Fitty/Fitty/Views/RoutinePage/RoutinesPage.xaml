@@ -7,7 +7,7 @@
     <ContentPage.Content>
         <ScrollView x:DataType="local:RoutinesViewModel">
             <StackLayout>
-                <Button HorizontalOptions="Start"
+                <Button HorizontalOptions="CenterAndExpand"
                             Text="Add new routine" 
                             Margin="20,0,20,0"
                             Command="{Binding AddCommand}" />

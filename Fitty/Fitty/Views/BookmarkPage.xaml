@@ -3,29 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Fitty.ViewModels"  
              xmlns:model="clr-namespace:Fitty.Models"
-             Title="Search exercise"
-             x:Class="Fitty.Views.SearchPage">
+             x:Class="Fitty.Views.BookmarkPage">
     <ContentPage.Content>
-        <StackLayout Padding="10,0,10,0" x:DataType="local:SearchViewModel">
-            <Grid Margin="0,0,0,4">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="8*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <SearchBar TextChanged="SearchBar_TextChanged" Grid.Column="0"/>
-                <StackLayout Grid.Column="1" HorizontalOptions="Center">
-                    <Image Source="{Binding BookmarkImage}" WidthRequest="24" HeightRequest="24"/>
-                    <Label Text="Bookmark" FontSize="Small"/>
-                    <StackLayout.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1"
-                                              Tapped="TapGestureRecognizer_Tapped">
-                        </TapGestureRecognizer>
-                    </StackLayout.GestureRecognizers>
-                </StackLayout>
-            </Grid>
-            <CollectionView x:DataType="local:SearchViewModel" ItemsSource="{Binding FilteredExercises}"
-                      SelectionMode="Single"
-                      x:Name="ExerciseListView">
+        <StackLayout BackgroundColor="#efefef" Padding="8">
+            <CollectionView x:Name="cvExerciseList" SelectionMode="Single">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout>
@@ -56,8 +37,8 @@
                                     </Grid>
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type local:SearchViewModel}}, Path=ItemTapped}"		
-                                                          CommandParameter="{Binding Value}">
+                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type local:ExerciseViewModel}}, Path=ItemTapped}"		
+                                                          CommandParameter="{Binding .}">
                                         </TapGestureRecognizer>
                                     </StackLayout.GestureRecognizers>
                                 </StackLayout>

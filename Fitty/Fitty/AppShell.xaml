@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:local="clr-namespace:Fitty.Views"
+       xmlns:sys="clr-namespace:System;assembly=mscorlib"
        xmlns:views="clr-namespace:Fitty.Views"
        Title="Fitty"
        BackgroundColor="Transparent"
@@ -25,6 +25,24 @@
         </ResourceDictionary>
     </Shell.Resources>
 
+    <Shell.FlyoutHeader>
+        <StackLayout Padding="16" BackgroundColor="{StaticResource teal200}">
+            <Image WidthRequest="60" HeightRequest="60" Source="exercise_icon.png"/>
+            <Label Text="FITTY" 
+                   TextColor="{StaticResource teal900}"
+                   FontSize="Large" 
+                   FontAttributes="Bold" 
+                   HorizontalTextAlignment="Center"/>
+        </StackLayout>
+    </Shell.FlyoutHeader>
+
+    <Shell.FlyoutFooter>
+        <Label Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat='{0:MMMM dd, yyyy}'}"
+               HorizontalOptions="Center" 
+               HorizontalTextAlignment="Center"
+               BackgroundColor="WhiteSmoke"/>
+    </Shell.FlyoutFooter>
+
     <FlyoutItem Title="Home"
                 Icon="home_icon.png">
         <Tab>
@@ -37,22 +55,16 @@
             <ShellContent ContentTemplate="{DataTemplate views:UserPage}" />
         </Tab>
     </FlyoutItem>
-    <FlyoutItem Title="Search"
-                Icon="search_icon.png">
+    <FlyoutItem Title="Bookmark"
+                Icon="bookmark.png">
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate views:SearchPage}" />
+            <ShellContent ContentTemplate="{DataTemplate views:BookmarkPage}" />
         </Tab>
     </FlyoutItem>
     <FlyoutItem Title="Exercises"
                 Icon="exercise_icon.png">
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate views:ExerciseMainPage}" />
-        </Tab>
-    </FlyoutItem>
-    <FlyoutItem Title="Add Exercise"
-                Icon="add_icon.png">
-        <Tab>
-            <ShellContent ContentTemplate="{DataTemplate views:AddExercisePage}" />
         </Tab>
     </FlyoutItem>
     <FlyoutItem Title="Routines"
