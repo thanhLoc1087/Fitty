@@ -6,6 +6,7 @@
              x:Class="Fitty.Views.BookmarkPage">
     <ContentPage.Content>
         <StackLayout BackgroundColor="#efefef" Padding="8">
+            <Label x:Name="lblError" Text="No bookmarked exercise found." TextColor="{StaticResource teal900}" HorizontalOptions="Center"/>
             <CollectionView x:Name="cvExerciseList" SelectionMode="Single">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>

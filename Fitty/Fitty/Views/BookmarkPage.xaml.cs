@@ -28,6 +28,7 @@ namespace Fitty.Views
             {
                 data.Add(new ExerciseDisplay(exercise));
             });
+            lblError.IsVisible = data.Count() <= 0;
             cvExerciseList.ItemsSource = data;
         }
     }

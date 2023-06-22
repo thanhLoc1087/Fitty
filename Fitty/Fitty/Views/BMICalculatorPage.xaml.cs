@@ -22,9 +22,10 @@ namespace Fitty.Views
         public BMICalculatorPage()
         {
             InitializeComponent();
-
+            calHeight = UserHeight;
+            calWeight = UserWeight;
             // Calculate BMI
-            Calculate(UserWeight, UserHeight);
+            Calculate(calHeight, calWeight);
         }
 
         public void Calculate(int height, int weight)
@@ -96,7 +97,7 @@ namespace Fitty.Views
             }
             lblWeight.Text = calWeight.ToString();
             lblHeight.Text = calHeight.ToString();
-            Calculate(calWeight, calWeight);
+            Calculate(calHeight, calWeight);
             customPopup.IsVisible = false;
             heightEntry.Text = "";
             weightEntry.Text = "";
@@ -113,7 +114,7 @@ namespace Fitty.Views
             calWeight = UserWeight;
             lblWeight.Text = calWeight.ToString();
             lblHeight.Text = calHeight.ToString();
-            Calculate(UserHeight, UserWeight);
+            Calculate(calHeight, calWeight);
         }
         private void ColorReset()
         {
@@ -142,7 +143,7 @@ namespace Fitty.Views
             calWeight = UserWeight;
             lblWeight.Text = calWeight.ToString();
             lblHeight.Text = calHeight.ToString();
-            Calculate(UserHeight, UserWeight);
+            Calculate(calHeight, calWeight);
         }
 
         private void Button_Clicked(object sender, EventArgs e)

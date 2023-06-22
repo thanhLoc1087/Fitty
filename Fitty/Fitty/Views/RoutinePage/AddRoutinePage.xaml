@@ -34,8 +34,8 @@
                             BorderWidth="1"
                             BorderColor="{StaticResource teal500}"
                             BackgroundColor="Transparent"
-                            Text="Rest" 
                             TextColor="{StaticResource teal500}"
+                            Text="Rest" 
                             Margin="10,0,20,0"
                             Command="{Binding AddRestCommand}" />
                 </StackLayout>

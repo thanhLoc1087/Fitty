@@ -34,6 +34,12 @@
                 <Setter Property="FontSize" Value="Body"/>
                 <Setter Property="TextColor" Value="Black"/>
             </Style>
+            <Style TargetType="Entry">
+                <Setter Property="TextColor" Value="{StaticResource teal900}"/>
+            </Style>
+            <Style TargetType="SearchBar">
+                <Setter Property="TextColor" Value="{StaticResource teal900}"/>
+            </Style>
         </ResourceDictionary>        
     </Application.Resources>
 </Application>

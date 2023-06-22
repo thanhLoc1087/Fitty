@@ -26,10 +26,18 @@
     </Shell.Resources>
 
     <Shell.FlyoutHeader>
-        <StackLayout Padding="16" BackgroundColor="{StaticResource teal200}">
+        <StackLayout Padding="16">
+            <StackLayout.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="Blue"
+                          Offset="0.1" />
+                    <GradientStop Color="{StaticResource teal200}"
+                          Offset="1.0" />
+                </LinearGradientBrush>
+            </StackLayout.Background>
             <Image WidthRequest="60" HeightRequest="60" Source="exercise_icon.png"/>
             <Label Text="FITTY" 
-                   TextColor="{StaticResource teal900}"
+                   TextColor="Black"
                    FontSize="Large" 
                    FontAttributes="Bold" 
                    HorizontalTextAlignment="Center"/>
@@ -55,16 +63,16 @@
             <ShellContent ContentTemplate="{DataTemplate views:UserPage}" />
         </Tab>
     </FlyoutItem>
-    <FlyoutItem Title="Bookmark"
-                Icon="bookmark.png">
-        <Tab>
-            <ShellContent ContentTemplate="{DataTemplate views:BookmarkPage}" />
-        </Tab>
-    </FlyoutItem>
     <FlyoutItem Title="Exercises"
                 Icon="exercise_icon.png">
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate views:ExerciseMainPage}" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Bookmark"
+                Icon="bookmark.png">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:BookmarkPage}" />
         </Tab>
     </FlyoutItem>
     <FlyoutItem Title="Routines"
