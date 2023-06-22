@@ -17,7 +17,7 @@ namespace Fitty.Models
             var routine = (await ExerciseAPIService.db.Table<Routine>().Where(e => e.Id == id).ToListAsync()).FirstOrDefault();
             if (routine != null)
             {
-                routine.Details = await RoutineDetailService.GetRoutineDetailsByRoutine(id);
+                routine.Details = (await RoutineDetailService.GetRoutineDetailsByRoutine(id)).OrderBy(detail => detail.Index).ToList();
             }
             return routine;
         }
@@ -27,7 +27,7 @@ namespace Fitty.Models
             var routines = await ExerciseAPIService.db.Table<Routine>().ToListAsync();
             foreach ( var routine in routines)
             {
-                routine.Details = await RoutineDetailService.GetRoutineDetailsByRoutine(routine.Id);
+                routine.Details = (await RoutineDetailService.GetRoutineDetailsByRoutine(routine.Id)).OrderBy(detail => detail.Index).ToList();
             }
             return routines;
         }

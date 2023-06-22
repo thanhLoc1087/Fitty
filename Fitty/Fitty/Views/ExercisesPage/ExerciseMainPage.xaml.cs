@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fitty.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,16 @@ namespace Fitty.Views
         public ExerciseMainPage ()
         {
             InitializeComponent();
+        }
+
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync($"{nameof(AddExercisePage)}");
+        }
+
+        private async void ToolbarItem_Clicked_1(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync($"{nameof(SearchPage)}");
         }
     }
 }

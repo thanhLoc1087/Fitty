@@ -7,31 +7,28 @@
             <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
                 <Image Source="user_avatar.png" WidthRequest="100" HeightRequest="100" />
             </StackLayout>
-            <StackLayout Margin="0,24,0,0" Orientation="Horizontal">
-                <Label Text="Name:"  FontSize="24" FontAttributes="Bold" />
-                <Label x:Name="NameLabel"  FontSize="24" />
+            <Label HorizontalTextAlignment="Center" x:Name="NameLabel" Margin="0,20,0,0" TextColor="{StaticResource teal900}" FontSize="20"/>
+            <StackLayout Margin="0,16,0,0" Orientation="Horizontal">
+                <Label Text="Age:" FontAttributes="Bold" />
+                <Label x:Name="AgeLabel" />
             </StackLayout>
             <StackLayout Margin="0,16,0,0" Orientation="Horizontal">
-                <Label Text="Age:"  FontSize="24" FontAttributes="Bold" />
-                <Label x:Name="AgeLabel" FontSize="24"/>
+                <Label Text="Height:"  FontAttributes="Bold" />
+                <Label x:Name="HeightLabel"  />
+                <Label Text="cm"  />
             </StackLayout>
             <StackLayout Margin="0,16,0,0" Orientation="Horizontal">
-                <Label Text="Height:"  FontSize="24" FontAttributes="Bold" />
-                <Label x:Name="HeightLabel"  FontSize="24" />
-                <Label Text="cm"  FontSize="24" />
+                <Label Text="Weight:"  FontAttributes="Bold" />
+                <Label x:Name="WeightLabel" />
+                <Label Text="KG"  />
             </StackLayout>
             <StackLayout Margin="0,16,0,0" Orientation="Horizontal">
-                <Label Text="Weight:"  FontSize="24" FontAttributes="Bold" />
-                <Label x:Name="WeightLabel" FontSize="24" />
-                <Label Text="KG"  FontSize="24" />
-            </StackLayout>
-            <StackLayout Margin="0,16,0,0" Orientation="Horizontal">
-                <Label Text="Gender:"  FontSize="24" FontAttributes="Bold" />
-                <Label x:Name="GenderLabel"  FontSize="24" />
+                <Label Text="Gender:"  FontAttributes="Bold" />
+                <Label x:Name="GenderLabel"  />
             </StackLayout> 
             <StackLayout Margin="0,16,0,32" Orientation="Horizontal">
-                <Label Text="Activity:"  FontSize="24" FontAttributes="Bold" />
-                <Label x:Name="ActivityLabel"  FontSize="24" />
+                <Label Text="Activity:"  FontAttributes="Bold" />
+                <Label x:Name="ActivityLabel" />
             </StackLayout>
             <Button Text="Edit information" Clicked="EditButton_Clicked"/>
         </StackLayout>

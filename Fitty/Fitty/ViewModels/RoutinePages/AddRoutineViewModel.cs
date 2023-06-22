@@ -25,8 +25,8 @@ namespace Fitty.ViewModels
                 SetProperty(ref _routine, value);
             }
         }
-        List<Exercise> _exercises;
-        public List<Exercise> Exercises
+        ObservableCollection<ExerciseDisplay> _exercises;
+        public ObservableCollection<ExerciseDisplay> Exercises
         {
             get => _exercises;
             set
@@ -46,26 +46,54 @@ namespace Fitty.ViewModels
         public Command SaveCommand { get; set; }
         public Command<RoutineDetail> RemoveExercise { get; set; }
         public Command ChooseExerciseCommand { get; set; }
+        string bookmarkImage;
+        public string BookmarkImage
+        {
+            get => bookmarkImage;
+            set { SetProperty(ref bookmarkImage, value); }
+        }
+
+        bool filterBookmarked;
+        public bool FilterBookmarked
+        {
+            get => filterBookmarked;
+            set
+            {
+                SetProperty(ref filterBookmarked, value);
+                if (value)
+                {
+                    BookmarkImage = "bookmark.png";
+                }
+                else
+                {
+                    BookmarkImage = "ribbon.png";
+                }
+            }
+        }
         public AddRoutineViewModel()
         {
             Title = "New routine";
             Details = new ObservableCollection<RoutineDetail>();
             Routine = new Routine();
             Routine.NumberOfSet = 1;
+            FilterBookmarked = false;
 
             AddRestCommand = new Command(async () =>
             {
                 string duration = await Application.Current.MainPage.DisplayPromptAsync("Rest time", "you can change this later:", "OK", "Cancel", placeholder: "30 (s)", keyboard: Keyboard.Numeric);
                 if (duration == null) return;
-                while (int.Parse(duration) < 5)
+                Debug.WriteLine(duration);
+                var input = !string.IsNullOrEmpty(duration) ? int.Parse(duration) : 30;
+                while (input < 5)
                 {
                     await Application.Current.MainPage.DisplayAlert("Error", "Your exercise duration must be at least 5 secs.", "Ok");
                     duration = await Application.Current.MainPage.DisplayPromptAsync("Exercise time", "Enter the duration for this exercise (you can change this later):", "OK", "Cancel", placeholder: "30 (s)", keyboard: Keyboard.Numeric);
                     if (duration == null) return;
+                    input = !string.IsNullOrEmpty(duration) ? int.Parse(duration) : 30;
                 }
                 RoutineDetail rest = new RoutineDetail
                 {
-                    Duration = !string.IsNullOrEmpty(duration) ? int.Parse(duration) : 30
+                    Duration = input
                 };
                 var restExercise = await ExerciseService.GetExerciseByName("rest");
                 if (restExercise == null)
@@ -95,10 +123,10 @@ namespace Fitty.ViewModels
                 if (Routine.NumberOfSet <= 0) Routine.NumberOfSet = 1;
                 Routine.Name = !string.IsNullOrEmpty(Routine.Name) ? Routine.Name.Trim() : "My routine";
                     routineId = await RoutineService.AddRoutine(Routine.Name, Routine.TotalDuration, Routine.NumberOfSet, Routine.TotalExercises);
-                Routine.Details.ForEach(async d =>
+                foreach(var d in Routine.Details.Select((value, index) => new { index,value }))
                 {
-                    await RoutineDetailService.AddRoutineDetail(routineId, d.ExerciseId, d.Duration);
-                });
+                    await RoutineDetailService.AddRoutineDetail(routineId, d.value.ExerciseId, d.value.Duration, d.index);
+                }
                 Debug.WriteLine(Routine.ToString());
                 Routine = new Routine();
                 Details = new ObservableCollection<RoutineDetail>();
@@ -112,7 +140,16 @@ namespace Fitty.ViewModels
             {
                 IsRefreshing = true;
                 IsBusy = true;
-                Exercises = await ExerciseService.GetExercises();
+                var data = await ExerciseService.GetExercises();
+                if (Exercises == null)
+                {
+                    Exercises = new ObservableCollection<ExerciseDisplay>();
+                }
+                Exercises.Clear();
+                data.ForEach(exercise =>
+                {
+                    Exercises.Add(new ExerciseDisplay(exercise));
+                });
                 IsRefreshing = false;
             });
         }
@@ -122,15 +159,17 @@ namespace Fitty.ViewModels
                 return;
             string duration = await Application.Current.MainPage.DisplayPromptAsync("Exercise time", "Enter the duration for this exercise (you can change this later):", "OK", "Cancel", placeholder: "30 (s)", keyboard: Keyboard.Numeric);
             if (duration == null) return;
-            while (int.Parse(duration) < 5)
+            var input = !string.IsNullOrEmpty(duration) ? int.Parse(duration) : 30;
+            while (input < 5)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "Your exercise duration must be at least 5 secs.", "Ok");
                 duration = await Application.Current.MainPage.DisplayPromptAsync("Exercise time", "Enter the duration for this exercise (you can change this later):", "OK", "Cancel", placeholder: "30 (s)", keyboard: Keyboard.Numeric);
                 if (duration == null) return;
+                input = !string.IsNullOrEmpty(duration) ? int.Parse(duration) : 30;
             }
             RoutineDetail newRoutineDetail = new RoutineDetail
             {
-                Duration = !string.IsNullOrEmpty(duration) ? int.Parse(duration) : 30,
+                Duration = input,
                 ExerciseId = item.Id,
                 exercise = item,
             };
@@ -146,7 +185,6 @@ namespace Fitty.ViewModels
         public Command AddRestCommand { get; set; }
 
         public bool _isRefreshing;
-        private bool isRoutineLoaded = false;
 
         public bool IsRefreshing
         {

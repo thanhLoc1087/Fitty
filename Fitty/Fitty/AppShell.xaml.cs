@@ -21,6 +21,8 @@ namespace Fitty
             Routing.RegisterRoute(nameof(NutritionPage), typeof(NutritionPage));
             Routing.RegisterRoute(nameof(MusclesPage), typeof(MusclesPage));
             Routing.RegisterRoute(nameof(ExercisePage), typeof(ExercisePage));
+            Routing.RegisterRoute(nameof(SearchPage), typeof(SearchPage));
+            Routing.RegisterRoute(nameof(AddExercisePage), typeof(AddExercisePage));
             Routing.RegisterRoute(nameof(ExerciseDetailPage), typeof(ExerciseDetailPage));
             Routing.RegisterRoute(nameof(RoutinesPage), typeof(RoutinesPage));
             Routing.RegisterRoute(nameof(RoutineDetailPage), typeof(RoutineDetailPage));

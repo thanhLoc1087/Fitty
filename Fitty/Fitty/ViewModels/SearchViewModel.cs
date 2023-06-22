@@ -3,6 +3,7 @@ using Fitty.Services;
 using Fitty.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
 using Xamarin.Forms;
@@ -19,8 +20,17 @@ namespace Fitty.ViewModels
             }
         }
         public Command Refresh { get; set; }
-        List<Exercise> _filteredExercises;
-        public List<Exercise> FilteredExercises
+        List<ExerciseDisplay> _exercises;
+        public List<ExerciseDisplay> Exercises
+        {
+            get => _exercises;
+            set
+            {
+                SetProperty(ref _exercises, value);
+            } 
+        }
+        ObservableCollection<ExerciseDisplay> _filteredExercises;
+        public ObservableCollection<ExerciseDisplay> FilteredExercises
         {
             get => _filteredExercises;
             set
@@ -29,16 +39,48 @@ namespace Fitty.ViewModels
             } 
         }
 
+        string bookmarkImage;
+        public string BookmarkImage
+        {
+            get => bookmarkImage;
+            set { SetProperty(ref bookmarkImage, value);}
+        }
+
+        bool filterBookmarked;
+        public bool FilterBookmarked
+        {
+            get => filterBookmarked;
+            set
+            {
+                SetProperty(ref filterBookmarked, value);
+                if (value)
+                {
+                    BookmarkImage = "bookmark.png";
+                } else
+                {
+                    BookmarkImage = "ribbon.png";
+                }
+            }
+        }
+
         public SearchViewModel() 
         {
-            FilteredExercises = ExerciseAPIService.ReadJsonFile();
-            //FilteredExercises = new List<Exercise>();
+            BookmarkImage = "ribbon.png";
             ItemTapped = new Command<Exercise>(OnItemSelected);
             Refresh = new Command(async () =>
             {
                 IsRefreshing = true;
                 IsBusy = true;
-                FilteredExercises = await ExerciseService.GetExercises();
+                var data = await ExerciseService.GetExercises();
+                if (FilteredExercises == null)
+                {
+                    FilteredExercises = new ObservableCollection<ExerciseDisplay>();
+                }
+                FilteredExercises.Clear();
+                data.ForEach(exercise =>
+                {
+                    FilteredExercises.Add(new ExerciseDisplay(exercise));
+                });
                 IsRefreshing = false;
             });
             IsBusy = false;
