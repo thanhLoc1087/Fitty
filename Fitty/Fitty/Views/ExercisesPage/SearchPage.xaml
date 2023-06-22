@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Fitty.ViewModels"  
              xmlns:model="clr-namespace:Fitty.Models"
-             x:Class="Fitty.Views.ChooseExercisePage"
-             Title="Pick an exercise">
+             Title="Search exercise"
+             x:Class="Fitty.Views.SearchPage">
     <ContentPage.Content>
-        <StackLayout x:DataType="local:AddRoutineViewModel" Padding="10,0,10,0" >
+        <StackLayout Padding="10,0,10,0" x:DataType="local:SearchViewModel">
             <Grid Margin="0,0,0,4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="8*"/>
@@ -25,7 +25,7 @@
             </Grid>
             <StackLayout>
                 <Label Text="No exercise found." TextColor="{StaticResource teal900}" IsVisible="{Binding IsListEmpty}"  HorizontalOptions="Center"/>
-                <CollectionView ItemsSource="{Binding Exercises}"
+                <CollectionView x:DataType="local:SearchViewModel" ItemsSource="{Binding FilteredExercises}"
                       SelectionMode="Single"
                       x:Name="ExerciseListView">
                     <CollectionView.ItemTemplate>
@@ -36,7 +36,7 @@
                                         <FlexLayout JustifyContent="SpaceBetween" Direction="Row">
                                             <Label Text="{Binding Value.Name}" FontSize="Medium" FontAttributes="Bold"/>
                                             <ImageButton Source="{Binding ButtonSource}" WidthRequest="20" HeightRequest="20" BackgroundColor="Transparent"
-                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type model:ExerciseDisplay}}, Path=ItemBookmarked}"/>
+                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type model:ExerciseDisplay}}, Path=ItemBookmarked}"/>
                                         </FlexLayout>
                                         <Grid>
                                             <Grid.ColumnDefinitions>
@@ -46,19 +46,19 @@
                                             <StackLayout Grid.Column="0" Orientation="Horizontal">
                                                 <Label Text="Level: " Style="{DynamicResource ListItemDetailTextStyle}"/>
                                                 <Label Text="{Binding Value.Difficulty}" 
-                                                   Style="{DynamicResource ListItemDetailTextStyle}"
-                                                   TextColor="{StaticResource teal500}"/>
+                                                       Style="{DynamicResource ListItemDetailTextStyle}"
+                                                       TextColor="{StaticResource teal500}"/>
                                             </StackLayout>
                                             <StackLayout Grid.Column="1" Orientation="Horizontal">
                                                 <Label Text="Equipment: " Style="{DynamicResource ListItemDetailTextStyle}"/>
                                                 <Label Text="{Binding Value.Equipment}" 
-                                                   Style="{DynamicResource ListItemDetailTextStyle}"
-                                                   TextColor="{StaticResource teal500}"/>
+                                                       Style="{DynamicResource ListItemDetailTextStyle}"
+                                                       TextColor="{StaticResource teal500}"/>
                                             </StackLayout>
                                         </Grid>
                                         <StackLayout.GestureRecognizers>
                                             <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type local:AddRoutineViewModel}}, Path=ItemTapped}"		
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type local:SearchViewModel}}, Path=ItemTapped}"		
                                                               CommandParameter="{Binding Value}">
                                             </TapGestureRecognizer>
                                         </StackLayout.GestureRecognizers>

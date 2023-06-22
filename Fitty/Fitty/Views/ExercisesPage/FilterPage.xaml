@@ -50,6 +50,7 @@
                 </Grid>
             </Grid>
             <StackLayout Padding="4">
+                <Label Text="No exercise found." TextColor="{StaticResource teal900}" IsVisible="{Binding IsListEmpty}"  HorizontalOptions="Center"/>
                 <CollectionView ItemsSource="{Binding FilteredExercises}"
                             SelectionMode="Single">
                     <CollectionView.ItemTemplate>

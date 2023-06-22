@@ -80,7 +80,7 @@
                            VerticalOptions="FillAndExpand"
                            Grid.Column="0" Grid.Row="3"
                            FontAttributes="Bold"
-                           BackgroundColor="{StaticResource teal500}" 
+                           BackgroundColor="{StaticResource teal500}"
                            TextColor="White" 
                            Margin="1"/>
                     <Label Text="{Binding Difficulty}" 
@@ -91,7 +91,6 @@
                            TextColor="Black" 
                            Margin="1"/>
                 </Grid>
-
                 <Label Text="{Binding Instructions}" />
             </StackLayout>
         </ScrollView>

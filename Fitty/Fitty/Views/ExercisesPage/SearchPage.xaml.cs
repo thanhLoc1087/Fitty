@@ -92,6 +92,7 @@ namespace Fitty.Views
                         exercise.Value.Equipment.ToLower().Contains(filter))
                     );
             }
+            viewmodel.IsListEmpty = viewmodel.FilteredExercises.Count <= 0;
         }
     }
 }
