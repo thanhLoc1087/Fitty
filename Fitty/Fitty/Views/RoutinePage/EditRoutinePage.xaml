@@ -29,10 +29,14 @@
                                 Margin="20,0,10,0"
                                 Command="{Binding ChooseExerciseCommand}" />
                     <Button HorizontalOptions="FillAndExpand"
-                                VerticalOptions="End" 
-                                Text="Rest" 
-                                Margin="10,0,20,0"
-                                Command="{Binding AddRestCommand}" />
+                            VerticalOptions="End" 
+                            Text="Rest" 
+                            BorderWidth="1"
+                            BorderColor="{StaticResource teal500}"
+                            BackgroundColor="Transparent"
+                            TextColor="{StaticResource teal500}"
+                            Margin="10,0,20,0"
+                            Command="{Binding AddRestCommand}" />
                 </StackLayout>
                 <Button HorizontalOptions="FillAndExpand"
                                 VerticalOptions="End" 

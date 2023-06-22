@@ -3,29 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Fitty.ViewModels"  
              xmlns:model="clr-namespace:Fitty.Models"
-             x:Class="Fitty.Views.ExerciseCardPage">
+             x:Class="Fitty.Views.BookmarkPage">
     <ContentPage.Content>
-        <StackLayout>
-            <CollectionView x:DataType="local:ExerciseViewModel" 
-                            ItemsSource="{Binding MuscleExercises}"
-                            SelectionMode="Single">
+        <StackLayout BackgroundColor="#efefef" Padding="8">
+            <CollectionView x:Name="cvExerciseList" SelectionMode="Single">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:ExerciseDisplay">
-                        <StackLayout Padding="10" BackgroundColor="#efefef">
-                            <Frame WidthRequest="600" HeightRequest="280" CornerRadius="4" Padding="4">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="8*"/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <Image Source="{Binding Value.GifSource}" BackgroundColor="Beige" Grid.Row="0"/>
-                                    <FlexLayout JustifyContent="SpaceBetween" Direction="Row" Grid.Row="1">
-                                        <Label Text="{Binding Value.Name}" FontSize="Medium" FontAttributes="Bold" Padding="20,0,0,0"/>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Frame CornerRadius="4" Padding="4">
+                                <StackLayout Padding="10" x:DataType="model:ExerciseDisplay">
+                                    <FlexLayout JustifyContent="SpaceBetween" Direction="Row">
+                                        <Label Text="{Binding Value.Name}" FontSize="Medium" FontAttributes="Bold"/>
                                         <ImageButton Source="{Binding ButtonSource}" WidthRequest="20" HeightRequest="20" BackgroundColor="Transparent"
                                                      Command="{Binding Source={RelativeSource AncestorType={x:Type model:ExerciseDisplay}}, Path=ItemBookmarked}"/>
                                     </FlexLayout>
-                                    <Grid Grid.Row="2" Padding="20,0,0,0">
+                                    <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition/>
                                             <ColumnDefinition/>
@@ -39,18 +31,19 @@
                                         <StackLayout Grid.Column="1" Orientation="Horizontal">
                                             <Label Text="Equipment: " Style="{DynamicResource ListItemDetailTextStyle}"/>
                                             <Label Text="{Binding Value.Equipment}" 
-                                                   Style="{DynamicResource ListItemDetailTextStyle}" 
+                                                   Style="{DynamicResource ListItemDetailTextStyle}"
                                                    TextColor="{StaticResource teal500}"/>
                                         </StackLayout>
                                     </Grid>
-                                </Grid>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type local:ExerciseViewModel}}, Path=ItemTapped}"		
+                                                          CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
                             </Frame>
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                      Command="{Binding Source={RelativeSource AncestorType={x:Type local:ExerciseViewModel}}, Path=ItemTapped}"		
-                                                      CommandParameter="{Binding .}">
-                                </TapGestureRecognizer>
-                            </StackLayout.GestureRecognizers>
+                            <BoxView HeightRequest="4"/>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

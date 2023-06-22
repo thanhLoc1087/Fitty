@@ -14,6 +14,9 @@ namespace Fitty.Models
         [Indexed]
         public int ExerciseId { get; set; }
         public int Duration { get; set; }
+        public int Index { get; set; }
+        [Ignore]
+        public Exercise exercise { get; set; }
         public RoutineDetail() { }
         public RoutineDetail(RoutineDetail routineDetail) 
         {
@@ -22,20 +25,14 @@ namespace Fitty.Models
             Duration = routineDetail.Duration;
             ExerciseId = routineDetail.ExerciseId;
             exercise = routineDetail.exercise;
-            ExerciseName = routineDetail.ExerciseName;
-            ExerciseInstructions = routineDetail.ExerciseInstructions;
+            Duration = routineDetail.Duration;
         }
-        public RoutineDetail(int routineId, int exerciseId, int duration)
+        public RoutineDetail(int routineId, int exerciseId, int duration, int index)
         {
             RoutineId = routineId;
             ExerciseId = exerciseId;
             Duration = duration;
+            Index = index;
         }
-        [Ignore]
-        public Exercise exercise { get; set; }
-        [Ignore]
-        public string ExerciseName { get; set; }
-        [Ignore]
-        public string ExerciseInstructions { get; set; }
     }
 }

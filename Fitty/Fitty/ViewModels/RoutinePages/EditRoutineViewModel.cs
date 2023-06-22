@@ -41,8 +41,8 @@ namespace Fitty.ViewModels
                 SetProperty(ref _routine, value);
             }
         }
-        List<Exercise> _exercises;
-        public List<Exercise> Exercises
+        ObservableCollection<ExerciseDisplay> _exercises;
+        public ObservableCollection<ExerciseDisplay> Exercises
         {
             get => _exercises;
             set
@@ -64,6 +64,31 @@ namespace Fitty.ViewModels
         public Command<RoutineDetail> RemoveExercise { get; set; }
         public Command ChooseExerciseCommand { get; set; }
         List<RoutineDetail> OldDetails { get; set; }
+
+        string bookmarkImage;
+        public string BookmarkImage
+        {
+            get => bookmarkImage;
+            set { SetProperty(ref bookmarkImage, value); }
+        }
+
+        bool filterBookmarked;
+        public bool FilterBookmarked
+        {
+            get => filterBookmarked;
+            set
+            {
+                SetProperty(ref filterBookmarked, value);
+                if (value)
+                {
+                    BookmarkImage = "bookmark.png";
+                }
+                else
+                {
+                    BookmarkImage = "ribbon.png";
+                }
+            }
+        }
         public EditRoutineViewModel()
         {
             Title = "New routine";
@@ -118,10 +143,10 @@ namespace Fitty.ViewModels
                     await RoutineDetailService.RemoveRoutineDetail(d.Id);
                 });
                 await RoutineService.UpdateRoutine(Routine);
-                Routine.Details.ForEach(async d =>
+                foreach (var d in Routine.Details.Select((value, index) => new { index, value }))
                 {
-                    await RoutineDetailService.AddRoutineDetail(routineId, d.ExerciseId, d.Duration);
-                });
+                    await RoutineDetailService.AddRoutineDetail(routineId, d.value.ExerciseId, d.value.Duration, d.index);
+                }
                 Reset();
                 await Shell.Current.GoToAsync("..");
             });
@@ -133,7 +158,16 @@ namespace Fitty.ViewModels
             {
                 IsRefreshing = true;
                 IsBusy = true;
-                Exercises = await ExerciseService.GetExercises();
+                var data = await ExerciseService.GetExercises();
+                if (Exercises == null)
+                {
+                    Exercises = new ObservableCollection<ExerciseDisplay>();
+                }
+                Exercises.Clear();
+                data.ForEach(exercise =>
+                {
+                    Exercises.Add(new ExerciseDisplay(exercise));
+                });
                 IsRefreshing = false;
             });
         }

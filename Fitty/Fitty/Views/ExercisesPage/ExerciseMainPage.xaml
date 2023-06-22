@@ -9,4 +9,16 @@
             Title="Exercises">
     <views:MusclesPage x:DataType="local:MusclesViewModel" Title="List"/>
     <views:FilterPage x:DataType="local:FilterViewModel" Title="Explore"/>
+    <TabbedPage.ToolbarItems>
+        <ToolbarItem Text="Add new exercise"
+                     IconImageSource="add_icon.png"
+                     Order="Primary"
+                     Clicked="ToolbarItem_Clicked"
+                     Priority="0" />
+        <ToolbarItem Text="Search"
+                     IconImageSource="search_icon.png"
+                     Order="Primary"
+                     Clicked="ToolbarItem_Clicked_1"
+                     Priority="0" />
+    </TabbedPage.ToolbarItems>
 </TabbedPage>

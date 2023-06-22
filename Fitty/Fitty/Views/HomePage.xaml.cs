@@ -1,7 +1,10 @@
 ﻿using Fitty.Models;
+using Fitty.Services;
 using Fitty.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,9 +27,25 @@ namespace Fitty.Views
         {
             base.OnAppearing();
 
+            await ExerciseAPIService.ReadJsonFileAsync();
             var data = await ExerciseService.GetExercises();
             HomeViewModel.DataSource.exercises = data;
-            _viewmodel.Name = UserLocal.GetUserFromFile().Name;
+            if (CheckUserFileAsync())
+            {
+                _viewmodel.Name = UserLocal.GetUserFromFile().Name;
+            }
+            else
+            {
+                UserLocal user;
+                user = new UserLocal();
+                await UserLocal.SaveUserToFile(user);
+                _viewmodel.Name = user.Name;
+            }
+        }
+        bool CheckUserFileAsync()
+        {
+            string infoPath = UserLocal.GetInfoPath();
+            return File.Exists(infoPath);
         }
     }
 }

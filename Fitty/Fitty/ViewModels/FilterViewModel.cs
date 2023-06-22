@@ -66,7 +66,7 @@ namespace Fitty.ViewModels
             });
             Muscles = new List<string>
             {
-                "--None--",
+                "--All--",
                 "Abdominals",
                 "Biceps",
                 "Calves",
@@ -84,14 +84,14 @@ namespace Fitty.ViewModels
             };
             Levels = new List<string>
             {
-                "--None--",
+                "--All--",
                 "Beginner",
                 "Intermediate",
                 "Expert",
             };
             Equipments = new List<string>
             {
-                "--None--",
+                "--All--",
                 "Body weight",
                 "Cable",
                 "Barbel",
@@ -104,7 +104,7 @@ namespace Fitty.ViewModels
 
         void LoadExerciseList()
         {
-            var muscle = SelectedMuscle == "--None--" || SelectedMuscle == null ? null : SelectedMuscle.ToLower();
+            var muscle = SelectedMuscle == "--All--" || SelectedMuscle == null ? null : SelectedMuscle.ToLower();
             FilteredExercises = HomeViewModel.DataSource.exercises;
             if (muscle == "lower back")
             {
@@ -117,12 +117,14 @@ namespace Fitty.ViewModels
             FilteredExercises = muscle != null 
                 ? FilteredExercises.Where((exercise) => exercise.Muscle == muscle).ToList()
                 : FilteredExercises;
-            FilteredExercises = SelectedLevel == "--None--" || SelectedLevel == null
+            FilteredExercises = SelectedLevel == "--All--" || SelectedLevel == null
                 ? FilteredExercises 
                 : FilteredExercises.Where((exercise) => exercise.Difficulty == SelectedLevel.ToLower()).ToList();
-            FilteredExercises = SelectedEquipment == "--None--" || SelectedEquipment == null
+
+            var equipment = SelectedEquipment == "Body weight" ? "body_only" : SelectedEquipment.ToLower();
+            FilteredExercises = SelectedEquipment == "--All--" || SelectedEquipment == null
                 ? FilteredExercises
-                : FilteredExercises.Where((exercise) => exercise.Equipment == SelectedEquipment.ToLower()).ToList();
+                : FilteredExercises.Where((exercise) => exercise.Equipment == equipment).ToList();
         }
         private async void OnItemSelected(Exercise item)
         {
