@@ -45,10 +45,12 @@
     </Shell.FlyoutHeader>
 
     <Shell.FlyoutFooter>
-        <Label Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat='{0:MMMM dd, yyyy}'}"
+        <StackLayout BackgroundColor="WhiteSmoke" Padding="4">
+            <Label Text="Fitty" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+            <Label Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat='{0:MMMM dd, yyyy}'}"
                HorizontalOptions="Center" 
-               HorizontalTextAlignment="Center"
-               BackgroundColor="WhiteSmoke"/>
+               HorizontalTextAlignment="Center"/>
+        </StackLayout>
     </Shell.FlyoutFooter>
 
     <FlyoutItem Title="Home"

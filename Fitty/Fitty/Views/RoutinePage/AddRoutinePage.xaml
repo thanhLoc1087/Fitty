@@ -42,6 +42,7 @@
                 <Button HorizontalOptions="FillAndExpand"
                                 VerticalOptions="End" 
                                 Text="Save"
+                        Background="PaleVioletRed"
                         BackgroundColor="PaleVioletRed"
                                 Margin="20,0,20,0"
                                 Command="{Binding SaveCommand}"/>

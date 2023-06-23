@@ -4,9 +4,15 @@
             xmlns:views="clr-namespace:Fitty.Views"
             xmlns:local="clr-namespace:Fitty.ViewModels"
             x:Class="Fitty.Views.ExerciseMainPage"
-            BarBackgroundColor="{StaticResource teal200}"
-            BarTextColor="{StaticResource teal900}"
             Title="Exercises">
+    <TabbedPage.BarBackground>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="Blue"
+                          Offset="0.1" />
+            <GradientStop Color="{StaticResource teal200}"
+                          Offset="1.0" />
+        </LinearGradientBrush>
+    </TabbedPage.BarBackground>
     <views:MusclesPage x:DataType="local:MusclesViewModel" Title="List"/>
     <views:FilterPage x:DataType="local:FilterViewModel" Title="Explore"/>
     <TabbedPage.ToolbarItems>
